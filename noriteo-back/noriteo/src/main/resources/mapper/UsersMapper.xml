@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ptu.noriteo.mapper.UsersMapper">
+
+
+<!--    <select id="findByEmail" resultType="com.ptu.noriteo.model.Users">-->
+<!--        SELECT * FROM USERS WHERE user_email = #{userEmail}-->
+<!--    </select>-->
+    <select id="findByEmail" resultType="com.ptu.noriteo.model.Users">
+        SELECT * FROM USERS WHERE user_email = #{userEmail, jdbcType=VARCHAR}
+    </select>
+
+
+    <!--    <insert id="insertUsers" parameterType="com.ptu.noriteo.model.Users">-->
+    <!--        INSERT INTO USERS (USER_ID, USER_EMAIL, PASSWORD, USER_NAME, ROLE_ID, USER_REGDATE)-->
+    <!--        VALUES (USERS_SEQ.NEXTVAL, #{userEmail}, #{password}, #{userName}, #{roleId}, SYSDATE)-->
+    <!--    </insert>-->
+    <insert id="insertUsers" parameterType="com.ptu.noriteo.model.Users">
+        INSERT INTO USERS (USER_ID, USER_EMAIL, PASSWORD, USER_NAME, ROLE_ID, USER_REGDATE)
+        VALUES (USERS_SEQ.NEXTVAL, #{userEmail}, #{password}, #{userName},
+                #{roleId, jdbcType=NULL}, SYSDATE)
+    </insert>
+
+
+</mapper>
