@@ -1,0 +1,11 @@
+.footer {
+    width: 100%; /* 화면 전체 너비 */
+    padding: 1.5rem 2rem;
+    background-color: #94631D;
+    color: #333;
+    text-align: left; /* 왼쪽 정렬 */
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+    box-sizing: border-box; /* padding 포함하여 크기 계산 */
+    position: relative;
+}

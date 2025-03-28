@@ -1,7 +1,9 @@
+import "./Footer.css";
+
 export default function Footer() {
   return (
-    <>
-      <h1>Footer입니다</h1>
-    </>
+    <footer className="footer">
+      <p>© 2025 noriteo. All rights reserved.</p>
+    </footer>
   );
 }
