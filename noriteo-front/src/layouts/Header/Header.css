@@ -1,70 +1,77 @@
 /* 헤더 전체 영역 */
 .navbar {
-    width: 100%;
-    height: 70px;
-    background-color: #95D5F5;
-    display: flex;
-    flex-wrap: nowrap;        /* ✅ 요소 줄바꿈 방지 */
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    box-sizing: border-box;   /* ✅ 패딩 포함해서 너비 계산 */
-    overflow: hidden;         /* ✅ 넘치는 부분 잘림 방지 */
+  width: 100%;
+  height: 107px;
+  background-color: #95D5F5;
+  display: flex;
+  flex-wrap: nowrap;        /* ✅ 요소 줄바꿈 방지 */
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-sizing: border-box;   /* ✅ 패딩 포함해서 너비 계산 */
+  overflow: hidden;         /* ✅ 넘치는 부분 잘림 방지 */
 }
 
 /* 예시: App.css 또는 Container.jsx 감싸는 div에 적용 */
 body {
-    margin: 0;
-    padding-top: 70px; /* 헤더 높이만큼 여백 확보 */
+  margin: 0;
+  padding-top: 70px; /* 헤더 높이만큼 여백 확보 */
 }
 
-  /* 로고 이미지 묶음 (좌측) */
-.navbar-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
+/* 로고 이미지 묶음 (헤더 좌측에 배치) */
+  .navbar-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
-  /* 우측 버튼 컨테이너 */
+/* 두 번째 이미지에만 적용 */
+.navbar-logo img:nth-child(2) {
+  margin-top: 40px;  /* 또는 position: relative와 top을 사용 */
+  margin-left: -20px;  /* 왼쪽 간격을 줄이기 위해 음수 값 적용 */
+}
+
+/* 버튼 컨테이너 (헤더 우측에 배치) */
 .navbar-buttons {
-    display: flex;
-    gap: 0.8rem;
+  display: flex;
+  gap: 0.8rem;
 }
 
-  /* 로그인 버튼 */
+/* 로그인 버튼 */
 .login {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 8px 16px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.2s;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s;
 }
 
+/* 로그인 버튼에 마우스 올렸을 때 효과 */
 .login:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
-  /* 회원가입 버튼 */
+/* 회원가입 버튼 */
 .singup {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.2s;
+  background-color: #f39a3a;
+  border-color: #FFFF3F;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s;
 }
 
+/* 회원가입 버튼에 마우스 올렸을 때 효과*/
 .singup:hover {
-    background-color: #0056b3;
+  background-color: #f39a3ac8;
 }

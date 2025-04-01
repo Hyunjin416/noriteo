@@ -1,0 +1,100 @@
+/* 전체 영역 컨테이너 */
+.realtimePopularContainer {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        /* ✅ 고정 높이 제거 */
+        height: auto;
+        max-height: none;
+        overflow-y: visible;
+  }
+  
+  /* 상단 헤더: 가운데 제목 + 오른쪽 전체보기 버튼 */
+  .realtimePopularHeader {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  
+  .realtimePopularTitle {
+    margin: 0;
+    text-align: center; /* 중앙 정렬 */
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  /* 전체보기 버튼: 우측 상단 */
+  .realtimePopularButton {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    color: #666;
+  }
+  
+  /* 글 목록 */
+  .realtimePopularList {
+    max-height: none;  /* ✅ 리스트가 다 펼쳐지도록 */
+    overflow-y: visible;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* 각 글(li) 컨테이너 */
+  .realtimePopularItem {
+    display: flex;                /* 제목(왼쪽) + 정보(오른쪽) */
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;              /* 클릭 가능 */
+  }
+  
+  /* 왼쪽: 글 제목 */
+  .popularPostTitle {
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  
+  /* 오른쪽 전체: 작성일/작성자/좋아요 */
+  .popularPostInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;  /* 오른쪽 정렬 */
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  /* 작성일 (맨 위) */
+  .popularPostTime {
+    margin-bottom: 0.3rem;
+  }
+  
+  /* 사용자명과 좋아요(같은 줄) */
+  .popularPostUserLikes {
+    display: flex;
+    gap: 0.5rem; /* 사용자와 좋아요 사이 간격 */
+  }
+
+  /* 작성자 명과 좋아요 css
+  /* 작성자 명 
+  .popularPostUser {
+     추가 스타일링 가능 
+  }*/
+  
+  /* 좋아요 
+  .popularPostLikes {
+    추가 스타일링 가능 
+  }*/
+  
