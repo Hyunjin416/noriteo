@@ -9,7 +9,7 @@ export default function Container() {
       <main>
         <Outlet />
       </main>
-      <Footer />
+      <Footer /> 
     </>
   );
 }

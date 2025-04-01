@@ -17,9 +17,15 @@ body {
   /* max-width: 1280px;  <- 이 부분 제거 */
 }
 
-/* main이 중간 콘텐츠 공간을 차지하도록 */
+/* Container.jsx의 main이 중간 콘텐츠 공간을 차지하도록 */
 main {
   flex: 1;
+  min-height: 100vh;
+  padding: 1rem;
+  background-image: url("/background2.png");
+  background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
 }
 
 /* 기존 스타일 유지 */
