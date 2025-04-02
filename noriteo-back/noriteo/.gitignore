@@ -40,3 +40,6 @@ out/
 src/main/resources/application.properties
 
 target/
+
+### https 설정 파일
+noriteo.p12
