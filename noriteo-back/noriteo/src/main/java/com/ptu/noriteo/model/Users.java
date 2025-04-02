@@ -9,6 +9,7 @@ import java.util.Date;
 public class Users {
     private Long userId;
     private String provider;
+    private String providerId;
     private String userEmail;
     private String password;
     //    private Long roleId;
