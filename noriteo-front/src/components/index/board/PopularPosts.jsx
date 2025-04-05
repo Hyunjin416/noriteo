@@ -1,6 +1,6 @@
 // src/components/board/PopularPosts.jsx
 import React, { useEffect, useState } from "react";
-import "./css/PopularPosts.css";
+import "../../../components_css/index/board/PopularPosts.css";
 
 // 라우팅 연동 예시 (주석)
 // import { useNavigate } from "react-router-dom";

@@ -1,8 +1,8 @@
 // src/components/board/RightSidebar.jsx
 import React from "react";
-import PopularPosts from "../PopularPosts";
-import Ad from "../Ad";
-import "./RightSidebar.css";
+import PopularPosts from "../board/PopularPosts";
+import Ad from "../board/Ad";
+import "../../../components_css/index/fragment/RightSidebar.css";
 
 export default function RightSidebar() {
     return (

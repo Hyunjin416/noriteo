@@ -1,9 +1,9 @@
 // src/components/board/CenterContent.jsx
 import React from "react";
-import CardSlider from "../CardSlider";
-import RealTimePopular from "../RealTimePopular";
-import CrawlingContent from "../CrawlingContent";
-import "./CenterContent.css";
+import CardSlider from "../board/CardSlider";
+import RealTimeNew from "../board/RealTimeNew"
+import Notice from "../board/Notice";
+import "../../../components_css/index/fragment/CenterContent.css";
 
 export default function CenterContent() {
     return (
@@ -11,10 +11,10 @@ export default function CenterContent() {
             <CardSlider />
             <div className="boardMainRow">
                 <div className="boardMainRealTime">
-                    <RealTimePopular />
+                    <RealTimeNew />
                 </div>
-                <div className="boardMainCrawling">
-                    <CrawlingContent />
+                <div className="boardMainNotice">
+                    <Notice />
                 </div>
             </div>
         </div>

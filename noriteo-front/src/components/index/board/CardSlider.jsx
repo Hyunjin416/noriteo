@@ -1,6 +1,6 @@
 // src/components/board/CardSlider.jsx
 import React, { useEffect, useState, useRef } from "react";
-import "./css/CardSlider.css";
+import "../../../components_css/index/board/CardSlider.css";
 
 const SCROLL_AMOUNT = 200; 
 

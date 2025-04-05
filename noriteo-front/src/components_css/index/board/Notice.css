@@ -1,22 +1,24 @@
-/* src/components/board/CrawlingContent.css */
+/* src/components/board/Notice.css */
 
 /* 전체 컨테이너 */
-.crawlingContainer {
-    background-color: #f2f2f2;
-    padding: 1rem;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.NoticeContainer {
+  width: 100%;         /* 반반 공간 */
+  background-color: #f2f2f2;
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
   /* 상단 타이틀 */
-  .crawlingTitle {
+  .noticeTitle {
     margin: 0 0 1rem 0;
     font-size: 1.1rem;
     font-weight: 600;
   }
   
   /* 2열 × n행 그리드 */
-  .crawlingGrid {
+  .noticeGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem; /* 카드 사이 간격 */
@@ -24,7 +26,7 @@
   }
   
   /* 각 카드 */
-  .crawlingCard {
+  .noticeCard {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -34,7 +36,7 @@
   }
   
   /* 이미지: 폭 100%에 맞춤 */
-  .crawlingCard img {
+  .noticeCard img {
     max-width: 100%;
     height: auto;
     display: block;
@@ -42,13 +44,13 @@
   }
   
   /* 제목 */
-  .crawlingCard p {
+  .noticeCard p {
     margin: 0;
     font-weight: 500;
   }
   
   /* 호버 시 카드 살짝 들어올리기 */
-  .crawlingCard:hover {
+  .noticeCard:hover {
     transform: translateY(-3px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }

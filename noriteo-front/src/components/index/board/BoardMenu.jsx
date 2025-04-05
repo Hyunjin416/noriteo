@@ -1,6 +1,7 @@
 // src/components/board/BoardMenu.jsx
 import React from "react";
-import "./css/BoardMenu.css";
+import { useNavigate } from "react-router-dom";
+import "../../../components_css/index/board/BoardMenu.css";
 
 /* 
 실제 라우팅이 필요할 때
@@ -19,19 +20,18 @@ import "./css/BoardMenu.css";
 // import { useNavigate } from "react-router-dom";
 
 export default function BoardMenu() {
-  // ------------------------------
-  // 라우팅이 필요할 때 주석 해제:
-  /*
+
   const navigate = useNavigate();
 
   const handleAllPosts = () => {
-    navigate("/board/all");
+    navigate("/PostBoard");
   };
 
   const handleWritePost = () => {
     navigate("/board/write");
   };
 
+{/*  
   const handleCategoryClick = (boardName) => {
     // 예시: boardName에 따라 url 세분화
     // boardName "자유" => "/board/free"
@@ -39,61 +39,32 @@ export default function BoardMenu() {
     // ...
     navigate(`/board/${boardName}`);
   };
+*/}
 
   const handleFreeBoard = () => {
-    navigate("/board/free");
+    navigate("/PostBoard");
   };
 
   const handleHobbyBoard = () => {
-    navigate("/board/hobby");
+    navigate("/PostBoard");
   };
 
   const handlePlayBoard = () => {
-    navigate("/board/play");
+    navigate("/PostBoard");
   };
 
   const handleFoodBoard = () => {
-    navigate("/board/food");
+    navigate("/PostBoard");
   };
 
   const handleTradeBoard = () => {
-    navigate("/board/trade");
-  };
-  */
-  // ------------------------------
-
-  // 현재는 임시데이터만 사용하는 로직
-  const handleAllPostsMock = () => {
-    alert("전체 글보기 이동");
+    navigate("/PostBoard");
   };
 
-  const handleWritePostMock = () => {
-    alert("글쓰기 페이지 이동");
-  };
 
-  const handleCategoryClickMock = (name) => {
-    alert(`${name} 게시판 메인 페이지로 이동`);
-  };
 
-  const handleFreeBoardMock = () => {
-    alert("자유 게시판 글보기 이동");
-  };
 
-  const handleHobbyBoardMock = () => {
-    alert("취미 게시판 글보기 이동");
-  };
 
-  const handlePlayBoardMock = () => {
-    alert("놀거리 게시판 글보기 이동");
-  };
-
-  const handleFoodBoardMock = () => {
-    alert("맛집 게시판 글보기 이동");
-  };
-
-  const handleTradeBoardMock = () => {
-    alert("중고거래 게시판 글보기 이동");
-  };
 
   return (
     <div className="boardMenuContainer">
@@ -102,62 +73,62 @@ export default function BoardMenu() {
       <div className="boardMenuSection">
         <div
           className="boardMenuCategory"
-          onClick={() => handleCategoryClickMock("전체")}
+          onClick={handleAllPosts}
         >
           전체 게시판
         </div>
-        <button onClick={handleAllPostsMock}>- 전체 글보기</button>
-        <button onClick={handleWritePostMock}>- 글쓰기</button>
+        <button onClick={handleAllPosts}>- 전체 글보기</button>
+        <button onClick={handleWritePost}>- 글쓰기</button>
       </div>
 
       <div className="boardMenuSection">
         <div
           className="boardMenuCategory"
-          onClick={() => handleCategoryClickMock("자유")}
+          onClick={handleFreeBoard}
         >
           자유 게시판
         </div>
-        <button onClick={handleFreeBoardMock}>- 자유 글보기</button>
+        <button onClick={handleFreeBoard}>- 자유 글보기</button>
       </div>
 
       <div className="boardMenuSection">
         <div
           className="boardMenuCategory"
-          onClick={() => handleCategoryClickMock("취미")}
+          onClick={handleHobbyBoard}
         >
           취미 게시판
         </div>
-        <button onClick={handleHobbyBoardMock}>- 취미 글보기</button>
+        <button onClick={handleHobbyBoard}>- 취미 글보기</button>
       </div>
 
       <div className="boardMenuSection">
         <div
           className="boardMenuCategory"
-          onClick={() => handleCategoryClickMock("놀거리")}
+          onClick={handlePlayBoard}
         >
           놀거리 게시판
         </div>
-        <button onClick={handlePlayBoardMock}>- 놀거리 글보기</button>
+        <button onClick={handlePlayBoard}>- 놀거리 글보기</button>
       </div>
 
       <div className="boardMenuSection">
         <div
           className="boardMenuCategory"
-          onClick={() => handleCategoryClickMock("맛집")}
+          onClick={handleFoodBoard}
         >
           맛집 게시판
         </div>
-        <button onClick={handleFoodBoardMock}>- 맛집 글보기</button>
+        <button onClick={handleFoodBoard}>- 맛집 글보기</button>
       </div>
 
       <div className="boardMenuSection">
         <div
           className="boardMenuCategory"
-          onClick={() => handleCategoryClickMock("중고거래")}
+          onClick={handleTradeBoard}
         >
           중고거래 게시판
         </div>
-        <button onClick={handleTradeBoardMock}>- 중고거래 글보기</button>
+        <button onClick={handleTradeBoard}>- 중고거래 글보기</button>
       </div>
     </div>
   );

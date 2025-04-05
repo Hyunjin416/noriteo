@@ -1,0 +1,38 @@
+/* 파일 위치: noriteo/noriteo-front/src/components/PostBoard/PostList.css */
+
+.post-list {
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .post-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+  
+  .post-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .post-category {
+    color: #007bff;
+  }
+  
+  .post-title {
+    font-size: 1.1em;
+  }
+  
+  .post-content {
+    color: #333;
+    margin-top: 5px;
+  }
+  
+  .post-meta {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
+  }
+  

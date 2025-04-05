@@ -1,8 +1,8 @@
 // src/components/board/LeftSidebar.jsx
 import React from "react";
-import UserInfo from "../UserInfo";
-import BoardMenu from "../BoardMenu";
-import "./LeftSidebar.css";
+import UserInfo from "../board/UserInfo";
+import BoardMenu from "../board/BoardMenu";
+import "../../../components_css/index/fragment/LeftSidebar.css";
 
 export default function LeftSidebar() {
     return (
