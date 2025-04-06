@@ -1,23 +1,39 @@
 import React from "react";
-import "../../components_css/index/BoardMain.css"; // CSS 모듈 import
-import NavigationBar from "../index/board/NavigationBar";
+import "../../components_css/index/BoardMain.css";
+import NavigationBar from "../../components/index/board/NavigationBar";
 import LeftSidebar from "../index/fragment/LeftSidebar";
 import RightSidebar from "../index/fragment/RightSidebar";
-import PostList from "./PostList";  // PostList 컴포넌트 추가
+import PostList from "./PostList";
+import { useLocation } from "react-router-dom";
 
-export default function PostBoard() {
-    return (
+export default function PostBoardPage() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get("category");
+  const sort = queryParams.get("sort");         // 예: views
+
+  // 문자열 카테고리명 → board_id 숫자 매핑
+  const categoryMap = {
+    "공지사항": 1,
+    "자유게시판": 2,
+    "취미게시판": 3,
+    "놀거리게시판": 4,
+    "맛집게시판": 5,
+    "거래게시판": 6,
+  };
+
+  const filterBoardId = categoryMap[category] ?? null;
+
+  return (
     <div className="boardMainContainer">
-      <NavigationBar /> {/* 헤더 밑에 네비게이션 바 위치 */}
+      <NavigationBar />
       <div className="boardMainBody">
-        <LeftSidebar /> {/* 왼쪽 사이드바 위치 */}
-        {/* 여기서 PostList 컴포넌트를 이용해 전체 글 목록을 출력 */}
+        <LeftSidebar />
         <div className="post-board-content">
-            <PostList filterCategory={null} />
-            {/* 만약 특정 카테고리만 보고 싶다면 filterCategory prop에 원하는 말머리 값을 전달 */}
+          <PostList filterBoardId={filterBoardId} sortType={sort} />
         </div>
-        <RightSidebar /> {/* 오른쪽 사이드바 위치 */}
+        <RightSidebar />
       </div>
     </div>
-    );
+  );
 }

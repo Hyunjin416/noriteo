@@ -1,48 +1,32 @@
-// src/components/board/PopularPosts.jsx
 import React, { useEffect, useState } from "react";
 import "../../../components_css/index/board/PopularPosts.css";
-
-// 라우팅 연동 예시 (주석)
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function PopularPosts() {
   const [posts, setPosts] = useState([]);
-
-  // 라우팅 예시 (주석)
-  /*
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // 추후 실제 API로 변경
+    fetch("http://localhost:8080/api/board")
+      .then((res) => res.json())
+      .then((data) => {
+        const sortedByViews = data
+          .sort((a, b) => b.board_views - a.board_views)
+          .slice(0, 10); // 조회수 기준 상위 10개
+        setPosts(sortedByViews);
+      })
+      .catch((err) => {
+        console.error("인기글 불러오기 실패:", err);
+      });
+  }, []);
 
   const handlePostClick = (postId) => {
     navigate(`/post/${postId}`);
   };
-  */
-
-  const handlePostClickMock = (postId) => {
-    alert(`인기글 ID: ${postId} 상세 페이지로 이동 (DB 연동 시)`);
-  };
-
-  useEffect(() => {
-    // API 예시 (주석)
-    /*
-    fetch("/api/posts/popular")
-      .then((res) => res.json())
-      .then((data) => setPosts(data))
-      .catch((err) => console.error(err));
-    */
-
-    // 임시 mock 데이터 13개
-    const mockData = Array.from({ length: 13 }, (_, i) => ({
-      id: i + 1,
-      title: `인기글 ${i + 1}`,
-      likes: Math.floor(Math.random() * 100),
-    }));
-
-    setPosts(mockData);
-  }, []);
 
   const handleViewAll = () => {
-    alert("인기글 전체보기 (추후 라우팅)");
-    // navigate("/board/popular");
+    navigate("/PostBoard?sort=views"); // 전체보기: 조회수 기준 정렬된 글 목록
   };
 
   return (
@@ -55,14 +39,14 @@ export default function PopularPosts() {
       </div>
 
       <ul className="popularList">
-        {posts.slice(0, 10).map((post) => (
+        {posts.map((post) => (
           <li
-            key={post.id}
+            key={post.board_id}
             className="popularItem"
-            onClick={() => handlePostClickMock(post.id)}
+            onClick={() => handlePostClick(post.board_id)}
           >
-            <span className="popularItemTitle">{post.title}</span>
-            <span className="popularItemLikes">좋아요: {post.likes}</span>
+            <span className="popularItemTitle">{post.board_title}</span>
+            <span className="popularItemLikes">조회수: {post.board_views}</span>
           </li>
         ))}
       </ul>

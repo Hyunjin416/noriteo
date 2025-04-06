@@ -1,36 +1,59 @@
-// src/components/board/CrawlingContent.jsx
 import React, { useEffect, useState } from "react";
 import "../../../components_css/index/board/Notice.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function NoticeContent() {
+export default function Notice() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
-  // 추후 실제 크롤링 API로부터 데이터 받아올 수도 있음
   useEffect(() => {
-    // 예: fetch("/api/crawling/posts") ...
-    // 현재는 임시 mock 데이터 (6개)
-    const mockData = [
-      { id: 1, title: "공지사항 1", imageUrl: "https://via.placeholder.com/150" },
-      { id: 2, title: "공지사항 2", imageUrl: "https://via.placeholder.com/150" },
-      { id: 3, title: "공지사항 3", imageUrl: "https://via.placeholder.com/150" },
-      { id: 4, title: "공지사항 4", imageUrl: "https://via.placeholder.com/150" },
-      { id: 5, title: "공지사항 5", imageUrl: "https://via.placeholder.com/150" },
-      { id: 6, title: "공지사항 6", imageUrl: "https://via.placeholder.com/150" },
-    ];
-    setPosts(mockData);
+    axios
+      .get("http://localhost:8080/api/board")
+      .then((response) => {
+        const allPosts = response.data;
+        const noticePosts = allPosts
+          .filter((post) => post.board_id === 1)
+          .slice(0, 6); // 최신 6개만
+        setPosts(noticePosts);
+      })
+      .catch((error) => {
+        console.error("공지사항 불러오기 실패:", error);
+      });
   }, []);
 
   return (
     <div className="NoticeContainer">
-      <h4 className="noticeTitle">공지사항</h4>
+      <div className="noticeHeader">
+        <h4 className="noticeTitle">공지사항</h4>
+        <button
+          className="noticeMoreBtn"
+          onClick={() => navigate("/PostBoard?category=공지사항")}
+        >
+          전체보기
+        </button>
+      </div>
 
       <div className="noticeGrid">
-        {posts.map((post) => (
-          <div className="noticeCard" key={post.id}>
-            <img src={post.imageUrl} alt={post.title} />
-            <p>{post.title}</p>
-          </div>
-        ))}
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <div
+              className="noticeCard"
+              key={post.id}
+              onClick={() => navigate(`/post/${post.board_id}`)}
+            >
+              <img
+                src={post.image_url || "https://via.placeholder.com/150"}
+                alt={post.board_title}
+              />
+              <p>{post.board_title}</p>
+            </div>
+          ))
+        ) : (
+          <p style={{ textAlign: "center", width: "100%" }}>
+            공지사항이 없습니다.
+          </p>
+        )}
       </div>
     </div>
   );

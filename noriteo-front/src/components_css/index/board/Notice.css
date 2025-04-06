@@ -1,57 +1,85 @@
-/* src/components/board/Notice.css */
-
-/* 전체 컨테이너 */
+/* 공지사항 영역 전체 박스 */
 .NoticeContainer {
-  width: 100%;         /* 반반 공간 */
-  background-color: #f2f2f2;
-  padding: 1rem;
-  box-sizing: border-box;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* 상단 타이틀 */
-  .noticeTitle {
-    margin: 0 0 1rem 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-  
-  /* 2열 × n행 그리드 */
-  .noticeGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem; /* 카드 사이 간격 */
-    box-sizing: border-box;
-  }
-  
-  /* 각 카드 */
-  .noticeCard {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 0.5rem;
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  
-  /* 이미지: 폭 100%에 맞춤 */
-  .noticeCard img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto 0.5rem;
-  }
-  
-  /* 제목 */
-  .noticeCard p {
-    margin: 0;
-    font-weight: 500;
-  }
-  
-  /* 호버 시 카드 살짝 들어올리기 */
-  .noticeCard:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-  
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  padding: 25px 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 제목 + 전체보기 버튼 묶는 박스 */
+.noticeHeader {
+  position: relative;
+  margin-bottom: 20px;
+  height: 30px;
+}
+
+/* 공지사항 제목 중앙 정렬 */
+.noticeTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* 전체보기 버튼 오른쪽 정렬 */
+.noticeMoreBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+  border: none;
+  color: #3b82f6;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.noticeMoreBtn:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* 공지 카드 배치 */
+.noticeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+/* 개별 카드 */
+.noticeCard {
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.noticeCard:hover {
+  transform: scale(1.02);
+  background-color: #eef4ff;
+}
+
+.noticeCard img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.noticeCard p {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+}

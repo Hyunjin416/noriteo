@@ -1,101 +1,80 @@
-/*최신글*/
-/* 전체 영역 컨테이너 */
 .realtimeNewContainer {
-  width: 100%;         /* 반반 공간 */
-  background-color: #f2f2f2;
-  padding: 1rem;
-  box-sizing: border-box;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        /* ✅ 고정 높이 제거 */
-        height: auto;
-        max-height: none;
-        overflow-y: visible;
-  }
-  
-  /* 상단 헤더: 가운데 제목 + 오른쪽 전체보기 버튼 */
-  .realtimeNewHeader {
-    position: relative;
-    margin-bottom: 1rem;
-  }
-  
-  .realtimeNewTitle {
-    margin: 0;
-    text-align: center; /* 중앙 정렬 */
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-  
-  /* 전체보기 버튼: 우측 상단 */
-  .realtimeNewButton {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
-    text-decoration: underline;
-    color: #666;
-  }
-  
-  /* 글 목록 */
-  .realtimeNewList {
-    max-height: none;  /* ✅ 리스트가 다 펼쳐지도록 */
-    overflow-y: visible;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* 각 글(li) 컨테이너 */
-  .realtimeNewItem {
-    display: flex;                /* 제목(왼쪽) + 정보(오른쪽) */
-    justify-content: space-between;
-    align-items: flex-start;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    cursor: pointer;              /* 클릭 가능 */
-  }
-  
-  /* 왼쪽: 글 제목 */
-  .newPostTitle {
-    font-weight: 500;
-    font-size: 0.95rem;
-  }
-  
-  /* 오른쪽 전체: 작성일/작성자/좋아요 */
-  .newPostInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;  /* 오른쪽 정렬 */
-    font-size: 0.85rem;
-    color: #666;
-  }
-  
-  /* 작성일 (맨 위) */
-  .newPostTime {
-    margin-bottom: 0.3rem;
-  }
-  
-  /* 사용자명과 좋아요(같은 줄) */
-  .newPostUserLikes {
-    display: flex;
-    gap: 0.5rem; /* 사용자와 좋아요 사이 간격 */
-  }
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
 
-  /* 작성자 명과 좋아요 css
-  /* 작성자 명 
-  .popularPostUser {
-     추가 스타일링 가능 
-  }*/
-  
-  /* 좋아요 
-  .popularPostLikes {
-    추가 스타일링 가능 
-  }*/
-  
+.realtimeNewHeader {
+  position: relative;
+  margin-bottom: 20px;
+  height: 30px;
+}
+
+.realtimeNewTitle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+.realtimeNewButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+  border: none;
+  color: #3b82f6;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.realtimeNewButton:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.realtimeNewList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.realtimeNewItem {
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #f9fafb;
+  transition: background-color 0.2s;
+}
+
+.realtimeNewItem:hover {
+  background-color: #eef4ff;
+}
+
+.newPostTitle {
+  font-weight: 500;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.newPostInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #555;
+}
+
+.newPostUserViews span {
+  margin-left: 12px;
+}

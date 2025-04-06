@@ -1,36 +1,29 @@
-/* src/components/board/NavigationBar.css */
-
 .navContainer {
-  background: transparent; /* navContainer 배경 투명하게 설정 */
-  padding: 1rem;
   display: flex;
-  flex-wrap: wrap;   /* 화면이 작아질 경우 자동 줄바꿈 */
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center;     /* 수직 중앙 정렬 */
-  gap: 0.5rem;             /* 버튼 간격 */
-  }
-  
-  /* 각 버튼 스타일 (useNavigate 시) */
-  .navContainer button {
-    background-color: transparent;
-    /*border: 1px solid #ccc; 윤곽선*/
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  /* 예시: Link 컴포넌트로 쓸 때 클래스 */
-  .navButton {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 8px 16px;
-    cursor: pointer;
-    text-decoration: none; /* 링크 밑줄 제거 */
-    color: #333;           /* 글자색 */
-  }
-  
-  /* 호버 시 */
-  .navContainer button:hover,
-  .navButton:hover {
-    background-color: #f0f0f0;
-  }
-  
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: transparent;
+  border-bottom: 1px solid #ddd;
+}
+
+.navContainer button {
+  padding: 8px 14px;
+  font-size: 14px;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.navContainer button:hover {
+  background-color: #e9ecef;
+}
+
+/* 현재 선택된 카테고리 버튼 강조 */
+.navContainer button.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
