@@ -1,7 +1,7 @@
 // src/components/board/BoardMain.jsx
 import React from "react";
-import "./BoardMain.css";
-import NavigationBar from "./NavigationBar";
+import "../../components_css/index/BoardMain.css";
+import NavigationBar from "./board/NavigationBar";
 import LeftSidebar from "./fragment/LeftSidebar";
 import CenterContent from "./fragment/CenterContent";
 import RightSidebar from "./fragment/RightSidebar";

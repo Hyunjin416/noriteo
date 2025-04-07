@@ -1,6 +1,6 @@
 // src/components/board/Ad.jsx
 import React from "react";
-import "./css/Ad.css";
+import "../../../components_css/index/board/Ad.css";
 
 // 단순 광고 자리 표시용 컴포넌트
 export default function Ad({ text }) {

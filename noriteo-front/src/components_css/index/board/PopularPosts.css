@@ -1,0 +1,68 @@
+.popularContainer {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 16px 12px; /* ✅ 좌우 padding 줄임 */
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box; /* ✅ padding 포함한 전체 width 계산 */
+}
+
+
+.popularHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.popularTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.popularButtonTopRight {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.popularButtonTopRight:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.popularList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popularItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  background-color: #f9fafb;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.popularItem:hover {
+  background-color: #eef4ff;
+}
+
+.popularItemTitle {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.popularItemLikes {
+  font-size: 13px;
+  color: #555;
+}

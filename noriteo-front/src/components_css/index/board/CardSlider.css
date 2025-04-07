@@ -1,0 +1,115 @@
+/* 전체 슬라이더 컨테이너 (버튼 포함) */
+.sliderContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  aspect-ratio: 5 / 1; /* 반응형 비율 유지 */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 좌우 버튼 (생략: 기존 그대로 사용) */
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  color: black;
+  background-color: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.arrowLeft { left: 10px; }
+.arrowRight { right: 10px; }
+.arrowButton:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+/* 트랙 */
+.sliderTrack {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  gap: 0.5rem;
+  height: 100%;
+  cursor: grab;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sliderTrack::-webkit-scrollbar {
+  display: none;
+}
+.sliderTrack:active {
+  cursor: grabbing;
+}
+
+/* 카드 */
+.cardItem {
+  flex: 0 0 calc(100% / 5);  /* 기본: 5개 */
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 이미지 */
+.cardItem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.noImageText {
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eaeaea;
+  border-radius: 6px;
+}
+
+
+/* 반응형 설정 */
+@media (max-width: 900px) {
+  .cardItem {
+    flex: 0 0 calc(100% / 4);  /* 4개 보이게 */
+  }
+}
+@media (max-width: 700px) {
+  .cardItem {
+    flex: 0 0 calc(100% / 3);  /* 3개 보이게 */
+  }
+}
+@media (max-width: 500px) {
+  .cardItem {
+    flex: 0 0 calc(100% / 2);  /* 2개 보이게 */
+  }
+}
+@media (max-width: 350px) {
+  .cardItem {
+    flex: 0 0 100%;  /* 1개 보이게 */
+  }
+}

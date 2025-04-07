@@ -1,0 +1,80 @@
+.realtimeNewContainer {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.realtimeNewHeader {
+  position: relative;
+  margin-bottom: 20px;
+  height: 30px;
+}
+
+.realtimeNewTitle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+.realtimeNewButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+  border: none;
+  color: #3b82f6;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.realtimeNewButton:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.realtimeNewList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.realtimeNewItem {
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #f9fafb;
+  transition: background-color 0.2s;
+}
+
+.realtimeNewItem:hover {
+  background-color: #eef4ff;
+}
+
+.newPostTitle {
+  font-weight: 500;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.newPostInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #555;
+}
+
+.newPostUserViews span {
+  margin-left: 12px;
+}

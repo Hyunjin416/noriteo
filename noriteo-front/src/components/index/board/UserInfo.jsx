@@ -1,7 +1,7 @@
 // User 정보를 보여주는 컴포넌트(프로필사진, 이름, 가입일 작성글, 작성 댓글, 작성 거래글)
 // src/components/board/UserInfo.jsx
 import React from "react";
-import "./css/UserInfo.css";
+import "../../../components_css/index/board/UserInfo.css";
 
 export default function UserInfo() {
   // -----------------------------------------

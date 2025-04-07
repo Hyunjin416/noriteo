@@ -1,0 +1,24 @@
+.boardMainBody {
+    display: flex;
+    margin-top: 1rem;
+  }
+  
+  /*LeftSidebar.jsx의 위치 지정*/
+  .boardMainLeft {
+    width: 200px;
+    margin-right: 1rem;
+  }
+  
+  /*CenterContent.jsx의 위치 지정*/
+  /*.boardMainCenter {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }*/
+  
+  /*RightSidebar.jsx의 위치 지정*/
+  .boardMainRight {
+    width: 200px;
+    margin-left: 1rem;
+  }
+  

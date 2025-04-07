@@ -1,0 +1,38 @@
+/* 전체 레이아웃을 위한 기본 설정 */
+.boardMainBody {
+  display: flex;
+  margin-top: 1rem;
+  justify-content: space-between; /* 각 요소 사이에 균등하게 여백 배분 */
+  width: 100%; /* 전체 너비 */
+}
+
+/* LeftSidebar를 화면 왼쪽에 위치 */
+.boardMainLeft {
+  width: 225px;
+  margin-right: 1rem; /* 오른쪽 사이드바와 간격을 두기 위한 margin */
+  background-color: transparent; /* 배경투명 */
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%; /* 화면 높이를 전부 차지 */
+}
+
+/* CenterContent를 중앙에 위치 */
+.boardMainCenter {
+  flex: 1; /* 나머지 공간을 차지 */
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 콘텐츠 배치 */
+  padding: 20px;
+  background-color: transparent; /* 배경투명 */
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* RightSidebar를 화면 오른쪽에 위치 */
+.boardMainRight {
+  width: 225px;
+  margin-left: 1rem; /* 왼쪽 사이드바와 간격을 두기 위한 margin */
+  background-color: transparent; /* 배경 투명 */
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%; /* 화면 높이를 전부 차지 */
+}
