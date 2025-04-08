@@ -1,37 +1,43 @@
+// PostList.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../components_css/PostBoard/PostList.css";
 import { useNavigate } from "react-router-dom";
+import CardSlider from "../index/board/CardSlider"; // 추가
 
-const PostList = ({ filterBoardId, sortType }) => {
+const PostList = ({ boardType, sortType }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
   const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
 
     axios
-      .get("http://localhost:8080/api/board")
+      .get("http://localhost:8080/api/board-with-image") // ✅ 백엔드 API
       .then((response) => {
         let fetchedPosts = response.data;
 
-        // board_id 필터링
-        if (filterBoardId) {
+        if (boardType) {
           fetchedPosts = fetchedPosts.filter(
-            (post) => post.board_id === filterBoardId
+            (post) => post.board_type === boardType
           );
         }
 
-        // 정렬: 조회수순
         if (sortType === "views") {
-          fetchedPosts = fetchedPosts.sort(
-            (a, b) => b.board_views - a.board_views
+          fetchedPosts.sort((a, b) => b.board_views - a.board_views);
+        } else if (sortType === "latest") {
+          fetchedPosts.sort(
+            (a, b) =>
+              new Date(b.board_regdate) - new Date(a.board_regdate)
           );
         }
 
         setPosts(fetchedPosts);
+        setCurrentPage(1);
         setLoading(false);
       })
       .catch((err) => {
@@ -39,73 +45,76 @@ const PostList = ({ filterBoardId, sortType }) => {
         setError("게시글을 불러오는 데 실패했습니다.");
         setLoading(false);
       });
-  }, [filterBoardId, sortType]);
+  }, [boardType, sortType]);
 
-  // 게시판 ID → 말머리 텍스트
-  const getCategoryLabel = (boardId) => {
-    switch (boardId) {
-      case 1:
-        return "[공지사항]";
-      case 2:
-        return "[자유]";
-      case 3:
-        return "[취미]";
-      case 4:
-        return "[놀거리]";
-      case 5:
-        return "[맛집]";
-      case 6:
-        return "[거래]";
-      default:
-        return "[기타]";
-    }
-  };
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(posts.length / postsPerPage);
 
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="board-table-container">
-      <table className="board-table">
-        <thead>
-          <tr>
-            <th>말머리</th>
-            <th>제목</th>
-            <th>유저명</th>
-            <th>작성시간</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posts.length > 0 ? (
-            posts.map((post) => (
-              <tr
-                key={post.board_id}
-                onClick={() => navigate(`/post/${post.board_id}`)}
-              >
-                <td>{getCategoryLabel(post.board_id)}</td>
-                <td className="truncate-title" title={post.board_title}>
-                  {post.board_title.length > 40
-                    ? post.board_title.slice(0, 40) + "..."
-                    : post.board_title}
-                </td>
-                <td>{post.user_id}</td>
-                <td>
-                  {post.board_regdate
-                    ? new Date(post.board_regdate).toLocaleDateString()
-                    : "날짜 없음"}
-                </td>
-                <td>{post.board_views ?? 0}</td>
-              </tr>
-            ))
-          ) : (
+    <>
+      {/* ✅ 카드 슬라이더에 props로 전달 */}
+      <CardSlider cards={posts.slice(0, 10)} /> {/* 최대 10개만 출력 */}
+
+      <div className="board-table-container">
+        <table className="board-table">
+          <thead>
             <tr>
-              <td colSpan="5">게시글이 없습니다.</td>
+              <th>게시판</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일</th>
+              <th>조회수</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {currentPosts.length > 0 ? (
+              currentPosts.map((post) => (
+                <tr
+                  key={post.board_id}
+                  onClick={() => navigate(`/post/${post.board_id}`)}
+                >
+                  <td>{post.board_type}</td>
+                  <td className="truncate-title" title={post.board_title}>
+                    {post.board_title.length > 40
+                      ? post.board_title.slice(0, 40) + "..."
+                      : post.board_title}
+                  </td>
+                  <td>{post.user_id}</td>
+                  <td>
+                    {post.board_regdate
+                      ? new Date(post.board_regdate).toLocaleDateString("ko-KR")
+                      : "날짜 없음"}
+                  </td>
+                  <td>{post.board_views ?? 0}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5">게시글이 없습니다.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+
+        {/* 페이지네이션 */}
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              className={currentPage === index + 1 ? "active" : ""}
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

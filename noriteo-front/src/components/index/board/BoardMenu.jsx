@@ -26,7 +26,7 @@ export default function BoardMenu() {
 
   // 특정 카테고리로 이동
   const handleCategory = (categoryName) => {
-    navigate(`/PostBoard?category=${encodeURIComponent(categoryName)}`);
+    navigate(`/PostBoard?board_type=${encodeURIComponent(categoryName)}`);
   };
 
   return (
