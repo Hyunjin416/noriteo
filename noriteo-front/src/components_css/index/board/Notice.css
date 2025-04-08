@@ -1,4 +1,4 @@
-/* 공지사항 영역 전체 박스 */
+/* 공지사항 전체 컨테이너 */
 .NoticeContainer {
   background-color: #ffffff;
   border: 1px solid #d1d5db;
@@ -10,14 +10,14 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 제목 + 전체보기 버튼 묶는 박스 */
+/* 상단 헤더 (제목 + 버튼 포함) */
 .noticeHeader {
   position: relative;
   margin-bottom: 20px;
   height: 30px;
 }
 
-/* 공지사항 제목 중앙 정렬 */
+/* 공지사항 제목 - 중앙 정렬 */
 .noticeTitle {
   font-size: 20px;
   font-weight: bold;
@@ -28,7 +28,7 @@
   text-align: center;
 }
 
-/* 전체보기 버튼 오른쪽 정렬 */
+/* 전체보기 버튼 - 우측 정렬 */
 .noticeMoreBtn {
   position: absolute;
   right: 0;
@@ -47,14 +47,14 @@
   text-decoration: underline;
 }
 
-/* 공지 카드 배치 */
+/* 카드형 공지 레이아웃 */
 .noticeGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* 2개씩 */
   gap: 15px;
 }
 
-/* 개별 카드 */
+/* 개별 카드 스타일 */
 .noticeCard {
   background-color: #f9fafb;
   padding: 10px;
@@ -70,16 +70,30 @@
   background-color: #eef4ff;
 }
 
+/* 카드 내 이미지 */
 .noticeCard img {
   width: 100%;
-  max-height: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 8px;
 }
 
+/* 카드 제목 텍스트 */
 .noticeCard p {
   font-size: 15px;
   font-weight: 500;
   margin: 0;
+  color: #333;
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+  .noticeGrid {
+    grid-template-columns: 1fr; /* 1열로 줄이기 */
+  }
+
+  .noticeTitle {
+    font-size: 18px;
+  }
 }

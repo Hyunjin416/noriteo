@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../../../components_css/index/board/PopularPosts.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,18 +8,19 @@ export default function PopularPosts() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 추후 실제 API로 변경
-    fetch("http://localhost:8080/api/board")
-      .then((res) => res.json())
-      .then((data) => {
-        const sortedByViews = data
+    const fetchPopularPosts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/board"); // ✅ 백엔드 API
+        const sortedByViews = response.data
           .sort((a, b) => b.board_views - a.board_views)
-          .slice(0, 10); // 조회수 기준 상위 10개
+          .slice(0, 10);
         setPosts(sortedByViews);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("인기글 불러오기 실패:", err);
-      });
+      }
+    };
+
+    fetchPopularPosts();
   }, []);
 
   const handlePostClick = (postId) => {
@@ -26,7 +28,7 @@ export default function PopularPosts() {
   };
 
   const handleViewAll = () => {
-    navigate("/PostBoard?sort=views"); // 전체보기: 조회수 기준 정렬된 글 목록
+    navigate("/PostBoard?sort=views"); // ✅ 조회수 기준 전체보기
   };
 
   return (
@@ -45,7 +47,11 @@ export default function PopularPosts() {
             className="popularItem"
             onClick={() => handlePostClick(post.board_id)}
           >
-            <span className="popularItemTitle">{post.board_title}</span>
+            <span className="popularItemTitle" title={post.board_title}>
+              {post.board_title.length > 30
+                ? post.board_title.slice(0, 30) + "..."
+                : post.board_title}
+            </span>
             <span className="popularItemLikes">조회수: {post.board_views}</span>
           </li>
         ))}

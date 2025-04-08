@@ -6,11 +6,9 @@ export default function NavigationBar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 현재 URL의 쿼리 파라미터 category 읽기
   const queryParams = new URLSearchParams(location.search);
-  const currentCategory = queryParams.get("category");
+  const currentBoardType = queryParams.get("board_type"); // ✅ 변경됨
 
-  // 카테고리 목록
   const categories = [
     "공지사항",
     "자유게시판",
@@ -25,8 +23,10 @@ export default function NavigationBar() {
       {categories.map((category) => (
         <button
           key={category}
-          className={currentCategory === category ? "active" : ""}
-          onClick={() => navigate(`/PostBoard?category=${category}`)}
+          className={currentBoardType === category ? "active" : ""}
+          onClick={() =>
+            navigate(`/PostBoard?board_type=${encodeURIComponent(category)}`)
+          }
         >
           {category}
         </button>

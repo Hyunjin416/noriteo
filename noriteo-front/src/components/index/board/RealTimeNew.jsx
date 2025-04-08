@@ -1,39 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "../../../components_css/index/board/RealTimeNew.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function RealTimePopular() {
+export default function RealTimeNew() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
-  // 최신글 가져오는 함수
   const fetchLatestPosts = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/board");
-      const data = await response.json();
-
-      // 최신순 정렬: 등록일 기준 내림차순
-      const sorted = data
+      const response = await axios.get("http://localhost:8080/api/board"); // ✅ 백엔드 api
+      const sorted = response.data
         .sort(
           (a, b) => new Date(b.board_regdate) - new Date(a.board_regdate)
         )
-        .slice(0, 10); // 상위 10개만
-
+        .slice(0, 10); // 최신 10개
       setPosts(sorted);
     } catch (err) {
       console.error("최신글 불러오기 실패:", err);
     }
   };
 
-  // 컴포넌트 마운트 시 + 10초마다 자동 업데이트
+  // 10초마다 최신글 새로고침
   useEffect(() => {
     fetchLatestPosts();
-    const interval = setInterval(fetchLatestPosts, 10000); // 10초 간격
+    const interval = setInterval(fetchLatestPosts, 10000);
     return () => clearInterval(interval);
   }, []);
 
   const handleViewAll = () => {
-    navigate("/PostBoard"); // 카테고리 상관없이 전체글 보기
+    navigate("/PostBoard"); // 전체 글 보기로 이동
   };
 
   const handlePostClick = (postId) => {
@@ -56,7 +52,11 @@ export default function RealTimePopular() {
             className="realtimeNewItem"
             onClick={() => handlePostClick(post.board_id)}
           >
-            <span className="newPostTitle">{post.board_title}</span>
+            <span className="newPostTitle" title={post.board_title}>
+              {post.board_title.length > 40
+                ? post.board_title.slice(0, 40) + "..."
+                : post.board_title}
+            </span>
             <div className="newPostInfo">
               <div className="newPostTime">
                 {new Date(post.board_regdate).toLocaleString()}

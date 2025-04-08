@@ -9,12 +9,12 @@ export default function Notice() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/board")
+      .get("http://localhost:8080/api/board") // ✅ 백엔드 api
       .then((response) => {
         const allPosts = response.data;
         const noticePosts = allPosts
-          .filter((post) => post.board_id === 1)
-          .slice(0, 6); // 최신 6개만
+          .filter((post) => post.board_type === "공지사항") // ✅ board_type으로 필터링
+          .slice(0, 6);
         setPosts(noticePosts);
       })
       .catch((error) => {
@@ -28,7 +28,7 @@ export default function Notice() {
         <h4 className="noticeTitle">공지사항</h4>
         <button
           className="noticeMoreBtn"
-          onClick={() => navigate("/PostBoard?category=공지사항")}
+          onClick={() => navigate("/PostBoard?board_type=공지사항")} // ✅ 통일된 파라미터
         >
           전체보기
         </button>
@@ -39,11 +39,11 @@ export default function Notice() {
           posts.map((post) => (
             <div
               className="noticeCard"
-              key={post.id}
+              key={post.board_id} // ✅ 고유 ID 사용
               onClick={() => navigate(`/post/${post.board_id}`)}
             >
               <img
-                src={post.image_url || "https://via.placeholder.com/150"}
+                src={post.board_pic_url || "https://via.placeholder.com/150"} // ✅ 실제 DB 컬럼명 사용 또는 기본 이미지
                 alt={post.board_title}
               />
               <p>{post.board_title}</p>

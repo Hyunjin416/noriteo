@@ -1,28 +1,29 @@
 .popularContainer {
   background-color: #ffffff;
   border: 1px solid #ddd;
-  padding: 16px 12px; /* ✅ 좌우 padding 줄임 */
+  padding: 16px 12px;
   border-radius: 12px;
   width: 100%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  box-sizing: border-box; /* ✅ padding 포함한 전체 width 계산 */
+  box-sizing: border-box;
 }
 
-
 .popularHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
+  text-align: center; /* 제목 가운데 정렬 */
   margin-bottom: 16px;
 }
 
 .popularTitle {
   font-size: 16px;
   font-weight: bold;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .popularButtonTopRight {
+  position: absolute;
+  right: 0;
+  top: 0;
   background: none;
   border: none;
   color: #3b82f6;
@@ -60,9 +61,14 @@
 .popularItemTitle {
   font-size: 14px;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
 }
 
 .popularItemLikes {
   font-size: 13px;
   color: #555;
+  flex-shrink: 0;
 }
