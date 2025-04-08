@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "@/utils/AxiosConfig";
+import axios from "@/auth/AxiosConfig";
+import Cookies from "js-cookie";
 
 const KakaoCallback = () => {
   const navigate = useNavigate();
@@ -11,40 +12,46 @@ const KakaoCallback = () => {
 
     if (code) {
       axios
-        .post("/api/auth/kakao/callback", { code }) // ✅ 쿠키가 아닌 JSON 응답을 직접 사용
+        .post("/api/kakao/login", { code }, { withCredentials: true })
+
         .then((response) => {
           console.log("✅ 카카오 로그인 성공!", response.data);
 
-          const { kakao_accessToken, kakao_refreshToken } =
-            response.data.tokens; // ✅ 응답에서 토큰 가져오기
+          const { kakaoAccessToken, kakaoRefreshToken } = response.data.tokens;
 
-          // ✅ localStorage에 저장
-          localStorage.setItem("kakao_accessToken", kakao_accessToken);
-          localStorage.setItem("kakao_refreshToken", kakao_refreshToken);
-          console.log("📌 저장된 카카오 토큰:", {
-            kakao_accessToken,
-            kakao_refreshToken,
+          // ✅ 쿠키에 저장 (만료 시간 설정)
+          Cookies.set("kakaoAccessToken", kakaoAccessToken, {
+            expires: 7,
+            path: "/",
+          });
+          Cookies.set("kakaoRefreshToken", kakaoRefreshToken, {
+            expires: 30,
+            path: "/",
+          });
+          console.log("📌 저장된 카카오 토큰 (쿠키):", {
+            kakaoAccessToken,
+            kakaoRefreshToken,
           });
 
-          const redirectUrl = response.data.redirect;
+          // ✅ 메인 페이지로 리다이렉트
+          const redirectUrl = response.data.redirect || "/";
           console.log("📌 리디렉트할 URL:", redirectUrl);
-
-          setTimeout(() => {
-            window.location.href = redirectUrl; // ✅ 강제 페이지 리로드
-          }, 500);
+          navigate(redirectUrl);
         })
         .catch((error) => {
           console.error(
             "❌ 카카오 로그인 에러:",
             error.response?.data || error.message
           );
-          navigate("/login");
+          navigate("/member/login");
         });
     } else {
       console.error("❌ 카카오 로그인 코드 없음");
-      navigate("/login");
+      navigate("/member/login");
     }
   }, [navigate]);
+
+  return <div>카카오 로그인 처리 중...</div>;
 };
 
 export default KakaoCallback;

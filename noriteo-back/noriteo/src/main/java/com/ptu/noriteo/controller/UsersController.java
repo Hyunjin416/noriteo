@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,6 +54,7 @@ public class UsersController {
             String accessToken = tokens.get("normalAccessToken");
             String refreshToken = tokens.get("normalRefreshToken");
 
+            // http: secure 설정 false 인 경우
             // Access Token 설정
             ResponseCookie accessTokenCookie = ResponseCookie.from("normalAccessToken", accessToken)
                     .httpOnly(true)
@@ -73,15 +73,33 @@ public class UsersController {
                     .sameSite("Lax")
                     .build();
 
+            // https: secure 설정 true인 경우
+//            // Access Token 설정
+//            ResponseCookie accessTokenCookie = ResponseCookie.from("normalAccessToken", accessToken)
+//                    .httpOnly(true)
+//                    .secure(true) // 여기
+//                    .path("/")
+//                    .maxAge(60 * 30)
+//                    .sameSite("Strict") // 여기
+//                    .build();
+//
+//            // Refresh Token 설정
+//            ResponseCookie refreshTokenCookie = ResponseCookie.from("normalRefreshToken", refreshToken)
+//                    .httpOnly(true)
+//                    .secure(true) // 여기
+//                    .path("/")
+//                    .maxAge(60 * 60 * 24 * 7)
+//                    .sameSite("Strict") //여기
+//                    .build();
+
             // 응답 헤더에 쿠키 추가
             response.addHeader("Set-Cookie", accessTokenCookie.toString());
             response.addHeader("Set-Cookie", refreshTokenCookie.toString());
 
-            return ResponseEntity.ok("로그인 성공");
+            // 리다이렉트 하지 않고 상태 코드 반환
+            return ResponseEntity.ok().body("로그인 성공");
         } catch (IllegalArgumentException e) {
-            log.error("로그인 실패: {}", e.getMessage());
             return ResponseEntity.badRequest().body("로그인 실패: " + e.getMessage());
         }
     }
-
 }

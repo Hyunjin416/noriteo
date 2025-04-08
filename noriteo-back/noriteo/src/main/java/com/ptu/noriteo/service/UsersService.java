@@ -65,19 +65,13 @@ public class UsersService {
         String accessToken = jwtUtil.generateNormalAccessToken(users.getUserId(), users.getUserEmail(), "USER");
         String refreshToken = jwtUtil.generateNormalRefreshToken(users.getUserId());
 
-        // 토큰 맵 생성
+        // 토큰 맵 생성q
         Map<String, String> tokens = new HashMap<>();
         tokens.put("normalAccessToken", accessToken);
         tokens.put("normalRefreshToken", refreshToken);
         return tokens;
     }
 
-//    @PostConstruct
-//    public void printTestPassword() {
-//        String rawPassword = "admin01";
-//        String encodedPassword = passwordEncoder.encode(rawPassword);
-//        log.info("🔑 암호화된 테스트 비밀번호: {}", encodedPassword);
-//    }
 }
 
 

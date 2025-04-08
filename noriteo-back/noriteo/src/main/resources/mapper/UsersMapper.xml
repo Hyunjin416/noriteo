@@ -12,14 +12,12 @@
     <insert id="insertUsers" parameterType="com.ptu.noriteo.model.Users">
         INSERT INTO USERS (
             USER_ID, PROVIDER, PROVIDER_ID, USER_EMAIL, PASSWORD, ROLE_ID,
-            USER_NAME, GENDER, MOBILE1, MOBILE2, MOBILE3,
-            PHONE1, PHONE2, PHONE3, BIRTH, ZIPCODE,
+            USER_NAME, GENDER, MOBILE, PHONE, BIRTH, ZIPCODE,
             ADDRESS1, ADDRESS2, USER_REGDATE, ORIGIN_USER, SYS_USER
         )
         VALUES (
                    USERS_SEQ.NEXTVAL, #{provider}, #{providerId}, #{userEmail}, #{password}, #{roleId},
-                   #{userName}, #{gender}, #{mobile1}, #{mobile2}, #{mobile3},
-                   #{phone1, jdbcType=NULL}, #{phone2, jdbcType=NULL}, #{phone3, jdbcType=NULL}, #{birth, jdbcType=NULL}, #{zipcode},
+                   #{userName}, #{gender}, #{mobile}, #{phone, jdbcType=NULL}, #{birth, jdbcType=NULL}, #{zipcode},
                    #{address1}, #{address2, jdbcType=NULL}, SYSDATE,
                    #{originUser, jdbcType=NULL}, #{sysUser, jdbcType=NULL}
                )

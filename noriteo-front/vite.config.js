@@ -39,11 +39,15 @@ export default defineConfig({
     },
   },
   server: {
+    // https: true,
     proxy: {
       "/api": {
-        target: "http://localhost:8080", // 백엔드 서버 주소
+        target: "http://localhost:8080", // http일때
+        // target: "http://localhost:7070", // https일때
         changeOrigin: true,
-        secure: false, // HTTPS가 아니라면 false
+        // 원래 secure가 true가 맞긴 한데 지금 개발중이니까 우선 fasle로 해봄 
+        secure: false, // HTTP: secure false인 경우
+        // secure: true, // HTTPS: secure true인 경우
       },
     },
   },
