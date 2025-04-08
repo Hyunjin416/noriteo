@@ -1,0 +1,207 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A4C69D93-0E49-04CC-9548-40C9EF3D8417" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="BOARD">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>BOARD</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="BOARD_ID" id="CF8DC787-E69D-F141-5F2C-4A8A8B0716AE">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOARD_TYPE" id="11776B3A-4E11-7B01-E802-3DAAC1C69C43">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_TYPE</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOARD_TITLE" id="63DFEBC0-ED3E-07CC-0718-95EC2CB52AAF">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_TITLE</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300 BYTE</dataTypeSize>
+<ownDataTypeParameters>300 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOARD_CONTENT" id="57AD24EC-ACE6-4133-1311-02763001122A">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_CONTENT</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_ID" id="BF131C44-5DB1-A41F-962D-9C5825CD906E">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1BD8F458-DC5D-D7D6-32AF-B6E705E05058" referredColumn="E19C8E63-BA8A-5610-323F-04AC7CD97AF7"/>
+</associations>
+</Column>
+<Column name="BOARD_ADDRESS" id="07C06A76-548E-7AE0-DBA1-20E2C5AF36B2">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_ADDRESS</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300 BYTE</dataTypeSize>
+<ownDataTypeParameters>300 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOARD_LAT" id="EEE1FE76-FCAA-EDCC-AF48-7084E71BF7A5">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_LAT</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOARD_LNG" id="5EEDA90C-46B1-82A8-FCD2-32D1F64C7DE9">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_LNG</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PLACE_ID" id="F257CC80-F622-09CA-E024-C573C9E1625A">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>PLACE_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300 BYTE</dataTypeSize>
+<ownDataTypeParameters>300 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOARD_REGDATE" id="D75A0ED2-B437-E3C3-AB70-E2624E42A02F">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_REGDATE</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,6,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOARD_VIEWS" id="D959964C-8202-246B-0346-4833D3264000">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD</sourceObjSchema>
+<sourceObjName>BOARD_VIEWS</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="05F62172-7A88-00ED-DBD8-7E09A45345EB" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="BOARD_PK">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>SYS_C008360</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CF8DC787-E69D-F141-5F2C-4A8A8B0716AE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D888C0FF-CB14-85A2-7FCA-B54183C35518" name="BOARD_USER_ID">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BF131C44-5DB1-A41F-962D-9C5825CD906E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

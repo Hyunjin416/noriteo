@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="ORDERS" directorySegmentName="seg_0" id="5CE81521-6BC8-B4D7-11FC-470689E91A0C">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>1565B994-BA63-3760-596F-52DF815C0E9B</segment>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="SELLER_NAME" id="07A1891F-E4CC-4103-4965-2B6E9D58C430">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TOTAL_AMOUNT" id="1E9AF227-652E-2AE1-0EC0-86395C1E78C6">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PAYMENT_METHOD" id="5C596FAD-9D07-D891-7F46-ECABFFBE3A66">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<defaultValue>&apos;카드&apos;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="ORDER_DATE" id="5E8EEF79-39EE-675E-AEBD-5DE748091C19">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="USER_ID" id="832A9526-A678-18FB-38FD-094592EB9CB8">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PRODUCT_ID" id="87B381A4-F688-ACE7-FAB8-F2EFEAD31C02">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CUSTOMER_NAME" id="8CD86C98-171C-8E9D-0D47-B9C6E0A06BC0">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="STATUS" id="948B2D26-D53B-02D9-DF3F-D938403D893B">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<defaultValue>&apos;PENDING&apos;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="PAYMENT_KEY" id="C210AE61-2256-2FBD-34FF-38B31A43E5CF">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ORDER_ID" id="DF5FB55C-A0E1-3776-691A-31A4F8CA37D4">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PRODUCT_NAME" id="F28FB32C-E21D-DB0A-C4C3-BBFA316ED848">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="ORDERS_PRODUCT_ID" id="36D7BED7-B60B-8626-DA35-72DDF1DF3BE5">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="ORDERS_USER_ID" id="8611ADA0-3EFE-A672-65AD-F51271EE8073">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="ORDERS_PK" id="45241592-83CB-A245-D472-6325A35CDC93">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+<segment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</segment>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<indexSegment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="ORDERS_PAYMENT_KEY_UN" id="6E80DEFC-3225-CBB2-FFF5-5BED7AA93D27">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+<segment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</segment>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<indexSegment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev20c>

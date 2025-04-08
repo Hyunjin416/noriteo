@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B868132E-F813-3007-61D3-2B734ACEE91A" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="ROLE">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>ROLE</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ROLE_ID" id="285B6489-20BA-3935-7A0C-48CA48BA8377">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ROLE</sourceObjSchema>
+<sourceObjName>ROLE_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ROLE_NAME" id="478A1D7F-FA5E-C3DA-CD81-FF8C5ED75551">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ROLE</sourceObjSchema>
+<sourceObjName>ROLE_NAME</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2F0EBE0B-4E4B-8651-5F87-FD37C06BE7CB" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="ROLE_PK">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>SYS_C008355</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="285B6489-20BA-3935-7A0C-48CA48BA8377"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

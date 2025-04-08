@@ -1,0 +1,229 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5CE81521-6BC8-B4D7-11FC-470689E91A0C" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="ORDERS">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>ORDERS</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ORDER_ID" id="DF5FB55C-A0E1-3776-691A-31A4F8CA37D4">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>ORDER_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_ID" id="832A9526-A678-18FB-38FD-094592EB9CB8">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="24542032-1DD7-6524-967D-70CAA1766BE5" referredColumn="E19C8E63-BA8A-5610-323F-04AC7CD97AF7"/>
+</associations>
+</Column>
+<Column name="PRODUCT_ID" id="87B381A4-F688-ACE7-FAB8-F2EFEAD31C02">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>PRODUCT_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="906E5B3D-5B78-C40B-F1F9-6201D5632220" referredColumn="021735D5-C5BD-7558-85CC-B7BBD95DCBE9"/>
+</associations>
+</Column>
+<Column name="PRODUCT_NAME" id="F28FB32C-E21D-DB0A-C4C3-BBFA316ED848">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>PRODUCT_NAME</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAYMENT_METHOD" id="5C596FAD-9D07-D891-7F46-ECABFFBE3A66">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>PAYMENT_METHOD</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<defaultValue>&apos;카드&apos;</defaultValue>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TOTAL_AMOUNT" id="1E9AF227-652E-2AE1-0EC0-86395C1E78C6">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>TOTAL_AMOUNT</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,19,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STATUS" id="948B2D26-D53B-02D9-DF3F-D938403D893B">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>STATUS</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<defaultValue>&apos;PENDING&apos;</defaultValue>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ORDER_DATE" id="5E8EEF79-39EE-675E-AEBD-5DE748091C19">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>ORDER_DATE</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,6,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAYMENT_KEY" id="C210AE61-2256-2FBD-34FF-38B31A43E5CF">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>PAYMENT_KEY</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUSTOMER_NAME" id="8CD86C98-171C-8E9D-0D47-B9C6E0A06BC0">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>CUSTOMER_NAME</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SELLER_NAME" id="07A1891F-E4CC-4103-4965-2B6E9D58C430">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>ORDERS</sourceObjSchema>
+<sourceObjName>SELLER_NAME</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="45241592-83CB-A245-D472-6325A35CDC93" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="ORDERS_PK">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>SYS_C008392</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DF5FB55C-A0E1-3776-691A-31A4F8CA37D4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6E80DEFC-3225-CBB2-FFF5-5BED7AA93D27" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="ORDERS_PAYMENT_KEY_UN">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>SYS_C008393</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C210AE61-2256-2FBD-34FF-38B31A43E5CF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="36D7BED7-B60B-8626-DA35-72DDF1DF3BE5" name="ORDERS_PRODUCT_ID">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="87B381A4-F688-ACE7-FAB8-F2EFEAD31C02"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8611ADA0-3EFE-A672-65AD-F51271EE8073" name="ORDERS_USER_ID">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="832A9526-A678-18FB-38FD-094592EB9CB8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
