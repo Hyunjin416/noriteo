@@ -1,69 +1,175 @@
+.signup-div {
+  display: flex;
+}
+
+.signup-icon {
+  width: 400px;
+  /* height: 1000px; */
+  line-height: 900px;
+  margin-left: 5%;
+  margin-right: 5%;
+  /* border: 1px solid black; */
+}
+
+
 .signup-container {
-  max-width: 400px;
-  margin: 20px auto;
+  margin-top: 100px;
+  width: 600px;
+  margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
+  font-size: 18px; /* 기본 폰트 크기 증가 */
 }
 
 .signup-container h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #333;
+  font-size: 24px; /* 제목 크기 증가 */
 }
 
-.signup-container input, 
-.signup-container select {
-  width: calc(100% - 20px);
-  padding: 12px;
-  margin: 6px 0 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.signup-container button {
-  width: 100%;
-  padding: 12px;
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-  border: 1px solid black;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-.signup-container button:hover {
-  background-color: #000000;
-}
-
-.signup-container .multi-input {
+.signup-container form {
   display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.emailDiv,
+.passwordDiv,
+.repasswordDiv,
+.userNameDiv,
+.genderDiv,
+.birthDiv,
+.mobileDiv,
+.phoneDiv,
+.zipcodeDiv,
+.address1Div,
+.address2Div,
+.profileImageDiv,
+.submitDiv {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-.signup-container .multi-input input {
-  flex: 1;
+.emailDiv p,
+.passwordDiv p,
+.repasswordDiv p,
+.userNameDiv p,
+.genderDiv p,
+.birthDiv p,
+.mobileDiv p,
+.phoneDiv p,
+.zipcodeDiv p,
+.address1Div p,
+.address2Div p,
+.profileImageDiv p {
   margin: 0;
+  min-width: 130px;
+  font-weight: bold;
+  color: #000000;
+  font-size: 18px; /* 텍스트 크기 증가 */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+.emailInput,
+.passwordInput,
+.repasswordInput,
+.userNameInput,
+.genderInput,
+.birthInput,
+.mobileInput,
+.phoneInput,
+.zipcodeInput,
+.address1Input,
+.address2Input {
+  padding: 12px; /* 높이 증가 */
+  margin-left: auto;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  font-size: 16px; /* 입력 필드 글자 크기 증가 */
+}
+
+input[type="file"] {
+  width: 100%;
+  font-size: 16px;
+}
+
+.zipcodeBtn {
+  height: 44px; /* 입력 필드와 높이 일관성 유지 */
+  width: 200px;
+  padding: 0 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #faa91e;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 5px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px; /* 버튼 글자 크기 증가 */
+}
+
+.zipcodeBtn:hover {
+  background-color: #e0971a;
+}
+
+.submitBtn {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #00a63e;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  font-size: 18px; /* 버튼 글자 크기 증가 */
+}
+
+.submitBtn:hover {
+  background-color: #029136;
 }
 
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  max-width: 400px;
-  width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content button {
+  margin-top: 10px;
+  background-color: #dc3545;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.modal-content button:hover {
+  background-color: #c82333;
 }

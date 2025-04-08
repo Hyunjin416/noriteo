@@ -21,12 +21,17 @@ export default function Login() {
           password,
         },
         {
-          withCredentials: true,
+          withCredentials: true, // 쿠키 전송 허용
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
       if (response.status === 200) {
         alert("로그인 성공!");
+        // ✅ 리다이렉트는 프론트엔드에서 처리
+        window.location.href = "http://localhost:5173/";
       }
     } catch (error) {
       console.error(
@@ -38,33 +43,55 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2>로그인</h2>
-      <div>
-        <input
-          type="email"
-          id="email"
-          placeholder="이메일을 입력하세요"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          ref={emailInputRef}
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          placeholder="비밀번호를 입력하세요"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          ref={passwordInputRef}
-          required
-        />
-        <button onClick={handleLogin}>로그인</button>
+    <div className="login-div">
+      <div className="login-icon">
+        <img src="../../../../public/noriteoLogo2.ico" width="300px" />
       </div>
-      <div className="social-login">
-        <KakaoLogin />
-        <GoogleLogin />
-        <NaverLogin />
+      <div className="login-container">
+        <h2>로그인</h2>
+        <div>
+          <input
+            type="email"
+            id="email-input"
+            placeholder="이메일을 입력하세요"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+            ref={emailInputRef}
+            required
+          />
+          <input
+            type="password"
+            id="password-input"
+            placeholder="비밀번호를 입력하세요"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            ref={passwordInputRef}
+            required
+          />
+          <button className="normal-login-btn" onClick={handleLogin}>
+            로그인
+          </button>
+        </div>
+
+        <div className="find-email-pw-div">
+          <div className="find-email-pw-inner">
+            <span className="find-email">이메일 찾기</span>
+            <span className="divider">|</span>
+            <span className="find-pw">비밀번호 찾기</span>
+          </div>
+        </div>
+
+        <div className="social-login-div">
+          <div className="kakao-login-btn">
+            <KakaoLogin />
+          </div>
+          <div className="google-login-btn">
+            <GoogleLogin />
+          </div>
+          <div className="naver-login-btn">
+            <NaverLogin />
+          </div>
+        </div>
       </div>
     </div>
   );
