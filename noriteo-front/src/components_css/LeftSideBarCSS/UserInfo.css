@@ -54,9 +54,10 @@
   background-color: #fff;
   cursor: pointer;
   transition: background-color 0.2s;
+  color:#000000;
 }
 
 /*내 정보 보기 버튼 마우스 올려놨을 때 효과*/
 .userInfoButton:hover {
-  background-color: #eaeaea;
+  background-color: #eafcaa;
 }

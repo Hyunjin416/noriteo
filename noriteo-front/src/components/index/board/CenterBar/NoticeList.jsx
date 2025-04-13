@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../../../components_css/index/board/Notice.css";
+import "../../../../components_css/CenterBarCSS/NoticeList.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Notice() {
+export default function NoticeList() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
@@ -12,10 +12,10 @@ export default function Notice() {
       .get("http://localhost:8080/api/board") // ✅ 백엔드 api
       .then((response) => {
         const allPosts = response.data;
-        const noticePosts = allPosts
+        const NoticeListPosts = allPosts
           .filter((post) => post.board_type === "공지사항") // ✅ board_type으로 필터링
           .slice(0, 6);
-        setPosts(noticePosts);
+        setPosts(NoticeListPosts);
       })
       .catch((error) => {
         console.error("공지사항 불러오기 실패:", error);
@@ -23,22 +23,22 @@ export default function Notice() {
   }, []);
 
   return (
-    <div className="NoticeContainer">
-      <div className="noticeHeader">
-        <h4 className="noticeTitle">공지사항</h4>
+    <div className="NoticeListContainer">
+      <div className="NoticeListHeader">
+        <h4 className="NoticeListTitle">공지사항</h4>
         <button
-          className="noticeMoreBtn"
+          className="NoticeListMoreBtn"
           onClick={() => navigate("/PostBoard?board_type=공지사항")} // ✅ 통일된 파라미터
         >
           전체보기
         </button>
       </div>
 
-      <div className="noticeGrid">
+      <div className="NoticeListGrid">
         {posts.length > 0 ? (
           posts.map((post) => (
             <div
-              className="noticeCard"
+              className="NoticeListCard"
               key={post.board_id} // ✅ 고유 ID 사용
               onClick={() => navigate(`/post/${post.board_id}`)}
             >

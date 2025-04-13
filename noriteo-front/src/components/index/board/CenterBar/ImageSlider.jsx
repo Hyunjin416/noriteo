@@ -1,11 +1,11 @@
-// CardSlider.jsx
+// ImageSlider.jsx
 import React, { useRef } from "react";
-import "../../../components_css/index/board/CardSlider.css";
+import "../../../../components_css/CenterBarCSS/ImageSlider.css";
 import { useNavigate } from "react-router-dom";
 
 const SCROLL_AMOUNT = 200;
 
-export default function CardSlider({ cards = [] }) {
+export default function ImageSlider({ cards = [] }) {
   const sliderRef = useRef(null);
   const navigate = useNavigate();
 

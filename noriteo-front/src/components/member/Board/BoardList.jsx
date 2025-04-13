@@ -1,11 +1,11 @@
-// PostList.jsx
+// BoardList.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../components_css/PostBoard/PostList.css";
+import "../../../components_css/BoardCSS/BoardList.css";
 import { useNavigate } from "react-router-dom";
-import CardSlider from "../index/board/CardSlider"; // 추가
+import ImageSlider from "../../index/board/CenterBar/ImageSlider.jsx"; // 추가
 
-const PostList = ({ boardType, sortType }) => {
+const BoardList = ({ boardType, sortType }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -58,7 +58,7 @@ const PostList = ({ boardType, sortType }) => {
   return (
     <>
       {/* ✅ 카드 슬라이더에 props로 전달 */}
-      <CardSlider cards={posts.slice(0, 10)} /> {/* 최대 10개만 출력 */}
+      <ImageSlider cards={posts.slice(0, 10)} /> {/* 최대 10개만 출력 */}
 
       <div className="board-table-container">
         <table className="board-table">
@@ -118,4 +118,4 @@ const PostList = ({ boardType, sortType }) => {
   );
 };
 
-export default PostList;
+export default BoardList;

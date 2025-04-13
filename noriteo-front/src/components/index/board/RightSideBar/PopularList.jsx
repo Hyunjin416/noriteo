@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../../components_css/index/board/PopularPosts.css";
+import "../../../../components_css/RightSideBarCSS/PopularList.css";
 import { useNavigate } from "react-router-dom";
 
-export default function PopularPosts() {
+export default function PopularList() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPopularPosts = async () => {
+    const fetchPopularList = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/board"); // ✅ 백엔드 API
         const sortedByViews = response.data
@@ -20,7 +20,7 @@ export default function PopularPosts() {
       }
     };
 
-    fetchPopularPosts();
+    fetchPopularList();
   }, []);
 
   const handlePostClick = (postId) => {

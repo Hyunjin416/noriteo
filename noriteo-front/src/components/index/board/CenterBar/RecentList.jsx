@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../../../components_css/index/board/RealTimeNew.css";
+import "../../../../components_css/CenterBarCSS/RecentList.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function RealTimeNew() {
+export default function RecentList() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
@@ -37,19 +37,19 @@ export default function RealTimeNew() {
   };
 
   return (
-    <div className="realtimeNewContainer">
-      <div className="realtimeNewHeader">
-        <h4 className="realtimeNewTitle">최신글</h4>
-        <button className="realtimeNewButton" onClick={handleViewAll}>
+    <div className="RecentListContainer">
+      <div className="RecentListHeader">
+        <h4 className="RecentListTitle">최신글</h4>
+        <button className="RecentListButton" onClick={handleViewAll}>
           전체보기
         </button>
       </div>
 
-      <ul className="realtimeNewList">
+      <ul className="RecentListList">
         {posts.map((post) => (
           <li
             key={post.board_id}
-            className="realtimeNewItem"
+            className="RecentListItem"
             onClick={() => handlePostClick(post.board_id)}
           >
             <span className="newPostTitle" title={post.board_title}>

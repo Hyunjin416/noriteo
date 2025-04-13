@@ -10,11 +10,11 @@
   }
   
   /*CenterContent.jsx의 위치 지정*/
-  /*.boardMainCenter {
+  .boardMainCenter {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }*/
+  }
   
   /*RightSidebar.jsx의 위치 지정*/
   .boardMainRight {

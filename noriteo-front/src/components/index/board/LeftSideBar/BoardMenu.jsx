@@ -1,18 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../components_css/index/board/BoardMenu.css";
+import "../../../../components_css/LeftSideBarCSS/BoardMenu.css";
+
 
 export default function BoardMenu() {
   const navigate = useNavigate();
 
   // 전체 글 보기
   const handleAllPosts = () => {
-    navigate("/PostBoard"); // 쿼리 없이 이동하면 전체 게시글 보기
+    navigate("/BoardPage"); // 쿼리 없이 이동하면 전체 게시글 보기
   };
 
   // 글쓰기 페이지 이동
   const handleWritePost = () => {
-    navigate("/board/write");
+    navigate("/BoardWrite");
   };
 
   // 게시판 카테고리 목록
@@ -26,7 +27,7 @@ export default function BoardMenu() {
 
   // 특정 카테고리로 이동
   const handleCategory = (categoryName) => {
-    navigate(`/PostBoard?board_type=${encodeURIComponent(categoryName)}`);
+    navigate(`/BoardList?board_type=${encodeURIComponent(categoryName)}`);
   };
 
   return (

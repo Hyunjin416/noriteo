@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 // import HomePage from "@/components/index/HomePage.jsx";
-import IndexPage from "@/components/index/IndexPage.jsx";
+import HomePage from "@/components/index/HomePage.jsx";
 import Container from "../../layouts/container/Container.jsx";
-import BoardMain from "../../components/index/BoardMain.jsx";
-import PostBoardPage from "../../components/PostBoard/PostBoardPage.jsx";
+//import BoardMain from "../../components/index/BoardMain.jsx";
+import BoardPage from "../../components/member/Board/BoardPage.jsx";
+import BoardWrite from "../../components/member/Board/BoardWrite.jsx";
 
 const Index = () => {
   return (
@@ -14,11 +15,13 @@ const Index = () => {
 
       {/* 공통 레이아웃 Container 적용 (header, footer) */}
       <Route element={<Container />}>
-        {/* 기본 경로 / 에서 IndexPage 보여주기 */}
-        <Route index element={<IndexPage />} />
+        {/* 기본 경로 / 에서 HomePage 보여주기 */}
+        <Route index element={<HomePage />} />
 
-        {/* /PostBoard 경로에서 PostBoardPage 보여주기 */}
-        <Route path="PostBoard" element={<PostBoardPage />} />
+        {/* /BoardPage 경로에서 BoardPage 보여주기 */}
+        <Route path="BoardPage" element={<BoardPage />} />
+        <Route path="BoardWrite" element={<BoardWrite />} />
+        
       </Route>
     </Routes>
     // </ChatProvider>
