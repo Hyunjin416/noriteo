@@ -1,0 +1,30 @@
+.navContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: transparent;
+  border-bottom: 1px solid #ddd;
+}
+
+.navContainer button {
+  padding: 8px 14px;
+  font-size: 14px;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  color : #000000
+}
+
+.navContainer button:hover {
+  background-color: #eafcaa;
+}
+
+/* 현재 선택된 카테고리 버튼 강조 */
+.navContainer button.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}

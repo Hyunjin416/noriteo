@@ -1,0 +1,6 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SchemaObject class="oracle.dbtools.crest.model.design.relational.SchemaObject" name="NORITEST" directorySegmentName="seg_0" id="F33F1C28-5CA0-E530-B18E-545618F60637">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</SchemaObject>

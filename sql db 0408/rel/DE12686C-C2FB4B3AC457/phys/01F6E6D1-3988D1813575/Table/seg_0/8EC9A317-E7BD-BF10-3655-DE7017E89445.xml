@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="BOARD_SAVE" directorySegmentName="seg_0" id="8EC9A317-E7BD-BF10-3655-DE7017E89445">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>1565B994-BA63-3760-596F-52DF815C0E9B</segment>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="BOARD_ID" id="4A4DCA66-59C7-F366-9BEE-5CCE802A4DCB">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BOARD_SAVE_REGDATE" id="6F5BDC5F-AD81-9ABC-F9E8-B4565D063FCE">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="BOARD_SAVE_ID" id="D72262AD-2B14-3221-0DDA-B9F6B54D702C">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USER_ID" id="EADA01EF-E0F8-BED1-7724-58FFA795D3DF">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="BOARD_SAVE_USER_ID" id="540ADBC9-F6DA-5210-5B8F-A4DB9209001D">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="BOARD_SAVE_BOARD_ID" id="6315E3EC-7083-9F3D-D111-6EDFFEA7EB6A">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="BOARD_SAVE_PK" id="1DC7C489-9FE4-5F1C-E7DD-AE3170B976FD">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+<segment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</segment>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<indexSegment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

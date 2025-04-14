@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="82AD2EAB-47F7-4744-7967-1E12C0BD6B81" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="PRODUCT_PIC">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>PRODUCT_PIC</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PRODUCT_PIC_ID" id="7E9B6FEF-3697-E6E0-9BFE-C68C3ED1AB04">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>PRODUCT_PIC</sourceObjSchema>
+<sourceObjName>PRODUCT_PIC_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PRODUCT_ID" id="C99E5B85-2BFF-8FE4-F73A-93AF232CC361">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>PRODUCT_PIC</sourceObjSchema>
+<sourceObjName>PRODUCT_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="467FB129-F7DA-39B3-882D-424CBAED75BD" referredColumn="021735D5-C5BD-7558-85CC-B7BBD95DCBE9"/>
+</associations>
+</Column>
+<Column name="PRODUCT_PIC_URL" id="7496170F-11DE-20E8-8D65-C7F7E4B1373F">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>PRODUCT_PIC</sourceObjSchema>
+<sourceObjName>PRODUCT_PIC_URL</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PRODUCT_PIC_ORDER" id="082FDDC3-4A55-D710-A3D9-14AEE55D9050">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>PRODUCT_PIC</sourceObjSchema>
+<sourceObjName>PRODUCT_PIC_ORDER</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<defaultValue>1</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3370B095-99AF-3AE7-5F76-56CAC3034888" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="PRODUCT_PIC_PK">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>SYS_C008379</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7E9B6FEF-3697-E6E0-9BFE-C68C3ED1AB04"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="73DB1634-3319-206F-6EF6-1BB5EB7EDF41" name="PRODUCT_PIC_PRODUCT_ID">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C99E5B85-2BFF-8FE4-F73A-93AF232CC361"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,62 @@
+/* src/components/board/LeftSidebar.css */
+/* 이 파일 없어도 작동. 이미 각 컴포넌트 css 파일을 만들어놓아서 그런 것 같다. 코드 내용도 같기 때문에 없애도 문제 없을 듯 함(물어보고) */
+
+.userInfoContainer {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color : #000000;
+    
+}
+
+.boardMenuContainer {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color : #000000;
+   
+}
+
+.boardMenuTitle {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color : #000000;
+}
+
+.boardMenuCategory {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 0.3rem;
+    color : #000000;
+}
+
+.boardMenuSection button {
+    display: block;
+    width: 100%;
+    margin: 0.3rem 0;
+    padding: 0.5rem 0.8rem;
+    background-color: transparent;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    color : #000000;
+}
+
+.boardMenuSection button:hover {
+    background-color: #eafcaa;
+}
+
+.board-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+

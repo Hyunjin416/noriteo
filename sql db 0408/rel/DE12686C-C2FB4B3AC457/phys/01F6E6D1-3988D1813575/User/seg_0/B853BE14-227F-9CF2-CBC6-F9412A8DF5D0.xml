@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<UserOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" name="NORITEST" directorySegmentName="seg_0" id="B853BE14-227F-9CF2-CBC6-F9412A8DF5D0">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjName>NORITEST</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+</UserOraclev10g>

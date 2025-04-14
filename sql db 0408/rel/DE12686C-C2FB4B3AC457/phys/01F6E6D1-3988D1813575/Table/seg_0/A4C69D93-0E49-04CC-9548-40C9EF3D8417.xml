@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="BOARD" directorySegmentName="seg_0" id="A4C69D93-0E49-04CC-9548-40C9EF3D8417">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>1565B994-BA63-3760-596F-52DF815C0E9B</segment>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="BOARD_ADDRESS" id="07C06A76-548E-7AE0-DBA1-20E2C5AF36B2">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BOARD_TYPE" id="11776B3A-4E11-7B01-E802-3DAAC1C69C43">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BOARD_CONTENT" id="57AD24EC-ACE6-4133-1311-02763001122A">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BOARD_LNG" id="5EEDA90C-46B1-82A8-FCD2-32D1F64C7DE9">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BOARD_TITLE" id="63DFEBC0-ED3E-07CC-0718-95EC2CB52AAF">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USER_ID" id="BF131C44-5DB1-A41F-962D-9C5825CD906E">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BOARD_ID" id="CF8DC787-E69D-F141-5F2C-4A8A8B0716AE">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BOARD_REGDATE" id="D75A0ED2-B437-E3C3-AB70-E2624E42A02F">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="BOARD_VIEWS" id="D959964C-8202-246B-0346-4833D3264000">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="BOARD_LAT" id="EEE1FE76-FCAA-EDCC-AF48-7084E71BF7A5">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PLACE_ID" id="F257CC80-F622-09CA-E024-C573C9E1625A">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="BOARD_USER_ID" id="D888C0FF-CB14-85A2-7FCA-B54183C35518">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<lobStorages>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000078312C00004$$" id="41ED5B4F-4C81-3B0B-C743-4DE3DB022AB7">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>BOARD_CONTENT</column>
+<compression>NO</compression>
+<duplication>KEEP_DUPLICATES</duplication>
+<logging>YES</logging>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<lobStorageType>SECUREFILE</lobStorageType>
+</LobStorage>
+</lobStorages>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="BOARD_PK" id="05F62172-7A88-00ED-DBD8-7E09A45345EB">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<schemaObject>F33F1C28-5CA0-E530-B18E-545618F60637</schemaObject>
+<segment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</segment>
+<tableSpace>30B0DBF2-99A6-64B8-794B-20440D658D2E</tableSpace>
+<indexSegment>FD93041B-2EB0-DD20-9D7C-D8163C9A94D5</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

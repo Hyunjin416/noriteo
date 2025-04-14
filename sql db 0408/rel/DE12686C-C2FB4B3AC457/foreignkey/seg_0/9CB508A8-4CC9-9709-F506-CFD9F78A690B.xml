@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="9CB508A8-4CC9-9709-F506-CFD9F78A690B" containerWithKeyObject="1E11E9D5-7C0E-DA64-21CD-1D66AF0B4430" localFKIndex="EE3C2E3F-40C9-1FCE-D4C8-92FB13D3975E" name="USERS_ROLE_ID">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>USERS_ROLE_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<referredTableLongName>NORITEST.ROLE</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>B868132E-F813-3007-61D3-2B734ACEE91A</referredTableID>
+<keyObject>2F0EBE0B-4E4B-8651-5F87-FD37C06BE7CB</keyObject>
+<referredKeyID>2F0EBE0B-4E4B-8651-5F87-FD37C06BE7CB</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>ROLE_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

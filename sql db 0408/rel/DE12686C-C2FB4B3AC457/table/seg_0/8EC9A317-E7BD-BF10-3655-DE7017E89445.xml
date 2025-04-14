@@ -1,0 +1,111 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8EC9A317-E7BD-BF10-3655-DE7017E89445" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="BOARD_SAVE">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>BOARD_SAVE</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="BOARD_SAVE_ID" id="D72262AD-2B14-3221-0DDA-B9F6B54D702C">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD_SAVE</sourceObjSchema>
+<sourceObjName>BOARD_SAVE_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_ID" id="EADA01EF-E0F8-BED1-7724-58FFA795D3DF">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD_SAVE</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="02E4EA5D-FDCA-6027-82AE-36FDC5CC5134" referredColumn="E19C8E63-BA8A-5610-323F-04AC7CD97AF7"/>
+</associations>
+</Column>
+<Column name="BOARD_ID" id="4A4DCA66-59C7-F366-9BEE-5CCE802A4DCB">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD_SAVE</sourceObjSchema>
+<sourceObjName>BOARD_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8CDC0F01-470C-88EC-BE11-C1B014F0A648" referredColumn="CF8DC787-E69D-F141-5F2C-4A8A8B0716AE"/>
+</associations>
+</Column>
+<Column name="BOARD_SAVE_REGDATE" id="6F5BDC5F-AD81-9ABC-F9E8-B4565D063FCE">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>BOARD_SAVE</sourceObjSchema>
+<sourceObjName>BOARD_SAVE_REGDATE</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,6,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1DC7C489-9FE4-5F1C-E7DD-AE3170B976FD" schemaObject="F33F1C28-5CA0-E530-B18E-545618F60637" name="BOARD_SAVE_PK">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>SYS_C008372</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:44 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D72262AD-2B14-3221-0DDA-B9F6B54D702C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6315E3EC-7083-9F3D-D111-6EDFFEA7EB6A" name="BOARD_SAVE_BOARD_ID">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4A4DCA66-59C7-F366-9BEE-5CCE802A4DCB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="540ADBC9-F6DA-5210-5B8F-A4DB9209001D" name="BOARD_SAVE_USER_ID">
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EADA01EF-E0F8-BED1-7724-58FFA795D3DF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

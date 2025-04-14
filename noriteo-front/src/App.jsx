@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Index from "./pages/index/Index.jsx";
 import Member from "./pages/member/Member.jsx";
 import Admin from "./pages/admin/Admin.jsx";
+//import PostPage from "./pages/PostPage/PostPage.jsx";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/*" element={<Index />} />
         <Route path="/member/*" element={<Member />} />
         <Route path="/admin/*" element={<Admin />} />
+       
       </Routes>
     </BrowserRouter>
   );

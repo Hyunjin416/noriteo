@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="906E5B3D-5B78-C40B-F1F9-6201D5632220" containerWithKeyObject="5CE81521-6BC8-B4D7-11FC-470689E91A0C" localFKIndex="36D7BED7-B60B-8626-DA35-72DDF1DF3BE5" name="ORDERS_PRODUCT_ID">
+<sourceConnName>로컬-NORITEST</sourceConnName>
+<sourceObjSchema>NORITEST</sourceObjSchema>
+<sourceObjName>ORDERS_PRODUCT_ID</sourceObjName>
+<createdBy>jbg94</createdBy>
+<createdTime>2025-04-08 12:37:45 UTC</createdTime>
+<ownerDesignName>sql db 0408</ownerDesignName>
+<referredTableLongName>NORITEST.PRODUCT</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>FED144C0-4529-9509-99B5-D1FCC43D17DC</referredTableID>
+<keyObject>2BFAFB4D-CB07-A499-72FE-ABDB36CC9247</keyObject>
+<referredKeyID>2BFAFB4D-CB07-A499-72FE-ABDB36CC9247</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>PRODUCT_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
