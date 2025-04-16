@@ -57,12 +57,12 @@ public class KakaoUsersController {
             response.addHeader("Set-Cookie", accessTokenCookie.toString());
             response.addHeader("Set-Cookie", refreshTokenCookie.toString());
 
-            log.info("✅ 카카오 로그인 성공 - AccessToken, RefreshToken 쿠키 설정 완료");
+            log.info("카카오 로그인 성공 - AccessToken, RefreshToken 쿠키 설정 완료");
 
-            // ✅ 리다이렉트 URL 응답
+            // 리다이렉트 URL 응답
             return ResponseEntity.ok(Map.of("message", "카카오 로그인 성공", "redirect", "/"));
         } catch (IllegalArgumentException e) {
-            log.error("❌ 카카오 로그인 실패: {}", e.getMessage());
+            log.error("카카오 로그인 실패: {}", e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", "카카오 로그인 실패", "error", e.getMessage()));
         }
     }

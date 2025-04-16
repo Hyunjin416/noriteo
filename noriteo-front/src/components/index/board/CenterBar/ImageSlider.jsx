@@ -1,6 +1,6 @@
 // ImageSlider.jsx
 import React, { useRef } from "react";
-import "../../../../components_css/CenterBarCSS/ImageSlider.css";
+import "@/components_css/index/board/centerBar/ImageSlider.css";
 import { useNavigate } from "react-router-dom";
 
 const SCROLL_AMOUNT = 200;

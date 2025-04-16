@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../../components_css/NevigationBarCSS/NevigationMenu.css";
+import "@/components_css/index/board/NevigationBar/NevigationMenu.css";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NavigationMenu() {
@@ -25,7 +25,7 @@ export default function NavigationMenu() {
           key={category}
           className={currentBoardType === category ? "active" : ""}
           onClick={() =>
-            navigate(`/BoardList?board_type=${encodeURIComponent(category)}`)
+            navigate(`/boardList?board_type=${encodeURIComponent(category)}`)
           }
         >
           {category}

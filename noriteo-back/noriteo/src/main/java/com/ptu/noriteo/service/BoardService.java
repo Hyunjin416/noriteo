@@ -36,7 +36,7 @@ public class BoardService {
         boardMapper.deleteBoard(boardId);
     }
 
-    // 🆕 게시글 + 사진 저장
+    // 게시글 + 사진 저장
     @Transactional
     public void createBoard(Board board, List<MultipartFile> pics) {
         boardMapper.insertBoard(board);
@@ -45,13 +45,12 @@ public class BoardService {
         int order = 1;
         for (MultipartFile file : pics) {
             if (!file.isEmpty()) {
-                String url = fileUploadService.upload(file); // 저장 후 URL 리턴
+                String url = fileUploadService.upload("board", file); // "board" 폴더에 저장
 
                 BoardPic pic = new BoardPic();
                 pic.setBoardId(boardId);
                 pic.setBoardPicUrl(url);
                 pic.setBoardPicOrder(order++);
-
                 boardPicMapper.insertPic(pic);
             }
         }
@@ -59,19 +58,17 @@ public class BoardService {
 
     @Transactional
     public void updateBoardWithPics(Board board, List<MultipartFile> pics) {
-        boardMapper.updateBoard(board); // 게시글 수정
-        boardPicMapper.deleteByBoardId(board.getBoardId()); // 기존 사진 삭제
+        boardMapper.updateBoard(board);
+        boardPicMapper.deleteByBoardId(board.getBoardId());
 
         int order = 1;
         for (MultipartFile file : pics) {
             if (!file.isEmpty()) {
-                String url = fileUploadService.upload(file); // 이미지 저장
-                BoardPic pic =
-                        new BoardPic(board.getBoardId(), url, order++);
+                String url = fileUploadService.upload("board", file); // 동일하게 "board"
+
+                BoardPic pic = new BoardPic(board.getBoardId(), url, order++);
                 boardPicMapper.insertPic(pic);
             }
         }
     }
-
-
 }

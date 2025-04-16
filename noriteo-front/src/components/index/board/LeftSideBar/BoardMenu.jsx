@@ -1,19 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../../components_css/LeftSideBarCSS/BoardMenu.css";
-
+import "@/components_css/index/board/LeftSideBar/BoardMenu.css";
 
 export default function BoardMenu() {
   const navigate = useNavigate();
 
   // 전체 글 보기
   const handleAllPosts = () => {
-    navigate("/BoardPage"); // 쿼리 없이 이동하면 전체 게시글 보기
+    navigate("/boardPage"); // 쿼리 없이 이동하면 전체 게시글 보기
   };
 
   // 글쓰기 페이지 이동
   const handleWritePost = () => {
-    navigate("/BoardWrite");
+    navigate("/boardWrite");
   };
 
   // 게시판 카테고리 목록

@@ -21,8 +21,8 @@ public class BoardController {
         return boardService.getBoardList();
     }
 
-    @GetMapping("/detail/{id}")
-    public Board detailBoard(@PathVariable("id") Long boardId) {
+    @GetMapping("/detail/{boardId}")
+    public Board detailBoard(@PathVariable("boardId") Long boardId) {
         return boardService.getBoardDetail(boardId);
     }
 
@@ -32,18 +32,16 @@ public class BoardController {
         boardService.createBoard(board, pics);
     }
 
-    @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void updateBoard(@PathVariable("id") Long id,
+    @PutMapping(value = "/update/{boardId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void updateBoard(@PathVariable("boardId") Long id,
                             @RequestPart("board") Board board,
                             @RequestPart("pics") List<MultipartFile> pics) {
         board.setBoardId(id);
         boardService.updateBoardWithPics(board, pics); // 서비스단에서 사진까지 처리
     }
 
-
-
-    @DeleteMapping("/delete/{id}")
-    public void deleteBoard(@PathVariable("id") Long boardId) {
+ @DeleteMapping("/delete/{boardId}")
+    public void deleteBoard(@PathVariable("boardId") Long boardId) {
         boardService.deleteBoard(boardId);
     }
 

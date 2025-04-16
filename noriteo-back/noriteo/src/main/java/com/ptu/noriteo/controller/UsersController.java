@@ -39,7 +39,7 @@ public class UsersController {
             users.setSysUser("saved_" + fileName);
         }
 
-        usersService.registerUsers(users);
+        usersService.registerUsers(users, profileImage);
         return ResponseEntity.ok("회원가입 성공");
     }
 

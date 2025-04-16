@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../../../components_css/RightSideBarCSS/PopularList.css";
+import "@/components_css/index/board/RightSideBar/PopularList.css";
 import { useNavigate } from "react-router-dom";
 
 export default function PopularList() {
@@ -28,7 +28,7 @@ export default function PopularList() {
   };
 
   const handleViewAll = () => {
-    navigate("/PostBoard?sort=views"); // ✅ 조회수 기준 전체보기
+    navigate("/postBoard?sort=views"); // ✅ 조회수 기준 전체보기
   };
 
   return (
