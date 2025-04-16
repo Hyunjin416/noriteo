@@ -1,5 +1,5 @@
 import React from "react";
-import "../../components_css/BoardCSS/BoardPage.css";
+import "@/components_css/board/BoardPage.css";
 import NevigationMenu from "./board/NevigationBar/NevigationMenu";
 import LeftSideSet from "./board/LeftSideBar/LeftSideSet";
 import CenterSet from "./board/CenterBar/CenterSet";

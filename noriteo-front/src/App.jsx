@@ -3,16 +3,26 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Index from "./pages/index/Index.jsx";
 import Member from "./pages/member/Member.jsx";
 import Admin from "./pages/admin/Admin.jsx";
+import Board from "./pages/board/Board.jsx";
+import Product from "./pages/product/Product.jsx";
 //import PostPage from "./pages/PostPage/PostPage.jsx";
+{
+  /* <script
+  src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${
+    import.meta.env.REACT_APP_KAKAO_MAP_API_KEY
+  }`}
+></script>; */
+}
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/admin/*" element={<Admin />} />
+        <Route path="/board/*" element={<Board />} />
         <Route path="/*" element={<Index />} />
         <Route path="/member/*" element={<Member />} />
-        <Route path="/admin/*" element={<Admin />} />
-       
+        <Route path="/product/*" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );

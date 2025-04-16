@@ -1,7 +1,7 @@
 // User 정보를 보여주는 컴포넌트(프로필사진, 이름, 가입일 작성글, 작성 댓글, 작성 거래글)
 // src/components/board/UserInfo.jsx
 import React from "react";
-import "../../../../components_css/LeftSideBarCSS/UserInfo.css";
+import "@/components_css/index/board/LeftSideBar/UserInfo.css";
 
 export default function UserInfo() {
   // -----------------------------------------
@@ -49,7 +49,7 @@ export default function UserInfo() {
         />
         <div className="userInfoDetails">
           <p className="userInfoRow">
-            <strong>{userName}</strong> 
+            <strong>{userName}</strong>
           </p>
           <p className="userInfoRow">
             <strong>{joinDate}</strong>
@@ -67,7 +67,10 @@ export default function UserInfo() {
       {/* 내 정보 보기 버튼 */}
       <button
         className="userInfoButton"
-        onClick={() => alert("유저 페이지로 이동")/* 추후 navigate로 유저페이지에 연결 */} 
+        onClick={
+          () =>
+            alert("유저 페이지로 이동") /* 추후 navigate로 유저페이지에 연결 */
+        }
       >
         내 정보 보기
       </button>

@@ -94,7 +94,7 @@ export default function SignUp() {
       birth: birth.current.value,
       zipcode: zipcode.current.value,
       address1: address1.current.value,
-      address2: address1.current.value || null,
+      address2: address2.current.value || null,
       roleId: 2,
     };
 

@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface BoardPicMapper {
     void insertPic(BoardPic pic);
 
-    // 🆕 게시글 ID로 사진 전체 삭제
+    // 게시글 ID로 사진 전체 삭제
     void deleteByBoardId(Long boardId);
 }

@@ -20,7 +20,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())  // CSRF 비활성화
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // CORS 설정 추가
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/member/login", "/api/member/signUp", "/api/kakao/login", "/api/board/list").permitAll()  // 로그인, 회원가입 허용
+                        .requestMatchers("/api/member/login", "/api/member/signUp", "/api/kakao/login", "/api/board/list", "/api/board/detail/**").permitAll()  // 로그인, 회원가입 허용
                         .anyRequest().authenticated()  // 나머지 요청은 인증 필요
                 );
 

@@ -98,7 +98,7 @@ public class JwtUtil {
                     .parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            log.error("❌ Invalid or expired JWT: {}", e.getMessage());
+            log.error("Invalid or expired JWT: {}", e.getMessage());
             return false;
         }
     }
@@ -112,7 +112,7 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (JwtException e) {
-            log.error("❌ Failed to get claims: {}", e.getMessage());
+            log.error("Failed to get claims: {}", e.getMessage());
             return null;
         }
     }

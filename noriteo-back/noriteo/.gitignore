@@ -43,3 +43,6 @@ target/
 
 ### https 설정 파일
 noriteo.p12
+
+### 파일
+src/main/resources/static/uploads/**

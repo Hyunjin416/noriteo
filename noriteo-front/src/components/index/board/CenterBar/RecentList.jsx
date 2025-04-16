@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../../../components_css/CenterBarCSS/RecentList.css";
+import "@/components_css/index/board/centerBar/RecentList.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -11,9 +11,7 @@ export default function RecentList() {
     try {
       const response = await axios.get("http://localhost:8080/api/board"); // ✅ 백엔드 api
       const sorted = response.data
-        .sort(
-          (a, b) => new Date(b.board_regdate) - new Date(a.board_regdate)
-        )
+        .sort((a, b) => new Date(b.board_regdate) - new Date(a.board_regdate))
         .slice(0, 10); // 최신 10개
       setPosts(sorted);
     } catch (err) {
@@ -29,7 +27,7 @@ export default function RecentList() {
   }, []);
 
   const handleViewAll = () => {
-    navigate("/PostBoard"); // 전체 글 보기로 이동
+    navigate("/postBoard"); // 전체 글 보기로 이동
   };
 
   const handlePostClick = (postId) => {

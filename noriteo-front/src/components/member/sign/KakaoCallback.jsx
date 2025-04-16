@@ -36,6 +36,7 @@ const KakaoCallback = () => {
           // ✅ 메인 페이지로 리다이렉트
           const redirectUrl = response.data.redirect || "/";
           console.log("📌 리디렉트할 URL:", redirectUrl);
+
           navigate(redirectUrl);
         })
         .catch((error) => {
@@ -51,7 +52,7 @@ const KakaoCallback = () => {
     }
   }, [navigate]);
 
-  return <div>카카오 로그인 처리 중...</div>;
+  // return <div>카카오 로그인 처리 중...</div>;
 };
 
 export default KakaoCallback;
