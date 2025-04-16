@@ -58,6 +58,37 @@ public class JwtUtil {
         return createToken(claims, "normalRefreshToken", refreshTokenExpiration);
     }
 
+    // Kakao Access Token 생성
+    public String generateKakaoAccessToken(Long userId, String userEmail, String role) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        claims.put("userEmail", userEmail);
+        claims.put("role", role);
+        return createToken(claims, "kakaoAccessToken", accessTokenExpiration);
+    }
+
+    // Kakao Refresh Token 생성
+    public String generateKakaoRefreshToken(Long userId) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        return createToken(claims, "kakaoRefreshToken", refreshTokenExpiration);
+    }
+
+    // Naver Access Token 생성
+    public String generateNaverAccessToken(Long userId, String userEmail, String role) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        claims.put("userEmail", userEmail);
+        claims.put("role", role);
+        return createToken(claims, "naverAccessToken", accessTokenExpiration);
+    }
+
+    // Naver Refresh Token 생성
+    public String generateNaverRefreshToken(Long userId){
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        return createToken(claims, "naverRefreshToken", refreshTokenExpiration);
+    }
     // JWT 유효성 검사
     public boolean validateToken(String token) {
         try {

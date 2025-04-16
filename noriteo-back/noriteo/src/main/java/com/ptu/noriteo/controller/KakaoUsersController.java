@@ -20,6 +20,11 @@ public class KakaoUsersController {
         this.kakaoUsersService = kakaoUsersService;
     }
 
+//    @PostMapping("/signUp", consumes = "multipart/form-data")
+//    public ResponseEntity<?> registerKakaoUsers(
+//    @RequestPart("users") Users users,
+//    @RequestPart(value="profileImage", required = false) MultipartFile
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginData, HttpServletResponse response) {
         String code = loginData.get("code");

@@ -17,6 +17,6 @@ public interface UsersMapper {
 //    @Select("SELECT * FROM USERS WHERE user_id = #{userId}")
     Users findById(Long userId);
 
-    // 사용자 등록
+        // 사용자 등록
     void insertUsers(Users users);
 }

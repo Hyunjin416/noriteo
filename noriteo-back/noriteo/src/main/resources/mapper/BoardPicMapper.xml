@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ptu.noriteo.mapper.BoardPicMapper">
+
+    <!-- 사진 등록 -->
+    <insert id="insertPic" parameterType="com.ptu.noriteo.model.BoardPic">
+        INSERT INTO board_pic (board_pic_id, board_id, board_pic_url, board_pic_order)
+        VALUES (BOARD_PIC_SEQ.NEXTVAL, #{boardId}, #{boardPicUrl}, #{boardPicOrder})
+    </insert>
+
+    <!-- 게시글 사진 전체 삭제 -->
+    <delete id="deleteByBoardId" parameterType="long">
+        DELETE FROM board_pic WHERE board_id = #{boardId}
+    </delete>
+
+</mapper>
