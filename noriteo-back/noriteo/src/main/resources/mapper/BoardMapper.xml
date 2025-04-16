@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ptu.noriteo.mapper.BoardMapper">
+
+    <resultMap id="boardMap" type="com.ptu.noriteo.model.Board">
+        <id property="boardId" column="board_id"/>
+        <result property="boardType" column="board_type"/>
+        <result property="boardTitle" column="board_title"/>
+        <result property="boardContent" column="board_content"/>
+        <result property="userId" column="user_id"/>
+        <result property="boardAddress" column="board_address"/>
+        <result property="boardLat" column="board_lat"/>
+        <result property="boardLng" column="board_lng"/>
+        <result property="placeId" column="place_id"/>
+        <result property="boardRegdate" column="board_regdate"/>
+        <result property="boardViews" column="board_views"/>
+        <collection property="boardPics" ofType="com.ptu.noriteo.model.BoardPic">
+            <id property="boardPicId" column="board_pic_id"/>
+            <result property="boardId" column="board_id"/>
+            <result property="boardPicUrl" column="board_pic_url"/>
+            <result property="boardPicOrder" column="board_pic_order"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectBoardList" resultMap="boardMap">
+        SELECT b.*, p.board_pic_id, p.board_pic_url, p.board_pic_order
+        FROM board b
+                 LEFT JOIN board_pic p ON b.board_id = p.board_id
+        ORDER BY b.board_id DESC
+    </select>
+
+    <select id="selectBoardDetail" parameterType="long" resultMap="boardMap">
+        SELECT b.*, p.board_pic_id, p.board_pic_url, p.board_pic_order
+        FROM board b
+                 LEFT JOIN board_pic p ON b.board_id = p.board_id
+        WHERE b.board_id = #{boardId}
+    </select>
+
+    <insert id="insertBoard" parameterType="com.ptu.noriteo.model.Board" useGeneratedKeys="true" keyProperty="boardId">
+        INSERT INTO board (board_id, board_type, board_title, board_content, user_id, board_address, board_lat, board_lng, place_id)
+        VALUES (BOARD_SEQ.NEXTVAL, #{boardType}, #{boardTitle}, #{boardContent}, #{userId}, #{boardAddress}, #{boardLat}, #{boardLng}, #{placeId})
+    </insert>
+
+    <update id="updateBoard" parameterType="com.ptu.noriteo.model.Board">
+        UPDATE board
+        SET board_type = #{boardType},
+            board_title = #{boardTitle},
+            board_content = #{boardContent},
+            board_address = #{boardAddress},
+            board_lat = #{boardLat},
+            board_lng = #{boardLng},
+            place_id = #{placeId}
+        WHERE board_id = #{boardId}
+    </update>
+
+    <delete id="deleteBoard" parameterType="long">
+        DELETE FROM board WHERE board_id = #{boardId}
+    </delete>
+
+</mapper>

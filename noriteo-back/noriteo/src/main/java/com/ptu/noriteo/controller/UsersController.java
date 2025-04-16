@@ -51,12 +51,12 @@ public class UsersController {
         try {
             // 로그인 및 토큰 발급
             Map<String, String> tokens = usersService.loginUser(userEmail, password);
-            String accessToken = tokens.get("normalAccessToken");
-            String refreshToken = tokens.get("normalRefreshToken");
+            String normalAccessToken = tokens.get("normalAccessToken");
+            String normalRefreshToken = tokens.get("normalRefreshToken");
 
             // http: secure 설정 false 인 경우
             // Access Token 설정
-            ResponseCookie accessTokenCookie = ResponseCookie.from("normalAccessToken", accessToken)
+            ResponseCookie accessTokenCookie = ResponseCookie.from("normalAccessToken", normalAccessToken)
                     .httpOnly(true)
                     .secure(false)
                     .path("/")
@@ -65,7 +65,7 @@ public class UsersController {
                     .build();
 
             // Refresh Token 설정
-            ResponseCookie refreshTokenCookie = ResponseCookie.from("normalRefreshToken", refreshToken)
+            ResponseCookie refreshTokenCookie = ResponseCookie.from("normalRefreshToken",normalRefreshToken)
                     .httpOnly(true)
                     .secure(false)
                     .path("/")
