@@ -14,8 +14,9 @@
 
     <!-- 카카오 유저 등록 -->
     <insert id="insertKakaoUser" parameterType="com.ptu.noriteo.model.Users">
-        INSERT INTO USERS (PROVIDER, PROVIDER_ID, USER_EMAIL, USER_NAME, ROLE_ID)
-        VALUES (#{provider}, #{providerId}, #{userEmail}, #{userName}, #{roleId})
+        INSERT INTO USERS (USER_ID, PROVIDER, PROVIDER_ID, USER_EMAIL, USER_NAME, ROLE_ID)
+        VALUES (USERS_SEQ.NEXTVAL, #{provider}, #{providerId}, #{userEmail}, #{userName}, #{roleId})
     </insert>
+
 
 </mapper>

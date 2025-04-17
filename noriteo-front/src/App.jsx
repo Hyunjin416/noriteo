@@ -6,6 +6,8 @@ import Admin from "./pages/admin/Admin.jsx";
 import Board from "./pages/board/Board.jsx";
 import Product from "./pages/product/Product.jsx";
 //import PostPage from "./pages/PostPage/PostPage.jsx";
+import KakaoCallback from "@/components/member/sign/KakaoCallback.jsx";
+import NaverCallback from "@/components/member/sign/NaverCallback.jsx";
 {
   /* <script
   src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${
@@ -18,6 +20,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="kakao-callback" element={<KakaoCallback />} />
+        <Route path="naver-callback" element={<NaverCallback />} />
+
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/board/*" element={<Board />} />
         <Route path="/*" element={<Index />} />

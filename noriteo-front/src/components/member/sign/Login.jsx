@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import KakaoLogin from "./KakaoLogin";
-import GoogleLogin from "./GoogleLogin";
+// import GoogleLogin from "./GoogleLogin";
 import NaverLogin from "./NaverLogin";
 import "../../../components_css/member/sign/Login.css";
 
@@ -30,7 +30,7 @@ export default function Login() {
 
       if (response.status === 200) {
         alert("로그인 성공!");
-        // ✅ 리다이렉트는 프론트엔드에서 처리
+        // 리다이렉트는 프론트엔드에서 처리
         window.location.href = "http://localhost:5173/";
       }
     } catch (error) {
@@ -85,9 +85,9 @@ export default function Login() {
           <div className="kakao-login-btn">
             <KakaoLogin />
           </div>
-          <div className="google-login-btn">
+          {/* <div className="google-login-btn">
             <GoogleLogin />
-          </div>
+          </div> */}
           <div className="naver-login-btn">
             <NaverLogin />
           </div>

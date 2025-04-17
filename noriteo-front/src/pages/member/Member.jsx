@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Container from "@/layouts/container/Container.jsx";
 import Login from "@/components/member/sign/Login.jsx";
 import SignUp from "@/components/member/sign/SignUp.jsx";
-import KakaoCallback from "@/components/member/sign/KakaoCallback.jsx";
+// import KakaoCallback from "@/components/member/sign/KakaoCallback.jsx";
 import BoardList from "@/components/member/myPage/BoardList.jsx";
 import CommentList from "@/components/member/myPage/CommentList.jsx";
 import ProductList from "@/components/member/myPage/ProductList.jsx";
@@ -19,7 +19,7 @@ const Member = () => {
 
         <Route path="login" element={<Login />} />
         <Route path="signUp" element={<SignUp />} />
-        <Route path="kakao-callback" element={<KakaoCallback />} />
+        {/* <Route path="kakao-callback" element={<KakaoCallback />} /> */}
 
         <Route path="boardList" element={<BoardList />} />
         <Route path="commentList" element={<CommentList />} />
