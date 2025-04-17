@@ -27,6 +27,9 @@ public class KakaoUsersController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginData, HttpServletResponse response) {
+        log.info("/api/kakao/login 도착, 받은 코드: {}", loginData.get("code"));
+        System.out.println("/api/kakao/login 컨트롤러 진입함");
+
         String code = loginData.get("code");
 
         try {
@@ -60,7 +63,10 @@ public class KakaoUsersController {
             log.info("카카오 로그인 성공 - AccessToken, RefreshToken 쿠키 설정 완료");
 
             // 리다이렉트 URL 응답
-            return ResponseEntity.ok(Map.of("message", "카카오 로그인 성공", "redirect", "/"));
+            return ResponseEntity.ok(Map.of("message", "카카오 로그인 성공", "redirect", "/", "tokens", Map.of(  // ✅ 이 부분 추가!
+                    "kakaoAccessToken", kakaoAccessToken,
+                    "kakaoRefreshToken", kakaoRefreshToken
+            )));
         } catch (IllegalArgumentException e) {
             log.error("카카오 로그인 실패: {}", e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", "카카오 로그인 실패", "error", e.getMessage()));

@@ -12,7 +12,7 @@
 .login-container {
   width: 600px;
   border: 1px solid black;
-  height: 500px;
+  height: 450px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -111,15 +111,18 @@ input[type="password"]::placeholder {
 }
 
 .kakao-login-btn,
-.google-login-btn,
+/* .google-login-btn, */
 .naver-login-btn {
   padding: 12px 0;
   text-align: center;
   border-radius: 4px;
   font-size: 18px;
   height: 30px;
-  line-height: 0px; 
+  line-height: 5px; 
   font-weight: bold;
+  /* margin-top: 5px; */
+  padding-bottom: 15px;
+  margin-bottom: 5px;
 }
 .kakao-login-btn {
   background-color: #fee500;
@@ -127,12 +130,13 @@ input[type="password"]::placeholder {
 }
 
 
-.google-login-btn {
+/* .google-login-btn {
   background-color: #4285f4;
   color: #fff;
-}
+} */
 
 .naver-login-btn {
   background-color: #2db400;
   color: #fff;
+  /* line-height: -30px; */
 }
