@@ -18,14 +18,35 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())  // CSRF 비활성화
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // CORS 설정 추가
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // CORS 설정
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**", "/api/member/login", "/api/member/signUp", "/api/kakao/login", "/kakao-callback", "/api/naver/login", "/naver-callback", "/api/board/list", "/api/board/detail/**").permitAll()  // 로그인, 회원가입 허용
-                        .anyRequest().authenticated()  // 나머지 요청은 인증 필요
+                        // 로그인 없이 접근 가능한 API들
+                        .requestMatchers(
+                                "/api/member/login",
+                                "/api/member/signUp",
+                                "/api/kakao/login",
+                                "/kakao-callback",
+                                "/api/naver/login",
+                                "/naver-callback",
+                                "/api/board/list",
+                                "/api/board/detail/**"
+                        ).permitAll()
+
+                        // 로그인 필요: 글 작성, 수정, 삭제
+                        .requestMatchers(
+                                "/api/board/write",
+                                "/api/board/update/**",
+                                "/api/board/delete/**"
+
+                        ).authenticated()
+
+                        // 그 외는 전부 로그인 필요
+                        .anyRequest().authenticated()
                 );
 
         return http.build();
     }
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
