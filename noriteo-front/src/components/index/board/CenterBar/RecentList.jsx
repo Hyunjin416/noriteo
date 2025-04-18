@@ -27,7 +27,7 @@ export default function RecentList() {
   }, []);
 
   const handleViewAll = () => {
-    navigate("/postBoard"); // 전체 글 보기로 이동
+    navigate("/BoardPage"); // 전체 글 보기로 이동
   };
 
   const handlePostClick = (postId) => {

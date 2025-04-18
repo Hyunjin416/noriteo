@@ -31,14 +31,14 @@ export default function BoardMenu() {
 
   return (
     <div className="boardMenuContainer">
-      <h4 className="boardMenuTitle">게시판 메뉴</h4>
+      <h4 className="boardMenuTitle">📁게시판 메뉴</h4>
 
       <div className="boardMenuSection">
         <div className="boardMenuCategory" onClick={handleAllPosts}>
           전체 게시판
         </div>
-        <button onClick={handleAllPosts}>- 전체 글보기</button>
-        <button onClick={handleWritePost}>- 글쓰기</button>
+        <button onClick={handleAllPosts}>- 📄전체 글보기</button>
+        <button onClick={handleWritePost}>- ✏️글쓰기</button>
       </div>
 
       {categories.map((category) => (

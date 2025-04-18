@@ -45,5 +45,5 @@
 
 /* 버튼 호버 시 효과 (배경을 완전히 없애고 싶다면 제거 가능) */
 .boardMenuSection button:hover {
-  background-color: #e9e9e9;
+  background-color: #f3fc7f;
 }

@@ -178,3 +178,88 @@
   border: 1px solid #ccc;
   margin-top: 10px;
 }
+
+.kakao-map-wrapper {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.address-search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.address-search input[type="text"] {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.address-search button {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #2c7be5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.address-search button:hover {
+  background-color: #1a5fd0;
+}
+
+.kakao-info-window {
+  padding: 6px 10px;
+  font-size: 13px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.place-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.place-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease;
+}
+
+.place-item:hover {
+  background-color: #eef6ff;
+}
+
+.place-info {
+  flex: 1;
+  cursor: pointer;
+}
+
+.place-remove {
+  background-color: #ff5c5c;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.place-remove:hover {
+  background-color: #d94343;
+}
+

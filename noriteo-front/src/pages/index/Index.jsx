@@ -5,6 +5,7 @@ import Container from "@/layouts/container/Container.jsx";
 //import BoardMain from "../../components/index/BoardMain.jsx";
 import BoardPage from "@/components/board/BoardPage.jsx";
 // import BoardDetail from "../../components/member/board/BoardDetail.jsx";q
+import BoardWrite from "@/components/board/BoardWrite.jsx";
 
 const Index = () => {
   return (
@@ -20,6 +21,8 @@ const Index = () => {
 
         {/* /BoardPage 경로에서 BoardPage 보여주기 */}
         <Route path="boardpage" element={<BoardPage />} />
+        <Route path="boardWrite" element={<BoardWrite />} />
+
         {/* <Route path="BoardDetail" element={<BoardDetail />} /> */}
       </Route>
     </Routes>
