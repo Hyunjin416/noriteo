@@ -9,9 +9,9 @@ export default function RecentList() {
 
   const fetchLatestPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/board"); // ✅ 백엔드 api
+      const response = await axios.get("http://localhost:8080/api/board/list"); // 수정된 API 경로
       const sorted = response.data
-        .sort((a, b) => new Date(b.board_regdate) - new Date(a.board_regdate))
+        .sort((a, b) => new Date(b.boardRegdate) - new Date(a.boardRegdate)) 
         .slice(0, 10); // 최신 10개
       setPosts(sorted);
     } catch (err) {
@@ -27,11 +27,12 @@ export default function RecentList() {
   }, []);
 
   const handleViewAll = () => {
-    navigate("/BoardPage"); // 전체 글 보기로 이동
+    navigate("/boardPage"); // 전체 글 보기로 이동
   };
 
+  // 글 상세보기
   const handlePostClick = (postId) => {
-    navigate(`/post/${postId}`);
+    navigate(`/board/detail/${postId}`); // 경로도 BoardList와 통일
   };
 
   return (
@@ -46,22 +47,22 @@ export default function RecentList() {
       <ul className="RecentListList">
         {posts.map((post) => (
           <li
-            key={post.board_id}
+            key={post.boardId}
             className="RecentListItem"
-            onClick={() => handlePostClick(post.board_id)}
+            onClick={() => handlePostClick(post.boardId)}
           >
-            <span className="newPostTitle" title={post.board_title}>
-              {post.board_title.length > 40
-                ? post.board_title.slice(0, 40) + "..."
-                : post.board_title}
+            <span className="newPostTitle" title={post.boardTitle}>
+              {post.boardTitle.length > 40
+                ? post.boardTitle.slice(0, 40) + "..."
+                : post.boardTitle}
             </span>
             <div className="newPostInfo">
               <div className="newPostTime">
-                {new Date(post.board_regdate).toLocaleString()}
+                {new Date(post.boardRegdate).toLocaleString("ko-KR")}
               </div>
               <div className="newPostUserViews">
-                <span className="newPostUser">작성자: {post.user_id}</span>
-                <span className="newPostViews">조회수: {post.board_views}</span>
+                <span className="newPostUser">작성자: {post.userId}</span>
+                <span className="newPostViews">조회수: {post.boardViews}</span>
               </div>
             </div>
           </li>
