@@ -1,3 +1,4 @@
+/*
 .sliderContainer {
   position: relative;
   width: 100%;
@@ -82,7 +83,6 @@
   border-radius: 6px;
 }
 
-/* 반응형 */
 @media (max-width: 900px) {
   .cardItem {
     flex: 0 0 calc(100% / 4);
@@ -98,6 +98,138 @@
     flex: 0 0 calc(100% / 2);
   }
 }
+@media (max-width: 350px) {
+  .cardItem {
+    flex: 0 0 100%;
+  }
+}
+*/
+
+/* ImageSlider.css */
+
+.sliderContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  aspect-ratio: 5 / 1;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  color: black;
+  background-color: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.arrowLeft { left: 10px; }
+.arrowRight { right: 10px; }
+
+.arrowButton:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.sliderTrack {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  gap: 0.5rem;
+  height: 100%;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sliderTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.sliderTrack:active {
+  cursor: grabbing;
+}
+
+.cardItem {
+  flex: 0 0 calc(100% / 5);
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+}
+
+.cardItem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cardItem:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  border: 2px solid #333;
+}
+
+.noImageText {
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eaeaea;
+  border-radius: 6px;
+}
+
+.sliderTrack {
+  cursor: grab;
+}
+.sliderTrack.active {
+  cursor: grabbing;
+}
+
+/* 반응형 처리 */
+@media (max-width: 900px) {
+  .cardItem {
+    flex: 0 0 calc(100% / 4);
+  }
+}
+
+@media (max-width: 700px) {
+  .cardItem {
+    flex: 0 0 calc(100% / 3);
+  }
+}
+
+@media (max-width: 500px) {
+  .cardItem {
+    flex: 0 0 calc(100% / 2);
+  }
+}
+
 @media (max-width: 350px) {
   .cardItem {
     flex: 0 0 100%;

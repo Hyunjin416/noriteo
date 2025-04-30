@@ -1,3 +1,4 @@
+{/*
 // ImageSlider.jsx
 import React, { useRef } from "react";
 import "@/components_css/index/board/centerBar/ImageSlider.css";
@@ -40,6 +41,196 @@ export default function ImageSlider({ cards = [] }) {
               <div className="noImageText">사진 없음</div>
             )}
             <p>{card.board_title}</p>
+          </div>
+        ))}
+      </div>
+
+      <button className="arrowButton arrowRight" onClick={handleNext}>
+        &gt;
+      </button>
+    </div>
+  );
+}
+*/}
+
+// ImageSlider.jsx
+import React, { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import axios from "axios"; // 실제 API 연결 시 사용할 예정
+import "@/components_css/index/board/centerBar/ImageSlider.css";
+
+const SCROLL_AMOUNT = 200;
+
+export default function ImageSlider() {
+  const sliderRef = useRef(null);
+  const [cards, setCards] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // API 연결 후 axios로 대체 예정
+    // axios.get("http://localhost:8080/api/boardpic")
+    //   .then((response) => setCards(response.data))
+    //   .catch((error) => console.error("Error fetching images:", error));
+
+    const dummyData = [
+      {
+        board_pic_id: 1,
+        board_id: 100,
+        board_pic_url: "https://picsum.photos/id/1018/300/300",
+        board_pic_order: 1
+      },
+      {
+        board_pic_id: 2,
+        board_id: 101,
+        board_pic_url: "https://picsum.photos/id/1020/300/300",
+        board_pic_order: 2
+      },
+      {
+        board_pic_id: 3,
+        board_id: 102,
+        board_pic_url: "https://picsum.photos/id/1025/300/300",
+        board_pic_order: 3
+      },
+      {
+        board_pic_id: 4,
+        board_id: 103,
+        board_pic_url: "https://picsum.photos/id/1033/300/300",
+        board_pic_order: 4
+      },
+      {
+        board_pic_id: 5,
+        board_id: 104,
+        board_pic_url: "https://picsum.photos/id/1040/300/300",
+        board_pic_order: 5
+      },
+      {
+        board_pic_id: 6,
+        board_id: 105,
+        board_pic_url: "https://picsum.photos/id/1050/300/300",
+        board_pic_order: 6
+      },
+      {
+        board_pic_id: 7,
+        board_id: 106,
+        board_pic_url: "https://picsum.photos/id/1060/300/300",
+        board_pic_order: 7
+      },
+      {
+        board_pic_id: 8,
+        board_id: 107,
+        board_pic_url: "https://picsum.photos/id/1074/300/300",
+        board_pic_order: 8
+      },
+      {
+        board_pic_id: 9,
+        board_id: 108,
+        board_pic_url: "https://picsum.photos/id/1084/300/300",
+        board_pic_order: 9
+      },
+      {
+        board_pic_id: 10,
+        board_id: 109,
+        board_pic_url: "https://picsum.photos/id/1002/300/300",
+        board_pic_order: 10
+      }
+    ];
+  
+    setCards(dummyData);
+
+     // 드래그 기능 추가
+    const slider = sliderRef.current;
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      slider.classList.add('active');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      slider.classList.remove('active');
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      slider.classList.remove('active');
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      slider.scrollLeft = scrollLeft - walk;
+    };
+
+    slider.addEventListener('mousedown', handleMouseDown);
+    slider.addEventListener('mouseleave', handleMouseLeave);
+    slider.addEventListener('mouseup', handleMouseUp);
+    slider.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      slider.removeEventListener('mousedown', handleMouseDown);
+      slider.removeEventListener('mouseleave', handleMouseLeave);
+      slider.removeEventListener('mouseup', handleMouseUp);
+      slider.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const handleCardClick = (boardId) => {
+    navigate(`/detail/${boardId}`);
+  };
+
+  const handlePrev = () => {
+    const slider = sliderRef.current;
+    if (slider) {
+      const isAtStart = slider.scrollLeft <= 0;
+  
+      if (isAtStart) {
+        // 1번째 사진에서 왼쪽 버튼 누르면 마지막으로 이동
+        slider.scrollLeft = slider.scrollWidth;
+      } else {
+        slider.scrollLeft -= SCROLL_AMOUNT;
+      }
+    }
+  };
+
+  const handleNext = () => {
+    const slider = sliderRef.current;
+    if (slider) {
+      const isEndReached = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 10;
+  
+      if (isEndReached) {
+        // 10번째 사진에서 오른쪽 버튼 누르면 처음으로 이동
+        slider.scrollLeft = 0; // 처음으로 리셋
+      } else {
+        slider.scrollLeft += SCROLL_AMOUNT;
+      }
+    }
+  };
+
+  return (
+    <div className="sliderContainer">
+      <button className="arrowButton arrowLeft" onClick={handlePrev}>
+        &lt;
+      </button>
+
+      <div className="sliderTrack" ref={sliderRef}>
+        {cards.map((card) => (
+          <div
+            className="cardItem"
+            key={card.board_pic_id}
+            onClick={() => handleCardClick(card.board_id)}
+          >
+            {card.board_pic_url ? (
+              <img src={card.board_pic_url} alt={`게시글 ${card.board_id}`} />
+            ) : (
+              <div className="noImageText">사진 없음</div>
+            )}
           </div>
         ))}
       </div>

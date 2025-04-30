@@ -254,7 +254,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "@/components_css/board/BoardList.css";
 import { useNavigate } from "react-router-dom";
-import ImageSlider from "../index/board/CenterBar/ImageSlider.jsx";
 
 const BoardList = ({ boardType, sortType }) => {
   const [posts, setPosts] = useState([]);
@@ -309,8 +308,6 @@ const BoardList = ({ boardType, sortType }) => {
 
   return (
     <>
-      <ImageSlider cards={posts.slice(0, 10)} />
-
       <div className="board-table-container">
         <table className="board-table">
           <thead>
