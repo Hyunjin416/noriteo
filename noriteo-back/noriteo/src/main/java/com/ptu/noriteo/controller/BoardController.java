@@ -16,10 +16,20 @@ public class BoardController {
 
     private final BoardService boardService;
 
+//    @GetMapping("/list")
+//    public List<Board> listBoards() {
+//        return boardService.getBoardList();
+//    }
+
     @GetMapping("/list")
-    public List<Board> listBoards() {
+    public List<Board> listBoards(@RequestParam(value = "board_type", required = false) String boardType) {
+        if (boardType != null) {
+            return boardService.getBoardListByType(boardType);
+        }
         return boardService.getBoardList();
     }
+
+
 
     @GetMapping("/detail/{boardId}")
     public Board detailBoard(@PathVariable("boardId") Long boardId) {
@@ -46,4 +56,8 @@ public class BoardController {
     }
 
 
+
+
 }
+
+

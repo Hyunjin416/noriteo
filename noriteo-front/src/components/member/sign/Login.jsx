@@ -1,10 +1,11 @@
 // import { useState, useRef } from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import KakaoLogin from "./KakaoLogin";
 // import GoogleLogin from "./GoogleLogin";
 import NaverLogin from "./NaverLogin";
-import "../../../components_css/member/sign/Login.css";
+import "@/components_css/member/sign/Login.css";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState("");
@@ -41,6 +42,12 @@ export default function Login() {
       alert("로그인 실패! 잘못된 이메일 또는 비밀번호입니다.");
     }
   };
+
+  useEffect(() => {
+    if (Cookies.get("undefinedAccessToken")) {
+      Cookies.remove("undefinedAccessToken");
+    }
+  }, []);
 
   return (
     <div className="login-div">

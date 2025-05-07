@@ -2,11 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import Container from "@/layouts/container/Container.jsx";
 import Login from "@/components/member/sign/Login.jsx";
 import SignUp from "@/components/member/sign/SignUp.jsx";
+import MyPage from "@/components/member/myPage/MyPage.jsx";
 // import KakaoCallback from "@/components/member/sign/KakaoCallback.jsx";
-import BoardList from "@/components/member/myPage/BoardList.jsx";
-import CommentList from "@/components/member/myPage/CommentList.jsx";
-import ProductList from "@/components/member/myPage/ProductList.jsx";
-import UpdateUser from "@/components/member/myPage/UpdateUser.jsx";
+// import BoardList from "@/components/member/myPage/BoardList.jsx";
+// import CommentList from "@/components/member/myPage/CommentList.jsx";
+// import ProductList from "@/components/member/myPage/ProductList.jsx";
+// import UpdateUser from "@/components/member/myPage/UpdateUser.jsx";
 
 const Member = () => {
   return (
@@ -21,10 +22,11 @@ const Member = () => {
         <Route path="signUp" element={<SignUp />} />
         {/* <Route path="kakao-callback" element={<KakaoCallback />} /> */}
 
-        <Route path="boardList" element={<BoardList />} />
-        <Route path="commentList" element={<CommentList />} />
-        <Route path="productList" element={<ProductList />} />
-        <Route path="updateUser" element={<UpdateUser />} />
+        <Route path="myPage" element={<MyPage />} />
+        {/* <Route path="myPage/boardList" element={<BoardList />} />
+        <Route path="myPage/commentList" element={<CommentList />} />
+        <Route path="myPage/productList" element={<ProductList />} />
+        <Route path="myPage/updateUser" element={<UpdateUser />} /> */}
       </Route>
     </Routes>
     // </ChatProvider>

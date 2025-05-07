@@ -1,5 +1,8 @@
 package com.ptu.noriteo.config;
 
+import com.ptu.noriteo.jwt.JwtAuthenticationFilter;
+import com.ptu.noriteo.jwt.JwtUtil;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,13 +17,18 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    private final JwtUtil jwtUtil;
+
+    public SecurityConfig(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())  // CSRF 비활성화
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // CORS 설정
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        // 로그인 없이 접근 가능한 API들
                         .requestMatchers(
                                 "/api/member/login",
                                 "/api/member/signUp",
@@ -28,41 +36,40 @@ public class SecurityConfig {
                                 "/kakao-callback",
                                 "/api/naver/login",
                                 "/naver-callback",
-                                "/api/board/list",
-                                "/api/board/detail/**"
+                                "/api/board/list/**",
+                                "/api/board/detail/**",
+                                "/uploads/**"
                         ).permitAll()
-
-                        // 로그인 필요: 글 작성, 수정, 삭제
                         .requestMatchers(
                                 "/api/board/write",
                                 "/api/board/update/**",
-                                "/api/board/delete/**"
-
+                                "/api/board/delete/**",
+                                "/api/member/me",
+                                "/api/member/update"
                         ).authenticated()
-
-                        // 그 외는 전부 로그인 필요
                         .anyRequest().authenticated()
-                );
+                )
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class); // ✅ 여기 추가
 
         return http.build();
     }
-
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // CORS 설정 메서드
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));  // React 개발 서버 주소
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With", "Accept"));
-        configuration.addExposedHeader("Authorization");  // 토큰 응답 헤더 노출
-        configuration.addExposedHeader("Set-Cookie");  // 쿠키 응답 헤더 노출
-        configuration.setAllowCredentials(true);  // 쿠키 허용
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Set-Cookie");
+        configuration.setAllowCredentials(true);
+
+
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

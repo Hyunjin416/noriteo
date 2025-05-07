@@ -20,9 +20,10 @@ public class BoardService {
     private final BoardPicMapper boardPicMapper;
     private final FileUploadService fileUploadService; // 파일 저장 유틸
 
-    public List<Board> getBoardList() {
-        return boardMapper.selectBoardList();
-    }
+//    public List<Board> getBoardList() {
+//        return boardMapper.selectBoardList();
+//    }
+
 
     public Board getBoardDetail(Long boardId) {
         return boardMapper.selectBoardDetail(boardId);
@@ -71,4 +72,14 @@ public class BoardService {
             }
         }
     }
+
+    public List<Board> getBoardList() {
+        return boardMapper.selectBoardList();
+    }
+
+    public List<Board> getBoardListByType(String boardType) {
+        return boardMapper.selectBoardListByType(boardType);
+    }
+
+
 }

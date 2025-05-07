@@ -1,11 +1,9 @@
 package com.ptu.noriteo.mapper;
 
 import com.ptu.noriteo.model.Users;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-@Mapper
 public interface UsersMapper {
 
     // 이메일로 사용자 조회
@@ -19,4 +17,8 @@ public interface UsersMapper {
 
         // 사용자 등록
     void insertUsers(Users users);
+
+    @Select("SELECT ROLE_NAME FROM ROLE WHERE ROLE_ID = #{roleId}")
+    String getRoleNameById(Long roleId);
+
 }

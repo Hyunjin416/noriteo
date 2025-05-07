@@ -11,7 +11,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DaumPostcode from "react-daum-postcode";
-import "../../../components_css/member/sign/SignUp.css";
+import "@/components_css/member/sign/SignUp.css";
 
 export default function SignUp() {
   const navigate = useNavigate();

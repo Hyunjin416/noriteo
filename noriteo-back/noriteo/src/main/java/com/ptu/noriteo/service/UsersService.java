@@ -72,9 +72,12 @@ public class UsersService {
             throw new IllegalArgumentException("Invalid email or password.");
         }
 
+
         // 토큰 생성
-        String normalAccessToken = jwtUtil.generateNormalAccessToken(users.getUserId(), users.getUserEmail(), "USER");
-        String normalRefreshToken = jwtUtil.generateNormalRefreshToken(users.getUserId());
+        String roleName = usersMapper.getRoleNameById(users.getRoleId()); // DB에서 가져옴
+        String normalAccessToken = jwtUtil.generateNormalAccessToken(users.getUserId(), users.getUserEmail(), roleName);
+        String normalRefreshToken = jwtUtil.generateNormalRefreshToken(users.getUserId(), roleName);
+
 
         // 토큰 맵 생성q
         Map<String, String> tokens = new HashMap<>();
@@ -82,6 +85,11 @@ public class UsersService {
         tokens.put("normalRefreshToken", normalRefreshToken);
         return tokens;
     }
+
+    public Users findById(Long userId) {
+        return usersMapper.findById(userId);
+    }
+
 
 }
 

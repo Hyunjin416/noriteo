@@ -80,7 +80,7 @@ public class KakaoUsersService {
 
         // 4. JWT 생성
         String accessJwt = jwtUtil.generateKakaoAccessToken(existingUser.getUserId(), existingUser.getUserEmail(), "USER");
-        String refreshJwt = jwtUtil.generateKakaoRefreshToken(existingUser.getUserId());
+        String refreshJwt = jwtUtil.generateKakaoRefreshToken(existingUser.getUserId(), "USER");
 
         // 5. 결과 반환
         Map<String, String> tokens = new HashMap<>();

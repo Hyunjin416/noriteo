@@ -52,9 +52,10 @@ public class JwtUtil {
     }
 
     // Normal Refresh Token 생성
-    public String generateNormalRefreshToken(Long userId) {
+    public String generateNormalRefreshToken(Long userId, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
+        claims.put("role", role); // 👈 추가
         return createToken(claims, "normalRefreshToken", refreshTokenExpiration);
     }
 
@@ -68,9 +69,10 @@ public class JwtUtil {
     }
 
     // Kakao Refresh Token 생성
-    public String generateKakaoRefreshToken(Long userId) {
+    public String generateKakaoRefreshToken(Long userId, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
+        claims.put("role", role); // 👈 추가
         return createToken(claims, "kakaoRefreshToken", refreshTokenExpiration);
     }
 
@@ -84,9 +86,10 @@ public class JwtUtil {
     }
 
     // Naver Refresh Token 생성
-    public String generateNaverRefreshToken(Long userId){
+    public String generateNaverRefreshToken(Long userId, String role){
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
+        claims.put("role", role); // 👈 추가
         return createToken(claims, "naverRefreshToken", refreshTokenExpiration);
     }
     // JWT 유효성 검사
@@ -115,5 +118,21 @@ public class JwtUtil {
             log.error("Failed to get claims: {}", e.getMessage());
             return null;
         }
+
+
     }
+
+    // JWT에서 userId 추출하는 메서드 추가
+    public Long getUserIdFromAccessToken(String token) {
+        Claims claims = getClaims(token);
+        if (claims != null) {
+            return claims.get("userId", Long.class);
+        }
+        return null;
+    }
+
+    public long getAccessTokenExpiration() {
+        return accessTokenExpiration;
+    }
+
 }
