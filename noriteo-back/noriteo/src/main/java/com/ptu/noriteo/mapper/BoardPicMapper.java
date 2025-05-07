@@ -1,9 +1,8 @@
 package com.ptu.noriteo.mapper;
 
 import com.ptu.noriteo.model.BoardPic;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
+
 public interface BoardPicMapper {
     void insertPic(BoardPic pic);
 

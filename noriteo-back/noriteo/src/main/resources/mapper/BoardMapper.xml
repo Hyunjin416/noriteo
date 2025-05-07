@@ -31,6 +31,17 @@
         ORDER BY b.board_id DESC
     </select>
 
+
+
+    <select id="selectBoardListByType" parameterType="string" resultMap="boardMap">
+        SELECT b.*, p.board_pic_id, p.board_pic_url, p.board_pic_order
+        FROM board b
+                 LEFT JOIN board_pic p ON b.board_id = p.board_id
+        WHERE b.board_type = #{boardType}
+        ORDER BY b.board_id DESC
+    </select>
+
+
     <select id="selectBoardDetail" parameterType="long" resultMap="boardMap">
         SELECT b.*, p.board_pic_id, p.board_pic_url, p.board_pic_order
         FROM board b

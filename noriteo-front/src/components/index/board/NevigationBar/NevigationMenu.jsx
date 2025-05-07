@@ -47,13 +47,21 @@ export default function NavigationMenu() {
   const queryParams = new URLSearchParams(location.search);
   const currentBoardType = queryParams.get("board_type");
 
+  // const categories = [
+  //   { label: "공지사항", value: "notice" },
+  //   { label: "자유게시판", value: "free" },
+  //   { label: "취미게시판", value: "hobby" },
+  //   { label: "놀거리게시판", value: "play" },
+  //   { label: "맛집게시판", value: "food" },
+  //   { label: "거래게시판", value: "sell" }, /*거래게시판 연결은 product 테이블에서 데이터 가져오도록 수정할 예정*/
+  // ];
   const categories = [
-    { label: "공지사항", value: "notice" },
-    { label: "자유게시판", value: "free" },
-    { label: "취미게시판", value: "hobby" },
-    { label: "놀거리게시판", value: "play" },
-    { label: "맛집게시판", value: "food" },
-    { label: "거래게시판", value: "sell" }, /*거래게시판 연결은 product 테이블에서 데이터 가져오도록 수정할 예정*/
+    { label: "공지사항", value: "공지사항" },
+    { label: "자유게시판", value: "자유게시판" },
+    { label: "취미게시판", value: "취미게시판" },
+    { label: "놀거리게시판", value: "놀거리게시판" },
+    { label: "맛집게시판", value: "맛집게시판" },
+    { label: "거래게시판", value: "거래게시판" },
   ];
 
   return (

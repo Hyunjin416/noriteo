@@ -23,6 +23,13 @@
                )
     </insert>
 
+    <select id="findById" resultType="com.ptu.noriteo.model.Users">
+        SELECT * FROM USERS WHERE USER_ID = #{userId}
+    </select>
+
+
+
+
 
 
 </mapper>

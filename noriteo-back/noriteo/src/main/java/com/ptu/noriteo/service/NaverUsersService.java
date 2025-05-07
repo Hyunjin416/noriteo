@@ -133,7 +133,7 @@ public class NaverUsersService {
 
         // 3. JWT 토큰 발급
         String accessJwt = jwtUtil.generateNaverAccessToken(existingUser.getUserId(), existingUser.getUserEmail(), "USER");
-        String refreshJwt = jwtUtil.generateNaverRefreshToken(existingUser.getUserId());
+        String refreshJwt = jwtUtil.generateNaverRefreshToken(existingUser.getUserId(), "USER");
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("naverAccessToken", accessJwt);

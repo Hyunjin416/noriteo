@@ -1,0 +1,99 @@
+:root {
+    --main-color: #95D5F5;
+    --point-color: #f39a3a;
+    --sub-green: rgb(4, 160, 82);
+    --sub-yellow: #FFFF3F;
+    --bg-light: #ffffff;
+    --bg-box: #fafafa;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+  }
+  
+  /* 다크모드 대응 */
+  /* @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-light: #1e1e1e;
+      --bg-box: #2a2a2a;
+      --border-color: #444;
+      --text-color: #eee;
+    }
+  } */
+  
+  .mypage-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+  }
+  
+  .mypage-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+    justify-content: center;
+  }
+  
+  .mypage-tabs button {
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+  }
+  
+  .mypage-tabs button:hover {
+    background-color: var(--point-color);
+    color: white;
+    border-color: var(--point-color);
+  }
+  
+  .mypage-tabs button.active {
+    background-color: var(--main-color);
+    color: white;
+    border-color: var(--main-color);
+  }
+  
+  .mypage-content {
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-box);
+    min-height: 300px;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mypage-tabs {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .mypage-tabs button {
+      width: 100%;
+    }
+  
+    .mypage-content {
+      padding: 15px;
+    }
+  }
+  

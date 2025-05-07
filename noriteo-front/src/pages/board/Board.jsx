@@ -17,6 +17,7 @@ const Member = () => {
         <Route path="signUp" element={<SignUp />} />
         <Route path="kakao-callback" element={<KakaoCallback />} /> */}
 
+        {/* <Route path="list" element={<BoardPage />} /> */}
         <Route path="write" element={<BoardWrite />} />
         <Route path="detail/:boardId" element={<BoardDetail />} />
         <Route path="update/:boardId" element={<BoardUpdate />} />

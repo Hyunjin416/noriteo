@@ -9,5 +9,8 @@ public interface BoardMapper {
     void insertBoard(Board board);
     void updateBoard(Board board);
     void deleteBoard(Long boardId);
+    List<Board> selectBoardListByType(String boardType);
+
+
 
 }

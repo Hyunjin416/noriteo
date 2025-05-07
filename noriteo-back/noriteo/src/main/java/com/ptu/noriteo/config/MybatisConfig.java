@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan(basePackages = "com.ptu.noriteo.mapper") // 매퍼 인터페이스 패키지 설정
+//@MapperScan(basePackages = "com.ptu.noriteo.mapper") // 매퍼 인터페이스 패키지 설정
 public class MybatisConfig {
 
     @Bean
