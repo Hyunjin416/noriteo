@@ -255,6 +255,15 @@ import axios from "axios";
 import "@/components_css/board/BoardList.css";
 import { useNavigate } from "react-router-dom";
 
+const boardTypeMap = {
+  notice: "공지사항",
+  free: "자유게시판",
+  hobby: "취미게시판",
+  play: "놀거리게시판",
+  food: "맛집게시판",
+  sell: "거래게시판",
+};
+
 const BoardList = ({ boardType, sortType }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -326,7 +335,9 @@ const BoardList = ({ boardType, sortType }) => {
                   key={post.boardId ?? `${post.boardTitle}-${Math.random()}`}
                   onClick={() => navigate(`/board/detail/${post.boardId}`)}
                 >
-                  <td>{post.boardType ?? "유형 없음"}</td>
+                  {/* <td>{post.boardType ?? "유형 없음"}</td> */}
+                  <td>{boardTypeMap[post.boardType] ?? "유형 없음"}</td>
+
                   <td
                     className="truncate-title"
                     title={post.boardTitle ?? "제목 없음"}

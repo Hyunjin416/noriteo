@@ -222,6 +222,55 @@ public ResponseEntity<?> getMyInfo(
 
 
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(HttpServletResponse response) {
+        // 모든 로그인 유형의 쿠키를 만료시킴
+        ResponseCookie deleteNormalAccessToken = ResponseCookie.from("normalAccessToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
+                .build();
+
+        ResponseCookie deleteNormalRefreshToken = ResponseCookie.from("normalRefreshToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
+                .build();
+
+        ResponseCookie deleteKakaoAccessToken = ResponseCookie.from("kakaoAccessToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
+                .build();
+
+        ResponseCookie deleteKakaoRefreshToken = ResponseCookie.from("kakaoRefreshToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
+                .build();
+
+        ResponseCookie deleteNaverAccessToken = ResponseCookie.from("naverAccessToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
+                .build();
+
+        ResponseCookie deleteNaverRefreshToken = ResponseCookie.from("naverRefreshToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)
+                .build();
+
+        // 응답에 쿠키 삭제 설정 추가
+        response.addHeader("Set-Cookie", deleteNormalAccessToken.toString());
+        response.addHeader("Set-Cookie", deleteNormalRefreshToken.toString());
+        response.addHeader("Set-Cookie", deleteKakaoAccessToken.toString());
+        response.addHeader("Set-Cookie", deleteKakaoRefreshToken.toString());
+        response.addHeader("Set-Cookie", deleteNaverAccessToken.toString());
+        response.addHeader("Set-Cookie", deleteNaverRefreshToken.toString());
+
+        return ResponseEntity.ok("로그아웃 완료");
+    }
 
 
 
