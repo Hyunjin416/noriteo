@@ -9,11 +9,11 @@ export default function NoticeList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/board/list") // 통일된 API
+      .get("http://localhost:8080/api/board/list")
       .then((response) => {
-        const allPosts = response.data;
-        const noticePosts = allPosts
-          .filter((post) => post.boardType === "notice") // '공지사항의 board_type = notice'로 필터링
+        console.log("전체 게시글 데이터:", response.data); // 확인용
+        const noticePosts = response.data
+          .filter((post) => post.boardType === "notice")
           .slice(0, 6);
         setPosts(noticePosts);
       })
@@ -22,13 +22,59 @@ export default function NoticeList() {
       });
   }, []);
 
+  //   return (
+  //     <div className="NoticeListContainer">
+  //       <div className="NoticeListHeader">
+  //         <h4 className="NoticeListTitle">공지사항</h4>
+  //         <button
+  //           className="NoticeListMoreBtn"
+  //           onClick={() => navigate(`/PostBoard?board_type=notice`)}
+  //         >
+  //           전체보기
+  //         </button>
+  //       </div>
+
+  //       <div className="NoticeListGrid">
+  //         {posts.length > 0 ? (
+  //           posts.map((post) => (
+  //             <div
+  //               className="NoticeListCard"
+  //               key={post.boardId} // camelCase로 고침
+  //               onClick={() => navigate(`/board/detail/${post.boardId}`)}
+  //             >
+  //               {/* <img
+  //                 src={post.boardPicUrl || "https://via.placeholder.com/150"} // camelCase로 고침
+  //                 alt={post.boardTitle}
+  //               />
+  //               <p>{post.boardTitle}</p>  */}
+  //               {/* <img
+  //                 src={post.boardPicUrl || "https://via.placeholder.com/150"}
+  //                 alt=""
+  //               />
+  //               <p>{post.boardTitle}</p> */}
+  //               {post.boardPicUrl && (
+  //                 <img src={post.boardPicUrl} alt={post.boardTitle} />
+  //               )}
+  //               <p>{post.boardTitle}</p>
+  //             </div>
+  //           ))
+  //         ) : (
+  //           <p style={{ textAlign: "center", width: "100%" }}>
+  //             공지사항이 없습니다.
+  //           </p>
+  //         )}
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   return (
     <div className="NoticeListContainer">
       <div className="NoticeListHeader">
         <h4 className="NoticeListTitle">공지사항</h4>
         <button
           className="NoticeListMoreBtn"
-          onClick={() => navigate("/PostBoard?board_type=notice")}
+          onClick={() => navigate(`/PostBoard?board_type=notice`)}
         >
           전체보기
         </button>
@@ -39,14 +85,35 @@ export default function NoticeList() {
           posts.map((post) => (
             <div
               className="NoticeListCard"
-              key={post.board_id} // board 고유 ID 사용
-              onClick={() => navigate(`/post/${post.board_id}`)}
+              key={post.boardId}
+              onClick={() => navigate(`/board/detail/${post.boardId}`)}
             >
-              <img
-                src={post.board_pic_url || "https://via.placeholder.com/150"} // BOARD_PIC에서 board_pic_id, board_pic_url 가져오는 api필요
-                alt={post.board_title}
-              />
-              <p>{post.board_title}</p>
+              {/* 이미지가 있을 경우만 보여줌 */}
+              {post.boardPicUrl && (
+                <img
+                  src={post.boardPicUrl}
+                  alt={post.boardTitle}
+                  className="NoticeListImage"
+                />
+              )}
+
+              {/* 제목 */}
+              <p className="NoticeListTitleText">
+                {post.boardTitle?.length > 40
+                  ? post.boardTitle.slice(0, 40) + "..."
+                  : post.boardTitle}
+              </p>
+
+              {/* 게시글 정보 (작성자, 날짜, 조회수) */}
+              <div className="NoticeListInfo">
+                <span className="NoticeListUser">작성자: {post.userId}</span>
+                <span className="NoticeListDate">
+                  {new Date(post.boardRegdate).toLocaleDateString("ko-KR")}
+                </span>
+                <span className="NoticeListViews">
+                  조회수: {post.boardViews}
+                </span>
+              </div>
             </div>
           ))
         ) : (

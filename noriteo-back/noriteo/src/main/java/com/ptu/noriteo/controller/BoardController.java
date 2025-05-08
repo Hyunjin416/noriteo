@@ -31,6 +31,7 @@ public class BoardController {
 
 
 
+
     @GetMapping("/detail/{boardId}")
     public Board detailBoard(@PathVariable("boardId") Long boardId) {
         return boardService.getBoardDetail(boardId);
