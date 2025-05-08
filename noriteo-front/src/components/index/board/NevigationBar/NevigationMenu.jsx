@@ -69,7 +69,7 @@ export default function NavigationMenu() {
     { label: "취미게시판", value: "hobby" },
     { label: "놀거리게시판", value: "play" },
     { label: "맛집게시판", value: "food" },
-    { label: "거래게시판", value: "sell" },
+    // { label: "거래게시판", value: "sell" },
   ];
 
   return (
