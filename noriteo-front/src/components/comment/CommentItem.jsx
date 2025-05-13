@@ -34,7 +34,7 @@ export default function CommentItem({ comment, onRefresh, currentUser, replies }
                 currentUser={currentUser}
             />
         ) : (
-        <>
+            <>
             {/* 상단: 작성자, 댓글 내용, 시간 (가로 정렬) */}
             <div className="comment-top">
                 <span className="comment-writer">{comment.userId}</span>
@@ -44,11 +44,17 @@ export default function CommentItem({ comment, onRefresh, currentUser, replies }
 
             {/* 하단: 버튼 */}
             <div className="comment-actions">
-                {isAuthor && <button onClick={() => setIsEditing(true)}>수정</button>}
+                {/* 작성자 본인 또는 관리자만 수정 가능 */}
+                {(isAuthor || isAdmin) && <button onClick={() => setIsEditing(true)}>수정</button>}
+                
+                {/* 작성자 본인 또는 관리자만 삭제 가능 */}
                 {(isAuthor || isAdmin) && <button onClick={handleDelete}>삭제</button>}
+                
+                {/* 로그인 사용자만 답글 작성 가능 */}
                 {currentUser && <button onClick={() => setIsReplying(!isReplying)}>답글</button>}
             </div>
 
+            {/* 대댓글 입력창 */}
             {isReplying && (
                 <CommentForm
                     boardId={comment.boardId}
@@ -59,10 +65,11 @@ export default function CommentItem({ comment, onRefresh, currentUser, replies }
                 />
             )}
 
+            {/* 대댓글 리스트 */}
             {replies && replies.length > 0 && (
                 <ul className="comment-replies">{replies}</ul>
             )}
-        </>
+            </>
         )}
         </li>
     );

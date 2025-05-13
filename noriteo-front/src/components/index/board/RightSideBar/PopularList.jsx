@@ -10,11 +10,11 @@ export default function PopularList() {
   useEffect(() => {
     const fetchPopularList = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/board"); // ✅ 백엔드 API
-        const sortedByViews = response.data
-          .sort((a, b) => b.board_views - a.board_views)
-          .slice(0, 10);
-        setPosts(sortedByViews);
+        const response = await axios.get("http://localhost:8080/api/board"); // 백엔드 API 호출
+        const sortedByRecommend = response.data
+          .sort((a, b) => (b.board_recommend || 0) - (a.board_recommend || 0)) // 추천 수 기준 정렬
+          .slice(0, 10); // 상위 10개만
+        setPosts(sortedByRecommend);
       } catch (err) {
         console.error("인기글 불러오기 실패:", err);
       }
@@ -24,11 +24,11 @@ export default function PopularList() {
   }, []);
 
   const handlePostClick = (postId) => {
-    navigate(`/post/${postId}`);
+    navigate(`/post/${postId}`); // 개별 글 상세보기 (boarddetail)
   };
 
   const handleViewAll = () => {
-    navigate("/postBoard?sort=views"); // ✅ 조회수 기준 전체보기
+    navigate("/boardPage?sort=recommend"); // 추천수 기준 전체보기 이동
   };
 
   return (
@@ -52,7 +52,7 @@ export default function PopularList() {
                 ? post.board_title.slice(0, 30) + "..."
                 : post.board_title}
             </span>
-            <span className="popularItemLikes">조회수: {post.board_views}</span>
+            <span className="popularItemLikes">추천수: {post.board_recommend || 0}</span>
           </li>
         ))}
       </ul>
