@@ -290,10 +290,14 @@ const BoardList = ({ boardType, sortType }) => {
         // 정렬 처리
         if (sortType === "views") {
           fetchedPosts.sort((a, b) => b.boardViews - a.boardViews);
-        } else if (sortType === "latest") {
+        } 
+        else if (sortType === "latest") {
           fetchedPosts.sort(
             (a, b) => new Date(b.boardRegdate) - new Date(a.boardRegdate)
           );
+        }
+        else if (sortType === "recommend") {
+          fetchedPosts.sort((a, b) => (b.boardRecommend || 0) - (a.boardRecommend || 0));
         }
 
         setPosts(fetchedPosts);
