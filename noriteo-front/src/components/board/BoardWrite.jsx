@@ -1,86 +1,24 @@
-// import React, { useState } from "react";
-// import "@/components_css/board/BoardWrite.css";
-
-// // export default function TextEditor() {
-// export default function BoardWrite() {
-//   const [content, setContent] = useState("");
-
-//   return (
-//     <div className="editor-container">
-//       {/* 게시판 분류 */}
-//       <select className="editor-select">
-//         <option value="general">게시판 선택</option>
-//         <option value="notice">공지사항</option>
-//         <option value="free">자유</option>
-//         <option value="food">맛집</option>
-//         <option value="hobby">취미</option>
-//         <option value="play">놀거리</option>
-//         <option value="sell">거래</option>
-//       </select>
-
-//       {/* 제목 */}
-//       <input
-//         className="editor-title"
-//         type="text"
-//         placeholder="제목을 입력하세요..."
-//       />
-
-//       {/* 해시태그 */}
-//       <input
-//         className="editor-hashtag"
-//         type="text"
-//         placeholder="#해시태그 입력"
-//       />
-
-//       {/* 툴바 */}
-//       <div className="editor-toolbar">
-//         <button>B</button>
-//         <button>I</button>
-//         <button>U</button>
-//         <select>
-//           <option>폰트</option>
-//           <option>나눔고딕</option>
-//           <option>돋움</option>
-//         </select>
-//         <input type="color" />
-//         <select>
-//           <option>정렬</option>
-//           <option value="left">왼쪽</option>
-//           <option value="center">가운데</option>
-//           <option value="right">오른쪽</option>
-//         </select>
-//         <button>" 인용구</button>
-//         <button>😊 스티커</button>
-//         <button>📅 일정</button>
-//         <input type="file" />
-//         <button onClick={() => alert("카카오 지도 첨부 기능")}>📍 지도</button>
-//         <select>
-//           <option>문체</option>
-//           <option>일기체</option>
-//           <option>공손체</option>
-//         </select>
-//       </div>
-
-//       {/* 텍스트 에디터 영역 */}
-//       <textarea
-//         className="editor-textarea"
-//         value={content}
-//         onChange={(e) => setContent(e.target.value)}
-//         placeholder="내용을 입력하세요..."
-//       />
-
-//       {/* 저장 버튼 */}
-//       <button className="editor-save">저장</button>
-//     </div>
-//   );
-// }
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 import "@/components_css/board/BoardWrite.css";
 import KakaoMapComponent from "./KakaoMapComponent.jsx";
 
 export default function BoardWrite() {
-  const [content, setContent] = useState("");
+  const { boardId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 수정 모드: 상세보기에서 전달된 기존 게시글 데이터
+  const existing = location.state?.board || null;
+
+  // 폼 상태
+  const [boardType, setBoardType] = useState(existing?.boardType || "general");
+  const [title, setTitle] = useState(existing?.board_title || "");
+  const [hashtags, setHashtags] = useState((existing?.tags || []).join(","));
+  const [content, setContent] = useState(existing?.boardContent || "");
+
+  // 텍스트 스타일 도구
   const [fontColor, setFontColor] = useState("#000000");
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
@@ -90,12 +28,9 @@ export default function BoardWrite() {
   const [textAlign, setTextAlign] = useState("left");
   const [showMap, setShowMap] = useState(false);
 
-  const toggleBold = () => setIsBold(!isBold);
-  const toggleItalic = () => setIsItalic(!isItalic);
-  const toggleUnderline = () => setIsUnderline(!isUnderline);
-
+  // 스타일 적용 함수
   const applyStyle = () => {
-    let style = {};
+    const style = {};
     if (isBold) style.fontWeight = "bold";
     if (isItalic) style.fontStyle = "italic";
     if (isUnderline) style.textDecoration = "underline";
@@ -105,22 +40,69 @@ export default function BoardWrite() {
     return style;
   };
 
-  const handleQuote = () => {
-    setContent((prev) => prev + "\n> 인용문\n");
+  // 수정 모드 초기 로드: API에서 데이터 가져오기
+  useEffect(() => {
+    if (boardId && !existing) {
+      axios
+        .get(`http://localhost:8080/api/board/detail/${boardId}`)
+        .then((res) => {
+          const data = res.data;
+          setBoardType(data.boardType);
+          setTitle(data.board_title);
+          setHashtags((data.tags || []).join(","));
+          setContent(data.boardContent);
+        })
+        .catch((err) => console.error("게시글 불러오기 실패:", err));
+    }
+  }, [boardId, existing]);
+
+  // 저장 처리: 등록 vs 수정
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const payload = {
+      boardType,
+      board_title: title,
+      boardContent: content,
+      tags: hashtags.split(",").map((t) => t.trim()).filter(Boolean),
+    };
+    try {
+      if (boardId) {
+        // 수정
+        await axios.put(
+          `http://localhost:8080/api/board/${boardId}`,
+          payload
+        );
+        navigate(`/board/${boardId}`);
+      } else {
+        // 새 글 등록
+        const res = await axios.post(
+          "http://localhost:8080/api/board",
+          payload
+        );
+        navigate(`/board/${res.data.id}`);
+      }
+    } catch (err) {
+      console.error("저장 실패:", err);
+      alert("저장 중 오류가 발생했습니다.");
+    }
   };
 
-  const handleSchedule = () => {
-    setContent((prev) => prev + "\n📅 일정: YYYY-MM-DD\n");
-  };
-
-  const handleMap = () => {
-    setShowMap((prev) => !prev);
-  };
+  // 기타 핸들러
+  const toggleBold = () => setIsBold((b) => !b);
+  const toggleItalic = () => setIsItalic((i) => !i);
+  const toggleUnderline = () => setIsUnderline((u) => !u);
+  const handleQuote = () => setContent((prev) => prev + "\n> 인용문\n");
+  const handleSchedule = () => setContent((prev) => prev + "\n📅 일정: YYYY-MM-DD\n");
+  const handleMap = () => setShowMap((prev) => !prev);
 
   return (
-    <div className="editor-container">
+    <form className="editor-container" onSubmit={handleSave}>
       {/* 게시판 분류 */}
-      <select className="editor-select">
+      <select
+        className="editor-select"
+        value={boardType}
+        onChange={(e) => setBoardType(e.target.value)}
+      >
         <option value="general">게시판 선택</option>
         <option value="notice">공지사항</option>
         <option value="free">자유</option>
@@ -130,28 +112,38 @@ export default function BoardWrite() {
         <option value="sell">거래</option>
       </select>
 
+      {/* 제목, 해시태그 */}
       <input
         className="editor-title input-fix"
         type="text"
         placeholder="제목을 입력하세요..."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
       />
       <input
         className="editor-hashtag input-fix"
         type="text"
         placeholder="#해시태그 입력"
+        value={hashtags}
+        onChange={(e) => setHashtags(e.target.value)}
       />
 
+      {/* 툴바 */}
       <div className="editor-toolbar">
-        <button onClick={toggleBold}>
+        <button type="button" onClick={toggleBold}>
           <b>B</b>
         </button>
-        <button onClick={toggleItalic}>
+        <button type="button" onClick={toggleItalic}>
           <i>I</i>
         </button>
-        <button onClick={toggleUnderline}>
+        <button type="button" onClick={toggleUnderline}>
           <u>U</u>
         </button>
-        <select onChange={(e) => setFontFamily(e.target.value)}>
+        <select
+          value={fontFamily}
+          onChange={(e) => setFontFamily(e.target.value)}
+        >
           <option value="inherit">폰트</option>
           <option value="Nanum Gothic">나눔고딕</option>
           <option value="Dotum">돋움</option>
@@ -161,49 +153,52 @@ export default function BoardWrite() {
           value={fontColor}
           onChange={(e) => setFontColor(e.target.value)}
         />
-        <select onChange={(e) => setTextAlign(e.target.value)}>
+        <select
+          value={textAlign}
+          onChange={(e) => setTextAlign(e.target.value)}
+        >
           <option value="left">왼쪽 정렬</option>
           <option value="center">가운데 정렬</option>
           <option value="right">오른쪽 정렬</option>
         </select>
-        <button onClick={handleQuote}>인용구</button>
-        <button onClick={() => setShowStickers(!showStickers)}>
+        <button type="button" onClick={handleQuote}>인용구</button>
+        <button
+          type="button"
+          onClick={() => setShowStickers((s) => !s)}
+        >
           😊 스티커
         </button>
-        <button onClick={handleSchedule}>📅 일정</button>
-        {/* <input type="file" /> */}
+        <button type="button" onClick={handleSchedule}>📅 일정</button>
         <input type="file" multiple />
-        <button onClick={handleMap}>📍 지도</button>
+        <button type="button" onClick={handleMap}>📍 지도</button>
       </div>
 
+      {/* 스티커 & 지도 */}
       {showStickers && (
         <div className="sticker-popup">
-          <span onClick={() => setContent(content + "😊")} role="img">
-            😊
-          </span>
-          <span onClick={() => setContent(content + "🔥")} role="img">
-            🔥
-          </span>
-          <span onClick={() => setContent(content + "🎉")} role="img">
-            🎉
-          </span>
-          <span onClick={() => setContent(content + "❤️")} role="img">
-            ❤️
-          </span>
+          {['😊','🔥','🎉','❤️'].map((s) => (
+            <span key={s} onClick={() => setContent((c) => c + s)}>
+              {s}
+            </span>
+          ))}
         </div>
       )}
-
       {showMap && <KakaoMapComponent />}
 
+      {/* 본문 에디터 */}
       <textarea
         className="editor-textarea input-fix"
         style={applyStyle()}
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="내용을 입력하세요..."
+        rows={10}
       />
 
-      <button className="editor-save">저장</button>
-    </div>
+      {/* 저장 버튼 */}
+      <button type="submit" className="editor-save">
+        {boardId ? "수정 완료" : "저장"}
+      </button>
+    </form>
   );
 }
