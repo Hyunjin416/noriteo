@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import UpdateUser from "@/components/member/myPage/UpdateUser";
 import BoardList from "@/components/member/myPage/BoardList";
 import CommentList from "@/components/member/myPage/CommentList";
-import ProductList from "@/components/member/myPage/ProductList";
 import BoardSaveList from "@/components/member/myPage/BoardSaveList";
-import ProductLikeList from "@/components/member/myPage/ProductLikeList";
+import BoardLikeList from "@/components/member/myPage/BoardLikeList";
 import "@/components_css/member/mypage/MyPage.css";
 
 const MyPage = () => {
@@ -18,12 +17,10 @@ const MyPage = () => {
         return <BoardList type="myPosts" />;
       case "myComments":
         return <CommentList type="myComments" />;
-      case "myProducts":
-        return <ProductList type="myProducts" />;
       case "savedPosts":
         return <BoardSaveList type="saved" />;
-      case "likedProducts":
-        return <ProductLikeList type="liked" />;
+      case "likedPosts":
+        return <BoardLikeList type="liked" />;
       default:
         return null;
     }
@@ -52,22 +49,16 @@ const MyPage = () => {
           내가 쓴 댓글
         </button>
         <button
-          onClick={() => setActiveTab("myProducts")}
-          className={activeTab === "myProducts" ? "active" : ""}
-        >
-          내가 올린 상품
-        </button>
-        <button
           onClick={() => setActiveTab("savedPosts")}
           className={activeTab === "savedPosts" ? "active" : ""}
         >
           저장한 게시글
         </button>
         <button
-          onClick={() => setActiveTab("likedProducts")}
-          className={activeTab === "likedProducts" ? "active" : ""}
+          onClick={() => setActiveTab("likedPosts")}
+          className={activeTab === "likedPosts" ? "active" : ""}
         >
-          찜한 상품
+          좋아요한한 게시글
         </button>
       </div>
       <div className="mypage-content">{renderContent()}</div>

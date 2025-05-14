@@ -1,20 +1,22 @@
 package com.ptu.noriteo.mapper;
 
 import com.ptu.noriteo.model.BoardComment;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface BoardCommentMapper {
-    // 게시글에 달린 댓글 전체 조회
-    List<BoardComment> selectCommentsByBoardId(Long boardId);
+    List<BoardComment> getCommentsByBoardId(Long boardId);
+    int insertComment(BoardComment comment);
+    int updateComment(BoardComment comment);
+    int deleteComment(BoardComment comment); // userId와 함께 전달
+    List<BoardComment> selectMyComments(Long userId);
 
-    // 댓글 등록
-    void insertComment(BoardComment comment);
+    void insertReplyComment(BoardComment comment);
 
-    // 댓글 수정
-    void updateComment(BoardComment comment);
+    void updateStepsForReply(@Param("ref") Long ref, @Param("step") int step);
 
-    // 댓글 삭제
-    void deleteComment(Long commentId);
+    BoardComment findById(@Param("commentId") Long commentId);
+
 
 }

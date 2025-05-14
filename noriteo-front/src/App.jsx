@@ -4,7 +4,6 @@ import Index from "./pages/index/Index.jsx";
 import Member from "./pages/member/Member.jsx";
 import Admin from "./pages/admin/Admin.jsx";
 import Board from "./pages/board/Board.jsx";
-import Product from "./pages/product/Product.jsx";
 //import PostPage from "./pages/PostPage/PostPage.jsx";
 import KakaoCallback from "@/components/member/sign/KakaoCallback.jsx";
 import NaverCallback from "@/components/member/sign/NaverCallback.jsx";
@@ -27,7 +26,6 @@ function App() {
         <Route path="/board/*" element={<Board />} />
         <Route path="/*" element={<Index />} />
         <Route path="/member/*" element={<Member />} />
-        <Route path="/product/*" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );

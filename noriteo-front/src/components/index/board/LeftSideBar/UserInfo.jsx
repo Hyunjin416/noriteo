@@ -111,7 +111,11 @@ export default function UserInfo() {
   }
 
   // 유저 정보가 있는 경우 렌더링
-  const profileImageUrl = userInfo.sysUser || "/usericon.png";
+  // const profileImageUrl = userInfo.sysUser || "/usericon.png";
+  const profileImageUrl = userInfo.sysUser?.startsWith("/uploads/")
+    ? userInfo.sysUser
+    : "/uploads/" + userInfo.sysUser;
+
   const userName = userInfo.userName || userInfo.usersName;
   const joinDate = new Date(userInfo.usersRegdate).toLocaleDateString();
   const postCount = 42; // TODO: 실제 데이터 연동

@@ -63,20 +63,20 @@ export default function BoardWrite() {
       boardType,
       board_title: title,
       boardContent: content,
-      tags: hashtags.split(",").map((t) => t.trim()).filter(Boolean),
+      tags: hashtags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
     };
     try {
       if (boardId) {
         // 수정
-        await axios.put(
-          `http://localhost:8080/api/board/${boardId}`,
-          payload
-        );
+        await axios.put(`http://localhost:8080/api/board/${boardId}`, payload);
         navigate(`/board/${boardId}`);
       } else {
         // 새 글 등록
         const res = await axios.post(
-          "http://localhost:8080/api/board",
+          "http://localhost:8080/api/board/write",
           payload
         );
         navigate(`/board/${res.data.id}`);
@@ -92,7 +92,8 @@ export default function BoardWrite() {
   const toggleItalic = () => setIsItalic((i) => !i);
   const toggleUnderline = () => setIsUnderline((u) => !u);
   const handleQuote = () => setContent((prev) => prev + "\n> 인용문\n");
-  const handleSchedule = () => setContent((prev) => prev + "\n📅 일정: YYYY-MM-DD\n");
+  const handleSchedule = () =>
+    setContent((prev) => prev + "\n📅 일정: YYYY-MM-DD\n");
   const handleMap = () => setShowMap((prev) => !prev);
 
   return (
@@ -161,22 +162,25 @@ export default function BoardWrite() {
           <option value="center">가운데 정렬</option>
           <option value="right">오른쪽 정렬</option>
         </select>
-        <button type="button" onClick={handleQuote}>인용구</button>
-        <button
-          type="button"
-          onClick={() => setShowStickers((s) => !s)}
-        >
+        <button type="button" onClick={handleQuote}>
+          인용구
+        </button>
+        <button type="button" onClick={() => setShowStickers((s) => !s)}>
           😊 스티커
         </button>
-        <button type="button" onClick={handleSchedule}>📅 일정</button>
+        <button type="button" onClick={handleSchedule}>
+          📅 일정
+        </button>
         <input type="file" multiple />
-        <button type="button" onClick={handleMap}>📍 지도</button>
+        <button type="button" onClick={handleMap}>
+          📍 지도
+        </button>
       </div>
 
       {/* 스티커 & 지도 */}
       {showStickers && (
         <div className="sticker-popup">
-          {['😊','🔥','🎉','❤️'].map((s) => (
+          {["😊", "🔥", "🎉", "❤️"].map((s) => (
             <span key={s} onClick={() => setContent((c) => c + s)}>
               {s}
             </span>

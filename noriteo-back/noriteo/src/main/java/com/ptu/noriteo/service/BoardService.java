@@ -20,14 +20,7 @@ public class BoardService {
     private final BoardPicMapper boardPicMapper;
     private final FileUploadService fileUploadService; // 파일 저장 유틸
 
-//    public List<Board> getBoardList() {
-//        return boardMapper.selectBoardList();
-//    }
 
-
-    public Board getBoardDetail(Long boardId) {
-        return boardMapper.selectBoardDetail(boardId);
-    }
 
     public void updateBoard(Board board) {
         boardMapper.updateBoard(board);
@@ -79,6 +72,73 @@ public class BoardService {
 
     public List<Board> getBoardListByType(String boardType) {
         return boardMapper.selectBoardListByType(boardType);
+    }
+
+    public int likeBoard(Long userId, Long boardId) {
+        int liked = boardMapper.isBoardLiked(userId, boardId);
+
+        if (liked > 0) {
+            // 이미 좋아요 했으면 취소 (delete)
+            boardMapper.deleteBoardLike(userId, boardId);
+        } else {
+            // 안 했으면 좋아요 추가
+            boardMapper.insertBoardLike(userId, boardId);
+        }
+
+        return boardMapper.countBoardLikes(boardId); // 최종 좋아요 수 반환
+    }
+
+
+
+//    public void saveBoard(Long userId, Long boardId) {
+//        if (!boardMapper.isBoardSaved(userId, boardId)) {
+//            boardMapper.insertBoardSave(userId, boardId);
+//        }
+//    }
+public void toggleBoardSave(Long userId, Long boardId) {
+    if (isBoardSaved(userId, boardId)) {
+        boardMapper.deleteBoardSave(userId, boardId);
+    } else {
+        boardMapper.insertBoardSave(userId, boardId);
+    }
+
+}
+
+    // 저장 여부 확인 메서드
+    public boolean isBoardSaved(Long userId, Long boardId) {
+        return boardMapper.isBoardSaved(userId, boardId) > 0;
+    }
+
+
+
+
+    public boolean isBoardLiked(Long userId, Long boardId) {
+        return boardMapper.isBoardLiked(userId, boardId) > 0;
+    }
+
+    public Board getBoardDetail(Long boardId) {
+        Board board = boardMapper.selectBoardById(boardId);
+        int likeCount = boardMapper.countLikes(boardId);
+        board.setLikes(likeCount); // Board 클래스에 setLikes(int) 있어야 함
+        return board;
+    }
+
+
+    public List<Board> getPopularBoards() {
+        return boardMapper.selectPopularBoards();
+    }
+
+    public List<Board> getBoardsByUserId(Long userId) {
+        return boardMapper.selectBoardsByUserId(userId);
+    }
+
+
+    public List<Board> getMySavedBoards(Long userId) {
+        return boardMapper.selectMySavedBoards(userId);
+    }
+
+    public List<Board> getMyLikedBoards(Long userId) {
+        return boardMapper.selectMyLikedBoards(userId);
     }
 
 

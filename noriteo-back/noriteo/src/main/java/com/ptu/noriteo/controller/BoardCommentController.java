@@ -1,37 +1,73 @@
-package com.ptu.noriteo.controller;
+    package com.ptu.noriteo.controller;
 
-import com.ptu.noriteo.model.BoardComment;
-import com.ptu.noriteo.service.BoardCommentService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+    import com.ptu.noriteo.jwt.JwtAuthentication;
+    import com.ptu.noriteo.model.BoardComment;
+    import com.ptu.noriteo.service.BoardCommentService;
+    import lombok.RequiredArgsConstructor;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.security.core.annotation.AuthenticationPrincipal;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+    import java.util.List;
 
-@Controller
-@RequestMapping("/api/comment")
-@RequiredArgsConstructor
-public class BoardCommentController {
+    @Controller
+    @RequestMapping("/api/comments")
+    @RequiredArgsConstructor
+    public class BoardCommentController {
 
-    private final BoardCommentService commentService;
+        private final BoardCommentService boardCommentService;
 
-    @PostMapping("/add")
-    public void addComment(@RequestBody BoardComment comment) {
-        commentService.addComment(comment);
+        // 게시글 ID에 해당하는 댓글 리스트 조회
+        @GetMapping("/{boardId}")
+        public ResponseEntity<List<BoardComment>> listComments(@PathVariable Long boardId) {
+            return ResponseEntity.ok(boardCommentService.getCommentsByBoardId(boardId));
+        }
+
+        // 댓글 작성 (로그인 사용자만)
+        @PostMapping("")
+        public ResponseEntity<?> addComment(@RequestBody BoardComment comment,
+                                            @AuthenticationPrincipal JwtAuthentication auth) {
+            comment.setUserId(auth.getUserId());
+            boolean success = boardCommentService.addComment(comment);
+            return success ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+        }
+
+        // 댓글 수정 (작성자 본인만)
+        @PutMapping("/{commentId}")
+        public ResponseEntity<?> updateComment(@PathVariable Long commentId,
+                                               @RequestBody String newContent,
+                                               @AuthenticationPrincipal JwtAuthentication auth) {
+            boolean success = boardCommentService.updateComment(commentId, auth.getUserId(), newContent);
+            return success ? ResponseEntity.ok().build() : ResponseEntity.status(403).build();
+        }
+
+        // 삭제 (작성자 본인만)
+        @DeleteMapping("/{commentId}")
+        public ResponseEntity<?> deleteComment(@PathVariable Long commentId,
+                                               @AuthenticationPrincipal JwtAuthentication auth) {
+            boolean success = boardCommentService.deleteComment(commentId, auth.getUserId());
+            return success ? ResponseEntity.ok().build() : ResponseEntity.status(403).build();
+        }
+
+        @GetMapping("/my")
+        public ResponseEntity<List<BoardComment>> getMyComments(@AuthenticationPrincipal JwtAuthentication auth) {
+            return ResponseEntity.ok(boardCommentService.getMyComments(auth.getUserId()));
+        }
+
+        // 대댓글 작성 (ref/step/depth 포함 필요 시 확장)
+        @PostMapping("/{commentId}/reply")
+        public ResponseEntity<?> replyToComment(@PathVariable Long commentId,
+                                                @RequestBody BoardComment reply,
+                                                @AuthenticationPrincipal JwtAuthentication auth) {
+            BoardComment parent = boardCommentService.getCommentById(commentId);
+            reply.setUserId(auth.getUserId());
+            reply.setBoardId(parent.getBoardId());
+
+            boardCommentService.addReplyComment(parent, reply);
+            return ResponseEntity.ok().build();
+        }
+
+
     }
 
-    @GetMapping("/list/{boardId}")
-    public List<BoardComment> listComments(@PathVariable Long boardId) {
-        return commentService.getCommentsByBoardId(boardId);
-    }
-
-    @DeleteMapping("/delete/{commentId}")
-    public void deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
-    }
-
-    @PutMapping("/update")
-    public void updateComment(@RequestBody BoardComment comment) {
-        commentService.updateComment(comment);
-    }
-}

@@ -18,7 +18,10 @@ public class FileUploadService {
 //    @Value("${upload.path}")
 //    private String uploadDir;
     // static 아래에 uploads 폴더에 저장할 경우
-private final String uploadDir = "src/main/resources/static/uploads/";
+//private final String uploadDir = "src/main/resources/static/uploads/";
+// 바깥에서 수정 가능하게
+    @Value("${upload.path}")
+    private String uploadDir;
 
 
     public String upload(String subDir, MultipartFile file) {
@@ -26,6 +29,7 @@ private final String uploadDir = "src/main/resources/static/uploads/";
             // 하위 폴더 포함 경로 설정
             String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
             Path targetDir = Paths.get(uploadDir + subDir); // 예: board, users
+//            Path targetDir = Paths.get(uploadDir + "/" + subDir);
             Files.createDirectories(targetDir); // 폴더 없으면 자동 생성
 
             Path path = targetDir.resolve(filename);
