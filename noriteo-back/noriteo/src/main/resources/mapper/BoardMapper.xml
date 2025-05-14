@@ -10,10 +10,11 @@
         <result property="boardTitle" column="board_title"/>
         <result property="boardContent" column="board_content"/>
         <result property="userId" column="user_id"/>
-        <result property="boardAddress" column="board_address"/>
+        <result property="placeKakaoId" column="place_kakao_id"/>
+        <result property="placeName" column="place_name"/>
+        <result property="roadAddressName" column="road_address_name"/>
         <result property="boardLat" column="board_lat"/>
         <result property="boardLng" column="board_lng"/>
-        <result property="placeId" column="place_id"/>
         <result property="boardRegdate" column="board_regdate"/>
         <result property="boardViews" column="board_views"/>
         <collection property="boardPics" ofType="com.ptu.noriteo.model.BoardPic">
@@ -31,8 +32,6 @@
         ORDER BY b.board_id DESC
     </select>
 
-
-
     <select id="selectBoardListByType" parameterType="string" resultMap="boardMap">
         SELECT b.*, p.board_pic_id, p.board_pic_url, p.board_pic_order
         FROM board b
@@ -41,7 +40,6 @@
         ORDER BY b.board_id DESC
     </select>
 
-
     <select id="selectBoardDetail" parameterType="long" resultMap="boardMap">
         SELECT b.*, p.board_pic_id, p.board_pic_url, p.board_pic_order
         FROM board b
@@ -49,25 +47,59 @@
         WHERE b.board_id = #{boardId}
     </select>
 
-    <insert id="insertBoard" parameterType="com.ptu.noriteo.model.Board" useGeneratedKeys="true" keyProperty="boardId">
-        INSERT INTO board (board_id, board_type, board_title, board_content, user_id, board_address, board_lat, board_lng, place_id)
-        VALUES (BOARD_SEQ.NEXTVAL, #{boardType}, #{boardTitle}, #{boardContent}, #{userId}, #{boardAddress}, #{boardLat}, #{boardLng}, #{placeId})
+    <insert id="insertBoard" parameterType="com.ptu.noriteo.model.Board">
+        <selectKey keyProperty="boardId" resultType="long" order="BEFORE">
+            SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+
+        INSERT INTO board (
+        board_id,
+        board_type,
+        board_title,
+        board_content,
+        user_id,
+        place_kakao_id,
+        place_name,
+        road_address_name,
+        board_lat,
+        board_lng
+        ) VALUES (
+        #{boardId},
+        #{boardType},
+        #{boardTitle},
+        #{boardContent},
+        #{userId},
+        #{placeKakaoId},
+        #{placeName},
+        #{roadAddressName},
+        #{boardLat, jdbcType=DOUBLE},
+        #{boardLng, jdbcType=DOUBLE}
+        )
     </insert>
+
+
+
+
+
+
+
+
+
 
     <update id="updateBoard" parameterType="com.ptu.noriteo.model.Board">
         UPDATE board
         SET board_type = #{boardType},
             board_title = #{boardTitle},
             board_content = #{boardContent},
-            board_address = #{boardAddress},
+            place_kakao_id = #{placeKakaoId},
+            place_name = #{placeName},
+            road_address_name = #{roadAddressName},
             board_lat = #{boardLat},
-            board_lng = #{boardLng},
-            place_id = #{placeId}
+            board_lng = #{boardLng}
         WHERE board_id = #{boardId}
     </update>
 
     <delete id="deleteBoard" parameterType="long">
         DELETE FROM board WHERE board_id = #{boardId}
     </delete>
-
 </mapper>

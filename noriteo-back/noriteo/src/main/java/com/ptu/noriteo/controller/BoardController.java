@@ -39,7 +39,10 @@ public class BoardController {
 
     @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void createBoard(@RequestPart("board") Board board,
-                            @RequestPart("pics") List<MultipartFile> pics) {
+//                            @RequestPart("pics") List<MultipartFile> pics
+                            @RequestPart(name = "pics", required = false) List<MultipartFile> pics)
+            {
+
         boardService.createBoard(board, pics);
     }
 

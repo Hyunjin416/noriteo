@@ -1,8 +1,6 @@
 package com.ptu.noriteo.model;
 
-
 import lombok.Data;
-
 import java.util.Date;
 
 @Data
