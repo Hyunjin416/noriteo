@@ -4,9 +4,9 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 @Data
-public class BoardSave {
-    private long boardSaveId;
+public class BoardLike {
+    private long boardLikeId;
     private long userId;
     private long boardId;
-    private Timestamp boardSaveRegdate;
+    private Timestamp boardLikeRegdate;
 }

@@ -51,7 +51,7 @@ public class BoardService {
                 BoardPic pic = new BoardPic();
                 pic.setBoardId(boardId);
                 pic.setBoardPicUrl(url);
-                pic.setBoardPicOrder(order++);
+                pic.setBoardPicOrder((long) order++);
                 boardPicMapper.insertPic(pic);
             }
         }
@@ -67,7 +67,7 @@ public class BoardService {
             if (!file.isEmpty()) {
                 String url = fileUploadService.upload("board", file); // 동일하게 "board"
 
-                BoardPic pic = new BoardPic(board.getBoardId(), url, order++);
+                BoardPic pic = new BoardPic(board.getBoardId(), url, (long) order++);
                 boardPicMapper.insertPic(pic);
             }
         }

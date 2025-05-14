@@ -1,7 +1,6 @@
 package com.ptu.noriteo.model;
 
 import lombok.Data;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -12,12 +11,15 @@ public class Board {
     private String boardTitle;
     private String boardContent;
     private Long userId;
-    private String boardAddress;
+
+    private String placeKakaoId;
+    private String placeName;
+    private String roadAddressName;
     private Double boardLat;
     private Double boardLng;
-    private String placeId;
+
     private Timestamp boardRegdate;
-    private Integer boardViews;
+    private Long boardViews;
 
     private List<BoardPic> boardPics;
 }

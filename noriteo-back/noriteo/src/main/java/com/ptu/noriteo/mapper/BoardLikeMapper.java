@@ -1,4 +1,4 @@
 package com.ptu.noriteo.mapper;
 
-public interface ProductMapper {
+public interface BoardLikeMapper {
 }

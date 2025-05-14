@@ -1,4 +1,4 @@
 package com.ptu.noriteo.controller;
 
-public class ProductController {
+public class BoardLikeController {
 }
