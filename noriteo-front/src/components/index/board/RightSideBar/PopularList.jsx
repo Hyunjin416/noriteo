@@ -7,14 +7,28 @@ export default function PopularList() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchPopularList = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:8080/api/board"); // 백엔드 API 호출
+  //       const sortedByRecommend = response.data
+  //         .sort((a, b) => (b.board_recommend || 0) - (a.board_recommend || 0)) // 추천 수 기준 정렬
+  //         .slice(0, 10); // 상위 10개만
+  //       setPosts(sortedByRecommend);
+  //     } catch (err) {
+  //       console.error("인기글 불러오기 실패:", err);
+  //     }
+  //   };
+
+  //   fetchPopularList();
+  // }, []);
   useEffect(() => {
     const fetchPopularList = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/board"); // 백엔드 API 호출
-        const sortedByRecommend = response.data
-          .sort((a, b) => (b.board_recommend || 0) - (a.board_recommend || 0)) // 추천 수 기준 정렬
-          .slice(0, 10); // 상위 10개만
-        setPosts(sortedByRecommend);
+        const response = await axios.get(
+          "http://localhost:8080/api/board/popular"
+        );
+        setPosts(response.data);
       } catch (err) {
         console.error("인기글 불러오기 실패:", err);
       }
@@ -41,20 +55,43 @@ export default function PopularList() {
       </div>
 
       <ul className="popularList">
-        {posts.map((post) => (
+        {/* {posts.map((post) => (
           <li
             key={post.board_id}
             className="popularItem"
             onClick={() => handlePostClick(post.board_id)}
-          >
-            <span className="popularItemTitle" title={post.board_title}>
+          > */}
+
+        {/* <span className="popularItemTitle" title={post.board_title}>
               {post.board_title.length > 30
                 ? post.board_title.slice(0, 30) + "..."
                 : post.board_title}
+            </span> */}
+        {posts.map((post) => (
+          <li
+            key={post.boardId || post.board_id}
+            className="popularItem"
+            onClick={() => handlePostClick(post.boardId || post.board_id)}
+          >
+            <span
+              className="popularItemTitle"
+              title={post.boardTitle || post.board_title}
+            >
+              {(post.boardTitle || post.board_title)?.length > 30
+                ? (post.boardTitle || post.board_title).slice(0, 30) + "..."
+                : post.boardTitle || post.board_title}
             </span>
-            <span className="popularItemLikes">추천수: {post.board_recommend || 0}</span>
+            <span className="popularItemLikes">
+              추천수: {post.boardRecommend || post.board_recommend || 0}
+            </span>
           </li>
         ))}
+
+        {/* <span className="popularItemLikes">
+              추천수: {post.board_recommend || 0}
+            </span>
+          </li>
+        ))} */}
       </ul>
     </div>
   );

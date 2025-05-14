@@ -33,15 +33,72 @@
         ORDER BY REF ASC, STEP ASC
     </select>
 
-    <delete id="deleteComment">
-        DELETE FROM BOARD_COMMENT
-        WHERE BOARD_COMMENT_ID = #{boardCommentId}
-    </delete>
-
     <update id="updateComment">
         UPDATE BOARD_COMMENT
         SET BOARD_COMMENT_CONTENT = #{boardCommentContent}
         WHERE BOARD_COMMENT_ID = #{boardCommentId}
+          AND USER_ID = #{userId}
     </update>
+
+    <delete id="deleteComment">
+        DELETE FROM BOARD_COMMENT
+        WHERE BOARD_COMMENT_ID = #{boardCommentId}
+          AND USER_ID = #{userId}
+    </delete>
+
+
+    <select id="selectCommentsByBoardId" resultType="com.ptu.noriteo.model.BoardComment">
+        SELECT *
+        FROM BOARD_COMMENT
+        WHERE BOARD_ID = #{boardId}
+        ORDER BY BOARD_COMMENT_ID ASC
+    </select>
+
+
+
+    <select id="selectMyComments" parameterType="long" resultType="com.ptu.noriteo.model.BoardComment">
+        SELECT *
+        FROM BOARD_COMMENT
+        WHERE USER_ID = #{userId}
+        ORDER BY BOARD_COMMENT_REGDATE DESC
+    </select>
+
+
+
+    <insert id="insertReplyComment" useGeneratedKeys="true" keyProperty="boardCommentId">
+        INSERT INTO BOARD_COMMENT (
+            BOARD_COMMENT_ID,
+            BOARD_ID,
+            USER_ID,
+            BOARD_COMMENT_CONTENT,
+            BOARD_COMMENT_REGDATE,
+            REF,
+            STEP,
+            DEPTH
+        ) VALUES (
+                     BOARD_COMMENT_SEQ.NEXTVAL,
+                     #{boardId},
+                     #{userId},
+                     #{boardCommentContent},
+                     SYSTIMESTAMP,
+                     #{ref},
+                     #{step},
+                     #{depth}
+                 )
+    </insert>
+
+    <!-- STEP 정렬을 위해 기존 댓글들 STEP 증가시키기 -->
+    <update id="updateStepsForReply">
+        UPDATE BOARD_COMMENT
+        SET STEP = STEP + 1
+        WHERE REF = #{ref} AND STEP > #{step}
+    </update>
+
+
+    <select id="findById" resultType="com.ptu.noriteo.model.BoardComment">
+        SELECT *
+        FROM BOARD_COMMENT
+        WHERE BOARD_COMMENT_ID = #{commentId}
+    </select>
 
 </mapper>

@@ -22,4 +22,11 @@ public class Board {
     private Long boardViews;
 
     private List<BoardPic> boardPics;
+
+
+
+    // 추가................
+    private int likes;
+    private int boardRecommend;
+
 }

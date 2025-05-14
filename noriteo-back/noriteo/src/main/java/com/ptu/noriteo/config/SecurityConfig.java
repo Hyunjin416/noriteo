@@ -38,7 +38,9 @@
                                     "/naver-callback",
                                     "/api/board/list/**",
                                     "/api/board/detail/**",
-                                    "/api/comment/{boardId}",
+                                    "/api/board/popular",
+//                                    "/api/comments/{boardId}",,
+                                    "/api/comments/**",
                                     "/uploads/**",
                                     "/error"
                             ).permitAll()
@@ -47,10 +49,13 @@
                                     "/api/board/write",
                                     "/api/board/update/**",
                                     "/api/board/delete/**",
-                                    "/api/comment",
-                                    "/api/comment/**",
+                                    "/api/comments",
+                                    "/api/comments/**",
                                     "/api/member/me",
-                                    "/api/member/update"
+                                    "/api/member/update",
+                                    "/api/board/*/save",
+                                    "/api/board/*/like",
+                                    "/api/board/my/comments"
                             ).authenticated()
 
                             .anyRequest().authenticated()
