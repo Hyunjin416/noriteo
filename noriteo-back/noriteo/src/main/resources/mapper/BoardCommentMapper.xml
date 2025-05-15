@@ -4,41 +4,90 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ptu.noriteo.mapper.BoardCommentMapper">
 
-    <insert id="insertComment" useGeneratedKeys="true" keyProperty="boardCommentId">
+<!--    <insert id="insertComment" useGeneratedKeys="true" keyProperty="boardCommentId">-->
+<!--        INSERT INTO BOARD_COMMENT (-->
+<!--            BOARD_COMMENT_ID,-->
+<!--            BOARD_ID,-->
+<!--            USER_ID,-->
+<!--            BOARD_COMMENT_CONTENT,-->
+<!--            BOARD_COMMENT_REGDATE,-->
+<!--            REF,-->
+<!--            STEP,-->
+<!--            DEPTH-->
+<!--        ) VALUES (-->
+<!--                     BOARD_COMMENT_SEQ.NEXTVAL,-->
+<!--                     #{boardId},-->
+<!--                     #{userId},-->
+<!--                     #{boardCommentContent},-->
+<!--                     SYSTIMESTAMP,-->
+<!--                     #{ref},-->
+<!--                     #{step},-->
+<!--                     #{depth}-->
+<!--                 )-->
+<!--    </insert>-->
+    <insert id="insertComment" parameterType="com.ptu.noriteo.model.BoardComment">
+        <selectKey keyProperty="boardCommentId" resultType="long" order="BEFORE">
+            SELECT BOARD_COMMENT_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+
         INSERT INTO BOARD_COMMENT (
-            BOARD_COMMENT_ID,
-            BOARD_ID,
-            USER_ID,
-            BOARD_COMMENT_CONTENT,
-            BOARD_COMMENT_REGDATE,
-            REF,
-            STEP,
-            DEPTH
-        ) VALUES (
-                     BOARD_COMMENT_SEQ.NEXTVAL,
-                     #{boardId},
-                     #{userId},
-                     #{boardCommentContent},
-                     SYSTIMESTAMP,
-                     #{ref},
-                     #{step},
-                     #{depth}
-                 )
+        BOARD_COMMENT_ID,
+        BOARD_ID,
+        USER_ID,
+        BOARD_COMMENT_CONTENT,
+        BOARD_COMMENT_REGDATE,
+        REF,
+        STEP,
+        DEPTH,
+        PARENT_ID
+        )
+        VALUES (
+        #{boardCommentId},
+        #{boardId},
+        #{userId},
+        #{boardCommentContent},
+        SYSTIMESTAMP,
+        <if test="ref != null">
+            #{ref, jdbcType=NUMERIC},
+        </if>
+        <if test="ref == null">
+            NULL,
+        </if>
+        #{step},
+        #{depth},
+        <if test="parentId != null">
+            #{parentId, jdbcType=NUMERIC}
+        </if>
+        <if test="parentId == null">
+            NULL
+        </if>
+        )
     </insert>
 
-    <select id="getCommentsByBoardId" resultType="com.ptu.noriteo.model.BoardComment">
-        SELECT *
-        FROM BOARD_COMMENT
-        WHERE BOARD_ID = #{boardId}
-        ORDER BY REF ASC, STEP ASC
-    </select>
 
-    <update id="updateComment">
+
+
+    <!--    <select id="getCommentsByBoardId" resultType="com.ptu.noriteo.model.BoardComment">-->
+<!--        SELECT *-->
+<!--        FROM BOARD_COMMENT-->
+<!--        WHERE BOARD_ID = #{boardId}-->
+<!--        ORDER BY REF ASC, STEP ASC-->
+<!--    </select>-->
+
+<!--    <update id="updateComment">-->
+<!--        UPDATE BOARD_COMMENT-->
+<!--        SET BOARD_COMMENT_CONTENT = #{boardCommentContent}-->
+<!--        WHERE BOARD_COMMENT_ID = #{boardCommentId}-->
+<!--          AND USER_ID = #{userId}-->
+<!--    </update>-->
+
+
+    <update id="updateCommentRef" parameterType="com.ptu.noriteo.model.BoardComment">
         UPDATE BOARD_COMMENT
-        SET BOARD_COMMENT_CONTENT = #{boardCommentContent}
+        SET REF = #{ref}
         WHERE BOARD_COMMENT_ID = #{boardCommentId}
-          AND USER_ID = #{userId}
     </update>
+
 
     <delete id="deleteComment">
         DELETE FROM BOARD_COMMENT
@@ -47,12 +96,22 @@
     </delete>
 
 
-    <select id="selectCommentsByBoardId" resultType="com.ptu.noriteo.model.BoardComment">
+<!--    <select id="selectCommentsByBoardId" resultType="com.ptu.noriteo.model.BoardComment">-->
+<!--        SELECT *-->
+<!--        FROM BOARD_COMMENT-->
+<!--        WHERE BOARD_ID = #{boardId}-->
+<!--        ORDER BY BOARD_COMMENT_ID ASC-->
+<!--    </select>-->
+    <!-- 댓글 리스트 불러오기 -->
+    <select id="getCommentsByBoardId" resultType="com.ptu.noriteo.model.BoardComment">
         SELECT *
         FROM BOARD_COMMENT
         WHERE BOARD_ID = #{boardId}
-        ORDER BY BOARD_COMMENT_ID ASC
+        ORDER BY REF ASC, STEP ASC
     </select>
+
+
+
 
 
 
@@ -65,27 +124,45 @@
 
 
 
-    <insert id="insertReplyComment" useGeneratedKeys="true" keyProperty="boardCommentId">
+    <insert id="insertReplyComment" parameterType="com.ptu.noriteo.model.BoardComment">
+        <selectKey keyProperty="boardCommentId" resultType="long" order="BEFORE">
+            SELECT BOARD_COMMENT_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+
         INSERT INTO BOARD_COMMENT (
-            BOARD_COMMENT_ID,
-            BOARD_ID,
-            USER_ID,
-            BOARD_COMMENT_CONTENT,
-            BOARD_COMMENT_REGDATE,
-            REF,
-            STEP,
-            DEPTH
-        ) VALUES (
-                     BOARD_COMMENT_SEQ.NEXTVAL,
-                     #{boardId},
-                     #{userId},
-                     #{boardCommentContent},
-                     SYSTIMESTAMP,
-                     #{ref},
-                     #{step},
-                     #{depth}
-                 )
+        BOARD_COMMENT_ID,
+        BOARD_ID,
+        USER_ID,
+        BOARD_COMMENT_CONTENT,
+        BOARD_COMMENT_REGDATE,
+        REF,
+        STEP,
+        DEPTH,
+        PARENT_ID
+        )
+        VALUES (
+        #{boardCommentId},
+        #{boardId},
+        #{userId},
+        #{boardCommentContent},
+        SYSTIMESTAMP,
+        <if test="ref != null">
+            #{ref, jdbcType=NUMERIC},
+        </if>
+        <if test="ref == null">
+            NULL,
+        </if>
+        #{step},
+        #{depth},
+        <if test="parentId != null">
+            #{parentId, jdbcType=NUMERIC}
+        </if>
+        <if test="parentId == null">
+            NULL
+        </if>
+        )
     </insert>
+
 
     <!-- STEP 정렬을 위해 기존 댓글들 STEP 증가시키기 -->
     <update id="updateStepsForReply">
@@ -100,5 +177,19 @@
         FROM BOARD_COMMENT
         WHERE BOARD_COMMENT_ID = #{commentId}
     </select>
+
+
+<!--    <update id="updateCommentRef">-->
+<!--        UPDATE BOARD_COMMENT-->
+<!--        SET REF = #{ref}-->
+<!--        WHERE BOARD_COMMENT_ID = #{boardCommentId}-->
+<!--    </update>-->
+
+
+    <!-- BoardCommentMapper.xml -->
+    <select id="selectCommentById" resultType="BoardComment">
+        SELECT * FROM BOARD_COMMENT WHERE BOARD_COMMENT_ID = #{boardCommentId}
+    </select>
+
 
 </mapper>

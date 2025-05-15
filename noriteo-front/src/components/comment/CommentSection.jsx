@@ -99,10 +99,31 @@ export default function CommentSection({ boardId }) {
     }
   };
 
+  // useEffect(() => {
+  //   const uid = localStorage.getItem("userId");
+  //   const role = localStorage.getItem("role");
+  //   if (uid) setCurrentUser({ userId: uid, role });
+  //   fetchComments();
+  // }, [boardId]);
   useEffect(() => {
-    const uid = localStorage.getItem("userId");
-    const role = localStorage.getItem("role");
-    if (uid) setCurrentUser({ userId: uid, role });
+    const fetchCurrentUser = async () => {
+      try {
+        const res = await axios.get("/api/member/me", {
+          withCredentials: true, // ✅ 쿠키를 포함해서 요청
+        });
+        const userInfo = res.data;
+
+        setCurrentUser({
+          userId: userInfo.userId,
+          role: userInfo.roleId === 1 ? "admin" : "user",
+        });
+      } catch (err) {
+        console.error("🔥 사용자 정보 불러오기 실패", err);
+        setCurrentUser(null);
+      }
+    };
+
+    fetchCurrentUser();
     fetchComments();
   }, [boardId]);
 

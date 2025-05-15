@@ -14,13 +14,25 @@ public class BoardCommentService {
     private final BoardCommentMapper boardCommentMapper;
 
 
-    public List<BoardComment> getCommentsByBoardId(Long boardId) {
-        return boardCommentMapper.getCommentsByBoardId(boardId);
-    }
 
-    public boolean addComment(BoardComment comment) {
-        return boardCommentMapper.insertComment(comment) > 0;
-    }
+//    public boolean addComment(BoardComment comment) {
+//        return boardCommentMapper.insertComment(comment) > 0;
+//    }
+@Transactional
+public boolean addComment(BoardComment comment) {
+    comment.setRef(0);
+    comment.setStep(0);
+    comment.setDepth(0);
+
+    boardCommentMapper.insertComment(comment);
+
+    // 댓글이 삽입된 이후에 자기 자신을 ref로 업데이트
+    comment.setRef(Math.toIntExact(comment.getBoardCommentId()));
+    boardCommentMapper.updateCommentRef(comment);
+
+    return true;
+}
+
 
     public boolean updateComment(Long commentId, Long userId, String content) {
         BoardComment comment = new BoardComment();
@@ -57,11 +69,32 @@ public class BoardCommentService {
         // 3. 삽입
         boardCommentMapper.insertReplyComment(reply);
     }
-    // BoardCommentService.java
+
+
     public BoardComment getCommentById(Long commentId) {
         return boardCommentMapper.findById(commentId);
     }
 
+
+    @Transactional
+    public boolean addReply(Long parentId, BoardComment reply) {
+        BoardComment parent = boardCommentMapper.selectCommentById(parentId);
+        if (parent == null) return false;
+
+        // STEP 정렬
+        boardCommentMapper.updateStepsForReply(parent.getRef(), parent.getStep());
+
+        reply.setRef(parent.getRef());
+        reply.setStep(parent.getStep() + 1);
+        reply.setDepth(parent.getDepth() + 1);
+        reply.setParentId(parentId);
+
+        return boardCommentMapper.insertComment(reply) > 0;
+    }
+
+    public List<BoardComment> getCommentsByBoardId(Long boardId) {
+        return boardCommentMapper.getCommentsByBoardId(boardId);
+    }
 
 
 }
