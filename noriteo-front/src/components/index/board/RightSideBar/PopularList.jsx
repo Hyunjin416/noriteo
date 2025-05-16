@@ -38,7 +38,7 @@ export default function PopularList() {
   }, []);
 
   const handlePostClick = (postId) => {
-    navigate(`/post/${postId}`); // 개별 글 상세보기 (boarddetail)
+    navigate(`/board/detail/${postId}`); // 개별 글 상세보기 (boarddetail)
   };
 
   const handleViewAll = () => {
