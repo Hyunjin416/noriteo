@@ -1,0 +1,11 @@
+diff a/noriteo-front/src/components/comment/CommentForm.jsx b/noriteo-front/src/components/comment/CommentForm.jsx	(rejected hunks)
+@@ -13,7 +13,8 @@
+   const [content, setContent] = useState("");
+ 
+   useEffect(() => {
+-    if (editTarget) setContent(editTarget.content);
++    // if (editTarget) setContent(editTarget.content);
++    if (editTarget) setContent(editTarget.boardCommentContent);
+   }, [editTarget]);
+ 
+   const handleSubmit = async () => {

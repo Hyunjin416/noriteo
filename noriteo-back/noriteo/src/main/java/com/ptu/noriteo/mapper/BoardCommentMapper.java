@@ -18,5 +18,7 @@ public interface BoardCommentMapper {
 
     BoardComment findById(@Param("commentId") Long commentId);
 
-
+    void updateCommentRef(BoardComment comment);
+    BoardComment selectCommentById(Long boardCommentId);
+    int updateStepsForReply(@Param("ref") int ref, @Param("step") int step);
 }

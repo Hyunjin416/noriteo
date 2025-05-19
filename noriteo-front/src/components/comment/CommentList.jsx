@@ -1,21 +1,22 @@
-// components/comment/CommentList.jsx
+// src/components/comment/CommentList.jsx
 import React from "react";
 import CommentItem from "./CommentItem";
 
-export default function CommentList({ comments, onRefresh, currentUser }) {
-    const renderComments = (parentId = null) => {
-        return comments
-        .filter((c) => c.parentId === parentId)
-        .map((c) => (
-            <CommentItem
-                key={c.commentId}
-                comment={c}
-                onRefresh={onRefresh}
-                currentUser={currentUser}
-                replies={renderComments(c.commentId)}
-            />
-        ));
-    };
+export default function CommentList({ comments, currentUser, onRefresh }) {
 
-    return <ul className="comment-list">{renderComments()}</ul>;
+  /* 재귀적으로 parent → child 목록 렌더 */
+  const render = (parentId = null) =>
+    comments
+      .filter(c => (c.parentId ?? null) === (parentId ?? null))
+      .map(c => (
+        <CommentItem
+          key={c.boardCommentId}                    // 안전한 ID
+          comment={c}
+          currentUser={currentUser}
+          onRefresh={onRefresh}
+          replies={render(c.boardCommentId)}        // 더 이상 undefined 아님
+        />
+      ));
+
+  return <ul className="comment-list">{render()}</ul>;
 }

@@ -1,129 +1,91 @@
-// components/comment/CommentSection.jsx
+// src/components/comment/CommentSection.jsx
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import axios from "axios";
 import "@/components_css/comment/CommentSection.css";
 
+/* --- axios 전역 설정: 쿠키 항상 포함 & 기본 URL --- */
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:8080";
+
 export default function CommentSection({ boardId }) {
-  const [comments, setComments] = useState([]);
+  const [comments,    setComments]    = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
-  /* 목업 댓글 나오게 하기 위해서 주석처리, 67~101 라인 지우고 해당 주석 코드 사용하면 됩니다.
-    // 해당 댓글이 존재하는 게시글 아이디 가져오기
-    const fetchComments = async () => {
-        try {
-            const res = await axios.get(`/api/comments/${boardId}`);
-            setComments(res.data);
-        } catch (err) {
-            console.error("댓글 조회 실패:", err);
-            setComments([]);
-        }
-    };
-    
-    // 로그인 유저 정보 가져오기
-    const fetchCurrentUser = async () => {
-        try {
-            const res = await axios.get("/api/member/me");
-            // 서버가 {userId, userEmail, roles} 리턴한다고 가정
-            const userInfo = res.data;
-            setCurrentUser({
-                userId: userInfo.userId,
-                role: userInfo.roleId === 1 ? "admin" : "user"
-            });
-        } catch (err) {
-            if (err.response) {
-                console.log("서버 응답 오류:", err.response.status, err.response.data);
-            } else if (err.request) {
-                console.log("서버 응답 없음:", err.request);
-            } else {
-                console.log("기타 오류:", err.message);
-            }
-            setCurrentUser(null);
-        }
-    };
-
-    useEffect(() => {
-        fetchCurrentUser();
-        fetchComments();
-    }, [boardId]);
-
-    return (
-        <div className="comment-section">
-            <h3>댓글</h3>
-
-            {currentUser ? (
-                <CommentForm boardId={boardId} onSuccess={fetchComments} currentUser={currentUser} />
-            ) : (
-                <p className="comment-login-warning">댓글 작성은 로그인 후 가능합니다.</p>
-            )}
-
-            <CommentList comments={comments} onRefresh={fetchComments} currentUser={currentUser} />
-        </div>
-    );
-}
-*/
-
+  /* ---------------- 댓글 목록 ---------------- */
   const fetchComments = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8080/api/comments/${boardId}`
-      ); //예시 api
-      setComments(res.data);
+      const { data } = await axios.get(`/api/comments/${boardId}`);
+  
+      const fixed = data.map(c => ({
+        boardCommentId     : c.boardCommentId      ?? c.board_comment_id,
+        boardId            : c.boardId            ?? c.board_id,
+        userId             : c.userId             ?? c.user_id,
+        boardCommentContent: c.boardCommentContent?? c.board_comment_content,
+        boardCommentRegDate: c.boardCommentRegDate?? c.board_comment_regdate,
+        parentId           : c.parentId           ?? c.parent_id ?? null,
+        ref                : c.ref,
+        step               : c.step,
+        depth              : c.depth
+      }))
+      /* boardCommentId 없으면 해당 댓글은 버림 */
+      .filter(c => c.boardCommentId != null);
+  
+      setComments(fixed);
     } catch (err) {
-      console.error("댓글 조회 실패:", err);
-      // 데이터 가져오지 못 하는 error 상태일 때 목업 데이터 출력
-      setComments([
-        {
-          commentId: 1,
-          userId: "user123",
-          content: "첫 번째 댓글입니다.",
-          regDate: "2025-04-30",
-          parentId: null,
-        },
-        {
-          commentId: 2,
-          userId: "user456",
-          content: "두 번째 댓글입니다.",
-          regDate: "2025-04-30",
-          parentId: null,
-        },
-        {
-          commentId: 3,
-          userId: "user123",
-          content: "답글입니다.",
-          regDate: "2025-04-30",
-          parentId: 1,
-        },
-      ]);
+      console.error("댓글 조회 실패", err);
+      setComments([]);
     }
   };
 
+/* ---------------- 로그인 사용자 ---------------- */
+const fetchCurrentUser = async () => {
+  try {
+    const { data } = await axios.get("/api/member/me");   // 쿠키 포함
+    // data가 null 이거나 객체가 아닐 때 대비
+    if (!data || typeof data !== "object") throw new Error("empty");
+
+    const roleId  = data.roleId ?? data.role_id ?? 2;
+    const userId  = data.userId  ?? data.user_id;
+
+    // 필수값 없으면 비로그인 처리
+    if (!userId) throw new Error("no userId");
+
+    setCurrentUser({
+      userId,
+      role : roleId === 1 ? "admin" : "user"
+    });
+  } catch (err) {
+    console.warn("로그인 사용자 없음 → guest 모드", err.message || err);
+    setCurrentUser(null);
+  }
+};
+
+  /* 최초 & boardId 변경 시 호출 */
   useEffect(() => {
-    const uid = localStorage.getItem("userId");
-    const role = localStorage.getItem("role");
-    if (uid) setCurrentUser({ userId: uid, role });
+    fetchCurrentUser();
     fetchComments();
   }, [boardId]);
 
   return (
     <div className="comment-section">
       <h3>댓글</h3>
+
       {currentUser ? (
         <CommentForm
           boardId={boardId}
-          onSuccess={fetchComments}
           currentUser={currentUser}
+          onSuccess={fetchComments}
         />
       ) : (
-        <p className="comment-login-warning">
-          댓글 작성은 로그인 후 가능합니다.
-        </p>
+        <p className="comment-login-warning">댓글 작성은 로그인 후 가능합니다.</p>
       )}
+
       <CommentList
         comments={comments}
-        onRefresh={fetchComments}
         currentUser={currentUser}
+        onRefresh={fetchComments}
       />
     </div>
   );
