@@ -13,7 +13,8 @@ export default function CommentForm({
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    if (editTarget) setContent(editTarget.content);
+    // if (editTarget) setContent(editTarget.content);
+    if (editTarget) setContent(editTarget.boardCommentContent);
   }, [editTarget]);
 
   const handleSubmit = async () => {
@@ -23,17 +24,29 @@ export default function CommentForm({
       if (editTarget) {
         await axios.put(
           `http://localhost:8080/api/comments/${editTarget.commentId}`,
-          { content }
+          // { content }
+          { newContent: content }
         ); /* 예시 api */
         alert("댓글이 수정되었습니다.");
         if (onCancel) onCancel();
       } else {
         await axios.post("http://localhost:8080/api/comments", {
-          /* 예시 api */ boardId,
+          // /* 예시 api */ boardId,
+          boardId: boardId,
           userId: currentUser?.userId,
-          content,
+          // content,
+          boardCommentContent: content,
+          // parentId,
+          parentId: parentId || null,
+        });
+
+        console.log("🧪 POST DATA", {
+          boardId,
+          userId: currentUser?.userId,
+          boardCommentContent: content,
           parentId,
         });
+
         alert("댓글이 등록되었습니다.");
       }
       setContent("");

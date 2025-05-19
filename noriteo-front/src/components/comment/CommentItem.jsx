@@ -44,8 +44,10 @@ export default function CommentItem({
           {/* 상단: 작성자, 댓글 내용, 시간 (가로 정렬) */}
           <div className="comment-top">
             <span className="comment-writer">{comment.userId}</span>
-            <div className="comment-content">{comment.content}</div>
-            <span className="comment-time">{comment.regDate}</span>
+            {/* <div className="comment-content">{comment.content}</div> */}
+            <div className="comment-content">{comment.boardCommentContent}</div>
+            {/* <span className="comment-time">{comment.regDate}</span> */}
+            <span className="comment-time">{comment.boardCommentRegDate}</span>
           </div>
 
           {/* 하단: 버튼 */}
