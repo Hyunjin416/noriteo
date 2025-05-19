@@ -11,11 +11,8 @@ public class BoardComment {
     private Long userId;
     private String boardCommentContent;
     private Timestamp boardCommentRegdate;
-    private Integer ref;
+    private int ref;
     private int step;
     private int depth;
-
-    private Long parentId;
-
 }
 
