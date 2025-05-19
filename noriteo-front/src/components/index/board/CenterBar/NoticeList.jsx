@@ -74,7 +74,7 @@ export default function NoticeList() {
         <h4 className="NoticeListTitle">공지사항</h4>
         <button
           className="NoticeListMoreBtn"
-          onClick={() => navigate(`/PostBoard?board_type=notice`)}
+          onClick={() => navigate(`/boardPage?board_type=notice`)}
         >
           전체보기
         </button>
