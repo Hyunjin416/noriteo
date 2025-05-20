@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UpdateUser from "@/components/member/myPage/UpdateUser";
 import BoardList from "@/components/member/myPage/BoardList";
 import CommentList from "@/components/member/myPage/CommentList";
@@ -8,6 +9,7 @@ import "@/components_css/member/mypage/MyPage.css";
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState("profile");
+  const navigate = useNavigate();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -59,6 +61,12 @@ const MyPage = () => {
           className={activeTab === "likedPosts" ? "active" : ""}
         >
           좋아요한 게시글
+        </button>
+        <button
+          onClick={() => navigate("/member/myPage/cancelAccount")}
+          className="cancelAccount-btn"
+        >
+          회원 탈퇴
         </button>
       </div>
       <div className="mypage-content">{renderContent()}</div>

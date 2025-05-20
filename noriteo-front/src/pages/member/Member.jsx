@@ -3,6 +3,7 @@ import Container from "@/layouts/container/Container.jsx";
 import Login from "@/components/member/sign/Login.jsx";
 import SignUp from "@/components/member/sign/SignUp.jsx";
 import MyPage from "@/components/member/myPage/MyPage.jsx";
+import CancelAccount from "@/components/member/myPage/CancelAccount.jsx";
 // import KakaoCallback from "@/components/member/sign/KakaoCallback.jsx";
 // import BoardList from "@/components/member/myPage/BoardList.jsx";
 // import CommentList from "@/components/member/myPage/CommentList.jsx";
@@ -23,6 +24,7 @@ const Member = () => {
         {/* <Route path="kakao-callback" element={<KakaoCallback />} /> */}
 
         <Route path="myPage" element={<MyPage />} />
+        <Route path="myPage/cancelAccount" element={<CancelAccount />} /> 
         {/* <Route path="myPage/boardList" element={<BoardList />} />
         <Route path="myPage/commentList" element={<CommentList />} />
         <Route path="myPage/productList" element={<ProductList />} />

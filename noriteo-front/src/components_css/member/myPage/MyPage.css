@@ -204,3 +204,20 @@
     grid-column: 1;
   }
 }
+
+/*
+  // 탈퇴 버튼 css
+  .cancelAccount-btn {
+  background-color: #e74c3c;
+  color: white;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancelAccount-btn:hover {
+  background-color: #c0392b;
+}
+  */

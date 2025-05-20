@@ -42,7 +42,7 @@ export default function PopularList() {
   };
 
   const handleViewAll = () => {
-    navigate("/boardPage?sort=recommend"); // 추천수 기준 전체보기 이동
+    navigate("/boardPage?sort=recommend"); // 좋아요수 기준 전체보기 이동
   };
 
   return (
@@ -82,7 +82,7 @@ export default function PopularList() {
                 : post.boardTitle || post.board_title}
             </span>
             <span className="popularItemLikes">
-              추천수: {post.boardRecommend || post.board_recommend || 0}
+              좋아요: {post.boardRecommend || post.board_recommend || 0}
             </span>
           </li>
         ))}

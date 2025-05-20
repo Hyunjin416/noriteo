@@ -8,7 +8,8 @@ export default function CommentForm({
   onSuccess,
   onCancel,
   editTarget = null,
-  parentId = null
+  parentId = null,
+  onSubmitSuccess,
 }) {
   const [content, setContent] = useState("");
 
@@ -49,6 +50,7 @@ export default function CommentForm({
       setContent("");
       onSuccess?.();
       onCancel?.();
+      onSubmitSuccess?.(); // 댓글 작성했다고 userinfo에 신호
     } catch (err) {
       console.error("댓글 저장 실패", err);
       alert("댓글 저장 실패");

@@ -1,0 +1,42 @@
+.cancel-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.checkbox-wrapper {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+input[type="password"] {
+  width: 90%;
+  padding: 0.6rem;
+  margin: 0.8rem 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.cancel-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #a93226;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
