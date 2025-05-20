@@ -83,20 +83,45 @@ import { useNavigate } from "react-router-dom";
 import "@/components_css/index/board/LeftSideBar/UserInfo.css";
 import axios from "@/auth/AxiosConfig";
 
-export default function UserInfo() {
+export default function UserInfo({ refreshTrigger }) {
   const [userInfo, setUserInfo] = useState(null);
+  const [postCount, setPostCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
   const navigate = useNavigate();
 
+  const fetchCounts = async (userId) => {
+    try {
+      const [postRes, commentRes] = await Promise.all([
+        axios.get("http://localhost:8080/api/board/my", { withCredentials: true }),
+        axios.get("http://localhost:8080/api/comments/my", { withCredentials: true }),
+      ]);
+
+      console.log("📄 댓글 전체:", commentRes.data); // 🔍 댓글 목록 로그
+
+      const posts = postRes.data.filter((p) => p.userId === userId);
+      const comments = commentRes.data.filter((c) => c.userId === userId);
+      console.log("🧮 필터링된 내 게시글 수:", posts.length);
+      console.log("🧮 필터링된 내 댓글 수:", comments.length);
+      setPostCount(posts.length);
+      setCommentCount(comments.length);
+    } catch (err) {
+      console.error("카운트 로딩 실패:", err);
+    }
+    
+  };
+
+  // 처음 로딩 + refreshTrigger 변경 시 실행
   useEffect(() => {
     axios
       .get("/api/member/me", { withCredentials: true })
       .then((res) => {
-        setUserInfo(res.data);
+        const data = res.data;
+        console.log("✅ userInfo:", data);
+        setUserInfo(data);
+        fetchCounts(data.userId);
       })
-      .catch(() => {
-        setUserInfo(null); // 로그인 안 된 상태
-      });
-  }, []);
+      .catch(() => setUserInfo(null));
+  }, [refreshTrigger]); // 🔥 변경 지점
 
   if (!userInfo) {
     return (
@@ -110,46 +135,27 @@ export default function UserInfo() {
     );
   }
 
-  // 유저 정보가 있는 경우 렌더링
-  // const profileImageUrl = userInfo.sysUser || "/usericon.png";
   const profileImageUrl = userInfo.sysUser?.startsWith("/uploads/")
     ? userInfo.sysUser
     : "/uploads/" + userInfo.sysUser;
-
   const userName = userInfo.userName || userInfo.usersName;
   const joinDate = new Date(userInfo.usersRegdate).toLocaleDateString();
-  const postCount = 42; // TODO: 실제 데이터 연동
-  const commentCount = 128; // TODO: 실제 데이터 연동
 
   return (
     <div className="userInfoContainer">
       <h4 className="userInfoTitle">사용자 정보</h4>
-
       <div className="userInfoTop">
-        <img
-          src={profileImageUrl}
-          alt="프로필 이미지"
-          className="userInfoProfile"
-        />
+        <img src={profileImageUrl} alt="프로필 이미지" className="userInfoProfile" />
         <div className="userInfoDetails">
-          <p className="userInfoRow">
-            <strong>{userName}</strong>
-          </p>
-          <p className="userInfoRow">
-            <strong>{joinDate}</strong>
-          </p>
+          <p className="userInfoRow"><strong>{userName}</strong></p>
+          <p className="userInfoRow"><strong>{joinDate}</strong></p>
         </div>
       </div>
-
       <div className="userInfoStats">
         <p className="userInfoRow">작성 글: {postCount}개</p>
         <p className="userInfoRow">작성 댓글: {commentCount}개</p>
       </div>
-
-      <button
-        className="userInfoButton"
-        onClick={() => navigate("/member/mypage")}
-      >
+      <button className="userInfoButton" onClick={() => navigate("/member/mypage")}>
         마이페이지
       </button>
     </div>
