@@ -187,17 +187,28 @@ const BoardDetail = () => {
       .catch((err) => console.error("저장 실패:", err));
   };
 
-  const handleEdit = () =>
+  const handleEdit = () => 
     navigate(`/boardwrite/${boardId}`, { state: { board } });
 
   const handleDelete = () => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
-    axios
-      .delete(`http://localhost:8080/api/board/${boardId}`)
-      .then(() => navigate("/boardpage"))
-      .catch((err) => console.error("삭제 실패:", err));
-  };
+  // 1) 사용자 확인
+  if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
+  // 2) DELETE 요청 보내기 (쿠키 기반 인증이면 withCredentials 추가)
+  axios
+    .delete(`http://localhost:8080/api/board/delete/${boardId}`, {
+      withCredentials: true,
+    })
+    .then(() => {
+      // 3) 성공했을 때 알림 및 페이지 이동
+      alert("게시글이 삭제되었습니다.");
+      navigate("/boardpage");   // 목록 또는 원하는 라우트
+    })
+    .catch((err) => {
+      console.error("삭제 실패:", err);
+      alert("삭제 중 오류가 발생했습니다.");
+    });
+};
   return (
     <article className="board-detail container">
       {/* 게시판 종류 */}
@@ -266,13 +277,19 @@ const BoardDetail = () => {
         <button className="btn btn-save" onClick={handleSave}>
           {saved ? "📤 저장 취소" : "💾 게시글 저장"}
         </button>
-
-        <button className="btn btn-edit" onClick={handleEdit}>
+         {/* 작성자일 때만 수정/삭제 버튼 */}
+         {currentUser?.userId === board.userId && (
+          <>
+          <button className="btn btn-edit" onClick={handleEdit}>
           ➡️ 수정하기
         </button>
         <button className="btn btn-delete" onClick={handleDelete}>
           🗑️ 삭제하기
         </button>
+          </>
+         )}
+        
+
       </div>
     </article>
   );

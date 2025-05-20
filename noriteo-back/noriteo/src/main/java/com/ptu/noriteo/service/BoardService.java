@@ -6,6 +6,7 @@ import com.ptu.noriteo.mapper.BoardPicMapper;
 import com.ptu.noriteo.model.Board;
 import com.ptu.noriteo.model.BoardPic;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,15 +21,29 @@ public class BoardService {
     private final BoardPicMapper boardPicMapper;
     private final FileUploadService fileUploadService; // 파일 저장 유틸
 
-
-
     public void updateBoard(Board board) {
         boardMapper.updateBoard(board);
     }
 
-    public void deleteBoard(Long boardId) {
+    /**
+     * 작성자 본인만 삭제 가능하게 처리
+     */
+    @Transactional
+    public void deleteBoard(Long boardId, Long userId) {
+        // 게시글 상세 가져오기
+        Board board = boardMapper.selectBoardById(boardId);
+        if (board == null) {
+            throw new IllegalArgumentException("삭제할 게시글을 찾을 수 없습니다. id=" + boardId);
+        }
+        // 작성자 검증
+        if (!board.getUserId().equals(userId)) {
+            throw new AccessDeniedException("삭제 권한이 없습니다.");
+        }
+        // 삭제
         boardMapper.deleteBoard(boardId);
     }
+
+    // 기존 deleteBoard(Long boardId) 메서드는 필요없다면 제거하세요.
 
     // 게시글 + 사진 저장
     @Transactional
@@ -39,8 +54,7 @@ public class BoardService {
         int order = 1;
         for (MultipartFile file : pics) {
             if (!file.isEmpty()) {
-                String url = fileUploadService.upload("board", file); // "board" 폴더에 저장
-
+                String url = fileUploadService.upload("board", file);
                 BoardPic pic = new BoardPic();
                 pic.setBoardId(boardId);
                 pic.setBoardPicUrl(url);
@@ -58,8 +72,7 @@ public class BoardService {
         int order = 1;
         for (MultipartFile file : pics) {
             if (!file.isEmpty()) {
-                String url = fileUploadService.upload("board", file); // 동일하게 "board"
-
+                String url = fileUploadService.upload("board", file);
                 BoardPic pic = new BoardPic(board.getBoardId(), url, (long) order++);
                 boardPicMapper.insertPic(pic);
             }
@@ -76,41 +89,25 @@ public class BoardService {
 
     public int likeBoard(Long userId, Long boardId) {
         int liked = boardMapper.isBoardLiked(userId, boardId);
-
         if (liked > 0) {
-            // 이미 좋아요 했으면 취소 (delete)
             boardMapper.deleteBoardLike(userId, boardId);
         } else {
-            // 안 했으면 좋아요 추가
             boardMapper.insertBoardLike(userId, boardId);
         }
-
-        return boardMapper.countBoardLikes(boardId); // 최종 좋아요 수 반환
+        return boardMapper.countBoardLikes(boardId);
     }
 
-
-
-//    public void saveBoard(Long userId, Long boardId) {
-//        if (!boardMapper.isBoardSaved(userId, boardId)) {
-//            boardMapper.insertBoardSave(userId, boardId);
-//        }
-//    }
-public void toggleBoardSave(Long userId, Long boardId) {
-    if (isBoardSaved(userId, boardId)) {
-        boardMapper.deleteBoardSave(userId, boardId);
-    } else {
-        boardMapper.insertBoardSave(userId, boardId);
+    public void toggleBoardSave(Long userId, Long boardId) {
+        if (isBoardSaved(userId, boardId)) {
+            boardMapper.deleteBoardSave(userId, boardId);
+        } else {
+            boardMapper.insertBoardSave(userId, boardId);
+        }
     }
 
-}
-
-    // 저장 여부 확인 메서드
     public boolean isBoardSaved(Long userId, Long boardId) {
         return boardMapper.isBoardSaved(userId, boardId) > 0;
     }
-
-
-
 
     public boolean isBoardLiked(Long userId, Long boardId) {
         return boardMapper.isBoardLiked(userId, boardId) > 0;
@@ -119,10 +116,9 @@ public void toggleBoardSave(Long userId, Long boardId) {
     public Board getBoardDetail(Long boardId) {
         Board board = boardMapper.selectBoardById(boardId);
         int likeCount = boardMapper.countLikes(boardId);
-        board.setLikes(likeCount); // Board 클래스에 setLikes(int) 있어야 함
+        board.setLikes(likeCount);
         return board;
     }
-
 
     public List<Board> getPopularBoards() {
         return boardMapper.selectPopularBoards();
@@ -132,7 +128,6 @@ public void toggleBoardSave(Long userId, Long boardId) {
         return boardMapper.selectBoardsByUserId(userId);
     }
 
-
     public List<Board> getMySavedBoards(Long userId) {
         return boardMapper.selectMySavedBoards(userId);
     }
@@ -140,6 +135,5 @@ public void toggleBoardSave(Long userId, Long boardId) {
     public List<Board> getMyLikedBoards(Long userId) {
         return boardMapper.selectMyLikedBoards(userId);
     }
-
 
 }

@@ -80,11 +80,13 @@ export default function Login() {
           </button>
         </div>
 
-        <div className="find-email-pw-div">
+        <div className="find-email-pw-sign-div">
           <div className="find-email-pw-inner">
             <span className="find-email">이메일 찾기</span>
             <span className="divider">|</span>
             <span className="find-pw">비밀번호 찾기</span>
+            <span className="divider">|</span>
+            <span className="sign-up">회원가입</span>
           </div>
         </div>
 

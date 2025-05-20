@@ -58,7 +58,7 @@ const MyPage = () => {
           onClick={() => setActiveTab("likedPosts")}
           className={activeTab === "likedPosts" ? "active" : ""}
         >
-          좋아요한한 게시글
+          좋아요한 게시글
         </button>
       </div>
       <div className="mypage-content">{renderContent()}</div>
@@ -67,3 +67,4 @@ const MyPage = () => {
 };
 
 export default MyPage;
+

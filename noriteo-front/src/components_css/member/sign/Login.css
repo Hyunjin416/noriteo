@@ -84,7 +84,7 @@ input[type="password"]::placeholder {
 
 }
 
-.find-email, 
+.find-email, .sign-up,
 .find-pw {
   cursor: pointer;
   /* color: #029136; */
@@ -95,7 +95,7 @@ input[type="password"]::placeholder {
   font-weight: bold;
 }
 
-.find-email:hover, 
+.find-email:hover, .sign-up:hover,
 .find-pw:hover {
   color: #faa91e;
 }
