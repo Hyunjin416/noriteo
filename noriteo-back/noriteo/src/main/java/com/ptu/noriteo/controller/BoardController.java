@@ -5,6 +5,8 @@ import com.ptu.noriteo.model.Board;
 import com.ptu.noriteo.model.Users;
 import com.ptu.noriteo.service.BoardService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,9 +36,6 @@ public class BoardController {
         return boardService.getBoardList();
     }
 
-
-
-
     @GetMapping("/detail/{boardId}")
     public Board detailBoard(@PathVariable("boardId") Long boardId) {
         return boardService.getBoardDetail(boardId);
@@ -46,7 +45,7 @@ public class BoardController {
     public void createBoard(@RequestPart("board") Board board,
 //                            @RequestPart("pics") List<MultipartFile> pics
                             @RequestPart(name = "pics", required = false) List<MultipartFile> pics)
-            {
+    {
 
         boardService.createBoard(board, pics);
     }
@@ -59,9 +58,24 @@ public class BoardController {
         boardService.updateBoardWithPics(board, pics); // 서비스단에서 사진까지 처리
     }
 
- @DeleteMapping("/delete/{boardId}")
-    public void deleteBoard(@PathVariable("boardId") Long boardId) {
-        boardService.deleteBoard(boardId);
+    @DeleteMapping("/delete/{boardId}")
+    public ResponseEntity<Void> deleteBoard(
+            @PathVariable("boardId") Long boardId,
+            @AuthenticationPrincipal JwtAuthentication auth
+    ) {
+        // 인증 정보 없으면 401
+        if (auth == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        // 로그인된 사용자 ID
+        Long userId = auth.getUserId();
+
+        // 서비스 단에서 작성자 검증 후 삭제
+        boardService.deleteBoard(boardId, userId);
+
+        // 삭제 성공 시 204 No Content
+        return ResponseEntity.noContent().build();
     }
 
 
@@ -100,20 +114,20 @@ public class BoardController {
         return ResponseEntity.ok(liked);
     }
 
-@PostMapping("/{boardId}/like")
-public ResponseEntity<Board> likeBoard(@PathVariable Long boardId,
-                                       @AuthenticationPrincipal JwtAuthentication auth) {
-    if (auth == null) {
-        return ResponseEntity.status(401).body(null);
+    @PostMapping("/{boardId}/like")
+    public ResponseEntity<Board> likeBoard(@PathVariable Long boardId,
+                                           @AuthenticationPrincipal JwtAuthentication auth) {
+        if (auth == null) {
+            return ResponseEntity.status(401).body(null);
+        }
+
+        Long userId = auth.getUserId();
+        boardService.likeBoard(userId, boardId);
+
+        // 👍 좋아요 반영된 최신 게시글 다시 가져오기
+        Board updatedBoard = boardService.getBoardDetail(boardId);
+        return ResponseEntity.ok(updatedBoard);
     }
-
-    Long userId = auth.getUserId();
-    boardService.likeBoard(userId, boardId);
-
-    // 👍 좋아요 반영된 최신 게시글 다시 가져오기
-    Board updatedBoard = boardService.getBoardDetail(boardId);
-    return ResponseEntity.ok(updatedBoard);
-}
 
     @GetMapping("/popular")
     public ResponseEntity<List<Board>> getPopularBoards() {
@@ -121,17 +135,17 @@ public ResponseEntity<Board> likeBoard(@PathVariable Long boardId,
         return ResponseEntity.ok(popularBoards);
     }
 
-//    @GetMapping("/user/{userId}")
+    //    @GetMapping("/user/{userId}")
 //    public ResponseEntity<List<Board>> getBoardsByUser(@PathVariable Long userId) {
 //        List<Board> boards = boardService.getBoardsByUserId(userId);
 //        return ResponseEntity.ok(boards);
 //    }
-@GetMapping("/my")
-public ResponseEntity<List<Board>> getMyBoards(@AuthenticationPrincipal JwtAuthentication auth) {
-    Long userId = auth.getUserId(); // 🔑 로그인된 유저 ID 가져오기
-    List<Board> boards = boardService.getBoardsByUserId(userId);
-    return ResponseEntity.ok(boards);
-}
+    @GetMapping("/my")
+    public ResponseEntity<List<Board>> getMyBoards(@AuthenticationPrincipal JwtAuthentication auth) {
+        Long userId = auth.getUserId(); // 🔑 로그인된 유저 ID 가져오기
+        List<Board> boards = boardService.getBoardsByUserId(userId);
+        return ResponseEntity.ok(boards);
+    }
 
     @GetMapping("/my/saved")
     public ResponseEntity<List<Board>> getMySavedBoards(@AuthenticationPrincipal JwtAuthentication auth) {
@@ -143,10 +157,4 @@ public ResponseEntity<List<Board>> getMyBoards(@AuthenticationPrincipal JwtAuthe
         return ResponseEntity.ok(boardService.getMyLikedBoards(auth.getUserId()));
     }
 
-
-
-
-
 }
-
-

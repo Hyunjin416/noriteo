@@ -1,83 +1,114 @@
-.realtimeNewContainer {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 900px;
-  margin: 0 auto 40px auto;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+/* ──── 공통 변수 설정 ──── */
+:root {
+  --bg-white:        #ffffff;
+  --bg-light:        #f9fafb;
+  --bg-hover:        #eef4ff;
+  --border-light:    #e5e7eb;
+  --border-gray:     #d1d5db;
+  --text-dark:       #1f2937;
+  --text-muted:      #6b7280;
+  --accent:          #3b82f6;
+  --accent-dark:     #2563eb;
+  --box-shadow:      rgba(0, 0, 0, 0.05);
+  --radius:          8px;
+  --gap:             1rem;
 }
 
-.realtimeNewHeader {
-  position: relative;
-  margin-bottom: 20px;
-  height: 30px;
+/* ──── 전체 흰색 박스 컨테이너 ──── */
+.RecentListContainer {
+  background: var(--bg-white);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: 100%;
+  margin: 0 auto 2rem;
+  box-shadow: 0 2px 8px var(--box-shadow);
+  box-sizing: border-box;
 }
 
-.realtimeNewTitle {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 20px;
-  font-weight: bold;
+/* ──── 헤더: 제목 + 전체보기 버튼 ──── */
+.RecentListHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.RecentListTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
   margin: 0;
-  text-align: center;
 }
 
-.realtimeNewButton {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background-color: transparent;
+.RecentListButton {
+  background: var(--accent);
+  color: #fff;
   border: none;
-  color: #3b82f6;
-  font-size: 14px;
-  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s;
+}
+.RecentListButton:hover {
+  background: var(--accent-dark);
 }
 
-.realtimeNewButton:hover {
-  color: #2563eb;
-  text-decoration: underline;
-}
-
-.realtimeNewList {
+/* ──── 리스트 그리드 ──── */
+.RecentListList {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  gap: var(--gap);
 }
 
-.realtimeNewItem {
-  padding: 12px 16px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  margin-bottom: 10px;
+/* ──── 개별 항목 카드 ──── */
+.RecentListItem {
+  background: var(--bg-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 0 1px 4px var(--box-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  background-color: #f9fafb;
-  transition: background-color 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.RecentListItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px var(--box-shadow);
+  background: var(--bg-hover);
 }
 
-.realtimeNewItem:hover {
-  background-color: #eef4ff;
-}
-
+/* ──── 제목 ──── */
 .newPostTitle {
-  font-weight: 500;
-  font-size: 16px;
-  display: block;
-  margin-bottom: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 0.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* ──── 메타 정보 ──── */
 .newPostInfo {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  color: #555;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.newPostUserViews {
+  display: flex;
+  gap: 0.75rem;
 }
 
 .newPostUserViews span {
-  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }

@@ -177,14 +177,14 @@
 .divider {
   height: 1px;
   background: #e5e7eb;
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
 
 /* 버튼 */
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 .actions .btn {
   padding: 0.75rem 1.6rem;

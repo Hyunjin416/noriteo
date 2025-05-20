@@ -22,52 +22,6 @@ export default function NoticeList() {
       });
   }, []);
 
-  //   return (
-  //     <div className="NoticeListContainer">
-  //       <div className="NoticeListHeader">
-  //         <h4 className="NoticeListTitle">공지사항</h4>
-  //         <button
-  //           className="NoticeListMoreBtn"
-  //           onClick={() => navigate(`/PostBoard?board_type=notice`)}
-  //         >
-  //           전체보기
-  //         </button>
-  //       </div>
-
-  //       <div className="NoticeListGrid">
-  //         {posts.length > 0 ? (
-  //           posts.map((post) => (
-  //             <div
-  //               className="NoticeListCard"
-  //               key={post.boardId} // camelCase로 고침
-  //               onClick={() => navigate(`/board/detail/${post.boardId}`)}
-  //             >
-  //               {/* <img
-  //                 src={post.boardPicUrl || "https://via.placeholder.com/150"} // camelCase로 고침
-  //                 alt={post.boardTitle}
-  //               />
-  //               <p>{post.boardTitle}</p>  */}
-  //               {/* <img
-  //                 src={post.boardPicUrl || "https://via.placeholder.com/150"}
-  //                 alt=""
-  //               />
-  //               <p>{post.boardTitle}</p> */}
-  //               {post.boardPicUrl && (
-  //                 <img src={post.boardPicUrl} alt={post.boardTitle} />
-  //               )}
-  //               <p>{post.boardTitle}</p>
-  //             </div>
-  //           ))
-  //         ) : (
-  //           <p style={{ textAlign: "center", width: "100%" }}>
-  //             공지사항이 없습니다.
-  //           </p>
-  //         )}
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="NoticeListContainer">
       <div className="NoticeListHeader">

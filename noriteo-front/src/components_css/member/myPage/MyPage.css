@@ -1,99 +1,206 @@
+/* ──── 컬러 & 공통 변수 ──── */
 :root {
-    --main-color: #95D5F5;
-    --point-color: #f39a3a;
-    --sub-green: rgb(4, 160, 82);
-    --sub-yellow: #FFFF3F;
-    --bg-light: #ffffff;
-    --bg-box: #fafafa;
-    --border-color: #e0e0e0;
-    --text-color: #333;
+  --accent:         #95D5F5;
+  --accent-hover:   #6fb8e8;
+  --text-dark:      #333333;
+  --gap:            1rem;
+  --bg-light:       #f9fafb;
+  --panel-bg:       #ffffff;
+  --panel-border:   #e0e0e0;
+  --panel-shadow:   rgba(0, 0, 0, 0.05);
+  --radius:         8px;
+}
+
+.mypage-container {
+  background: var(--panel-bg, #ffffff);  /* 흰색 배경 */
+  border-radius: var(--radius);          /* 둥근 모서리 */
+  box-shadow: 0 2px 8px var(--panel-shadow, rgba(0,0,0,0.05));
+  padding: 2rem var(--gap);
+  margin: 2rem auto;
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+/* ──── 상단 프로필 헤더 ──── */
+.mypage-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  margin-bottom: 2rem;
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--panel-border);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.profile-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.profile-email {
+  font-size: 0.95rem;
+  color: var(--text-muted, #666);
+}
+
+/* ──── 탭 네비게이션 ──── */
+.mypage-tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap);
+  margin-bottom: 2rem;
+}
+
+.mypage-tabs button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.mypage-tabs button:hover {
+  color: var(--accent-hover);
+}
+
+.mypage-tabs button.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ──── 섹션 패널 ──── */
+.mypage-section {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px var(--panel-shadow);
+  padding: var(--gap);
+  margin-bottom: 2rem;
+}
+
+.mypage-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--gap);
+}
+
+/* ──── 프로필 수정 폼 ──── */
+.profile-edit-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--gap);
+  align-items: center;
+}
+
+.profile-edit-form label {
+  font-size: 0.9rem;
+}
+
+.profile-edit-form input[type="text"],
+.profile-edit-form input[type="email"],
+.profile-edit-form input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.btn-save {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: var(--gap);
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-save:hover {
+  background: var(--accent-hover);
+}
+
+/* ──── 활동 요약 카드 ──── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--gap);
+}
+
+.summary-card {
+  background: var(--bg-light);
+  border-radius: var(--radius);
+  padding: var(--gap);
+  text-align: center;
+  box-shadow: 0 1px 4px var(--panel-shadow);
+}
+
+.summary-card .summary-title {
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+.summary-card .summary-data {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ──── 적립금 카드 ──── */
+.points-card {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+
+.points-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.points-actions {
+  display: flex;
+  gap: var(--gap);
+}
+
+.points-actions button {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.points-actions button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ──── 반응형 ──── */
+@media (max-width: 768px) {
+  .profile-edit-form {
+    grid-template-columns: 1fr;
   }
-  
-  /* 다크모드 대응 */
-  /* @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-light: #1e1e1e;
-      --bg-box: #2a2a2a;
-      --border-color: #444;
-      --text-color: #eee;
-    }
-  } */
-  
-  .mypage-container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: var(--bg-light);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-color);
+  .btn-save {
+    grid-column: 1;
   }
-  
-  .mypage-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 25px;
-    justify-content: center;
-  }
-  
-  .mypage-tabs button {
-    padding: 10px 20px;
-    background-color: #f9f9f9;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    color: var(--text-color);
-  }
-  
-  .mypage-tabs button:hover {
-    background-color: var(--point-color);
-    color: white;
-    border-color: var(--point-color);
-  }
-  
-  .mypage-tabs button.active {
-    background-color: var(--main-color);
-    color: white;
-    border-color: var(--main-color);
-  }
-  
-  .mypage-content {
-    padding: 20px;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    background-color: var(--bg-box);
-    min-height: 300px;
-    animation: fadeIn 0.3s ease;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-  
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .mypage-tabs {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    .mypage-tabs button {
-      width: 100%;
-    }
-  
-    .mypage-content {
-      padding: 15px;
-    }
-  }
-  
+}

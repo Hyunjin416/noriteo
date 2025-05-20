@@ -1,237 +1,134 @@
-/*
+/* ImageSlider.css - Updated for Enterprise-Style Slider */
+
+/* ──── 공통 변수 ──── */
+:root {
+  --gap: 1rem;
+  --arrow-size: 3rem;
+  --slider-padding: 2rem;
+  --card-height: 400px;
+  --transition: 0.3s ease;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --accent: #4facfe;
+  --accent-dark: #00f2fe;
+}
+
+/* ──── 컨테이너 ──── */
 .sliderContainer {
   position: relative;
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  aspect-ratio: 5 / 1;
-  overflow: hidden;
+  padding: 0 var(--slider-padding);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* ──── 새로운 원형 내비 버튼 ──── */
 .arrowButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
-  width: 40px;
-  height: 40px;
+  width: 3rem;               /* 버튼 크기 */
+  height: 3rem;
+  background: rgba(0,0,0,0.6); /* 짙은 반투명 검정 */
   border: none;
-  border-radius: 20px;
-  color: black;
-  background-color: transparent;
-  font-size: 1.2rem;
+  border-radius: 50%;         /* 완전 원형 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-}
-.arrowLeft { left: 10px; }
-.arrowRight { right: 10px; }
-.arrowButton:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
+  transition: background .2s, transform .2s;
+  z-index: 20;
 }
 
+/* 좌우 위치 조정 */
+.arrowLeft  { left: 1rem; }
+.arrowRight { right: 1rem; }
+
+/* 화살표 아이콘 (CSS content) */
+.arrowButton::before {
+  content: '';               /* 기본 화살표: 오른쪽 */
+  font-size: 1.25rem;
+  color: #fff;
+  line-height: 1;
+}
+.arrowLeft::before {
+  content: '';               /* 왼쪽 화살표 */
+}
+
+/* 호버/액티브 효과 */
+.arrowButton:hover {
+  background: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+.arrowButton:active {
+  background: rgba(0,0,0,1);
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* ──── 트랙: flex + scroll-snap ──── */
 .sliderTrack {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: var(--gap) 0;
   scroll-behavior: smooth;
-  gap: 0.5rem;
-  height: 100%;
-  cursor: grab;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
-.sliderTrack::-webkit-scrollbar {
-  display: none;
-}
-.sliderTrack:active {
-  cursor: grabbing;
-}
+.sliderTrack::-webkit-scrollbar { display: none; }
 
+/* ──── 카드 ──── */
 .cardItem {
-  flex: 0 0 calc(100% / 5);
-  aspect-ratio: 1 / 1;
-  height: 100%;
-  box-sizing: border-box;
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.cardItem img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 6px;
-}
-.noImageText {
-  width: 100%;
-  height: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  color: #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eaeaea;
-  border-radius: 6px;
-}
-
-@media (max-width: 900px) {
-  .cardItem {
-    flex: 0 0 calc(100% / 4);
-  }
-}
-@media (max-width: 700px) {
-  .cardItem {
-    flex: 0 0 calc(100% / 3);
-  }
-}
-@media (max-width: 500px) {
-  .cardItem {
-    flex: 0 0 calc(100% / 2);
-  }
-}
-@media (max-width: 350px) {
-  .cardItem {
-    flex: 0 0 100%;
-  }
-}
-*/
-
-/* ImageSlider.css */
-
-.sliderContainer {
+  flex: 0 0 25%;             
+  max-width: 25%;
+  scroll-snap-align: center;
   position: relative;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  aspect-ratio: 5 / 1;
+  background: #fff;
+  border-radius: 8px;
   overflow: hidden;
-  box-sizing: border-box;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
-
-.arrowButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 20px;
-  color: black;
-  background-color: transparent;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.arrowLeft { left: 10px; }
-.arrowRight { right: 10px; }
-
-.arrowButton:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-}
-
-.sliderTrack {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  gap: 0.5rem;
-  height: 100%;
-  cursor: grab;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.sliderTrack::-webkit-scrollbar {
-  display: none;
-}
-
-.sliderTrack:active {
-  cursor: grabbing;
-}
-
-.cardItem {
-  flex: 0 0 calc(100% / 5);
-  aspect-ratio: 1 / 1;
-  height: 100%;
-  box-sizing: border-box;
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
-}
-
-.cardItem img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
 .cardItem:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
-  border: 2px solid #333;
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px var(--shadow-dark);
 }
 
+/* 이미지 */
+.cardItem img {
+  width: 100%;
+  height: var(--card-height);
+  object-fit: cover;
+  display: block;
+}
+
+/* 이미지 없을 때 */
 .noImageText {
   width: 100%;
-  height: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  color: #999;
+  height: var(--card-height);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #eaeaea;
-  border-radius: 6px;
+  background: #f0f0f0;
+  color: #999;
+  font-size: 1rem;
 }
 
-.sliderTrack {
-  cursor: grab;
+/* ──── 반응형: 해상도에 맞춰 아이템 개수 조절 ──── */
+@media (max-width: 1200px) {
+  .cardItem {
+    flex: 0 0 33.333%;         
+    max-width: 33.333%;
+  }
 }
-.sliderTrack.active {
-  cursor: grabbing;
-}
-
-/* 반응형 처리 */
 @media (max-width: 900px) {
   .cardItem {
-    flex: 0 0 calc(100% / 4);
+    flex: 0 0 50%;             
+    max-width: 50%;
   }
 }
-
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .cardItem {
-    flex: 0 0 calc(100% / 3);
-  }
-}
-
-@media (max-width: 500px) {
-  .cardItem {
-    flex: 0 0 calc(100% / 2);
-  }
-}
-
-@media (max-width: 350px) {
-  .cardItem {
-    flex: 0 0 100%;
+    flex: 0 0 100%;           
+    max-width: 100%;
   }
 }
