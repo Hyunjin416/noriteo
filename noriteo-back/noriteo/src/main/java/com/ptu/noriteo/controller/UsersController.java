@@ -91,6 +91,8 @@ public class UsersController {
             response.addHeader("Set-Cookie", accessTokenCookie.toString());
             response.addHeader("Set-Cookie", refreshTokenCookie.toString());
 
+            Map<String, String> body = new HashMap<>();
+            body.put("accessToken", tokens.get("normalAccessToken"));
             // 리다이렉트 하지 않고 상태 코드 반환
             return ResponseEntity.ok().body("로그인 성공");
         } catch (IllegalArgumentException e) {

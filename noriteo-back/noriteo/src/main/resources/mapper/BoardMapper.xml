@@ -69,36 +69,29 @@
         #{boardId},
         #{boardType},
         #{boardTitle},
-        #{boardContent},
+        #{boardContent,  jdbcType=CLOB},        <!-- ★ 꼭 지정 -->
         #{userId},
-        #{placeKakaoId},
-        #{placeName},
-        #{roadAddressName},
-        #{boardLat, jdbcType=DOUBLE},
-        #{boardLng, jdbcType=DOUBLE}
+        #{placeKakaoId,  jdbcType=VARCHAR},     <!-- ★ null 가능 -->
+        #{placeName, jdbcType=VARCHAR},
+        #{roadAddressName, jdbcType=VARCHAR},
+        #{boardLat, jdbcType=NUMERIC},
+        #{boardLng, jdbcType=NUMERIC}
         )
     </insert>
 
 
 
-
-
-
-
-
-
-
     <update id="updateBoard" parameterType="com.ptu.noriteo.model.Board">
         UPDATE board
-        SET board_type = #{boardType},
-            board_title = #{boardTitle},
-            board_content = #{boardContent},
-            place_kakao_id = #{placeKakaoId},
-            place_name = #{placeName},
-            road_address_name = #{roadAddressName},
-            board_lat = #{boardLat},
-            board_lng = #{boardLng}
-        WHERE board_id = #{boardId}
+        SET board_type = #{boardType, jdbcType=VARCHAR},
+            board_title = #{boardTitle, jdbcType=VARCHAR},
+            board_content = #{boardContent, jdbcType=CLOB},
+            place_kakao_id = #{placeKakaoId, jdbcType=VARCHAR},
+            place_name = #{placeName, jdbcType=VARCHAR},
+            road_address_name = #{roadAddressName, jdbcType=VARCHAR},
+            board_lat = #{boardLat, jdbcType=NUMERIC},
+            board_lng = #{boardLng, jdbcType=NUMERIC}
+        WHERE board_id = #{boardId, jdbcType=NUMERIC}
     </update>
 
     <delete id="deleteBoard" parameterType="long">

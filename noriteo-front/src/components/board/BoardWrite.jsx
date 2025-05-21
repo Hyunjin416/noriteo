@@ -9,26 +9,27 @@ export default function BoardWrite() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 수정 모드: 상세보기에서 전달된 기존 게시글 데이터
+  // 수정 모드 기존 게시글
   const existing = location.state?.board || null;
 
   // 폼 상태
   const [boardType, setBoardType] = useState(existing?.boardType || "general");
-  const [title, setTitle] = useState(existing?.board_title || "");
+  const [title, setTitle] = useState(existing?.boardTitle || "");
   const [hashtags, setHashtags] = useState((existing?.tags || []).join(","));
   const [content, setContent] = useState(existing?.boardContent || "");
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
-  // 텍스트 스타일 도구
+  // 텍스트 스타일 도구 상태
   const [fontColor, setFontColor] = useState("#000000");
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
-  const [showStickers, setShowStickers] = useState(false);
   const [fontFamily, setFontFamily] = useState("inherit");
   const [textAlign, setTextAlign] = useState("left");
+  const [showStickers, setShowStickers] = useState(false);
   const [showMap, setShowMap] = useState(false);
 
-  // 스타일 적용 함수
+  // 스타일 적용
   const applyStyle = () => {
     const style = {};
     if (isBold) style.fontWeight = "bold";
@@ -40,15 +41,17 @@ export default function BoardWrite() {
     return style;
   };
 
-  // 수정 모드 초기 로드: API에서 데이터 가져오기
+  // 수정 모드 초기 로드
   useEffect(() => {
     if (boardId && !existing) {
-      axios
-        .get(`http://localhost:8080/api/board/detail/${boardId}`)
+      axios.get(
+        `http://localhost:8080/api/board/detail/${boardId}`,
+        { withCredentials: true }
+      )
         .then((res) => {
           const data = res.data;
           setBoardType(data.boardType);
-          setTitle(data.board_title);
+          setTitle(data.boardTitle);
           setHashtags((data.tags || []).join(","));
           setContent(data.boardContent);
         })
@@ -56,45 +59,67 @@ export default function BoardWrite() {
     }
   }, [boardId, existing]);
 
-  // 저장 처리: 등록 vs 수정
-  const handleSave = async (e) => {
-    e.preventDefault();
-    const payload = {
-      boardType,
-      board_title: title,
-      boardContent: content,
-      tags: hashtags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean),
-    };
-    try {
-      if (boardId) {
-        // 수정
-        await axios.put(`http://localhost:8080/api/board/${boardId}`, payload);
-        navigate(`/board/${boardId}`);
-      } else {
-        // 새 글 등록
-        const res = await axios.post(
-          "http://localhost:8080/api/board/write",
-          payload
-        );
-        navigate(`/board/${res.data.id}`);
-      }
-    } catch (err) {
-      console.error("저장 실패:", err);
-      alert("저장 중 오류가 발생했습니다.");
-    }
+  // 파일 선택 핸들러
+  const handleFileChange = (e) => {
+    setSelectedFiles([...e.target.files]);
   };
+
+// 저장(등록/수정) 핸들러
+const handleSave = async (e) => {
+  e.preventDefault();
+
+  // ① 서버에 보낼 JSON payload
+  const payload = {
+    boardType,
+    boardTitle: title,
+    boardContent: content,
+    tags: hashtags
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean),
+  };
+
+  try {
+    // ② multipart/form-data 구성
+    const formData = new FormData();
+    formData.append(
+      "board",
+      new Blob([JSON.stringify(payload)], { type: "application/json" })
+    );
+    selectedFiles.forEach((f) => formData.append("pics", f));
+
+    // ③ 글쓰기 vs 수정 URL
+    const url = boardId
+      ? `http://localhost:8080/api/board/update/${boardId}`
+      : "http://localhost:8080/api/board/write";
+
+    // ④ 요청 → 새 글이면 PK(boardId) 가 body 에 담겨 온다
+    const res = await axios({
+      method: boardId ? "put" : "post",
+      url,
+      data: formData,
+      withCredentials: true,          // 쿠키(JWT) 자동 전송
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    // ⑤ 이동할 게시글 id 결정
+    const newId = boardId ?? res.data;   // boardId(수정) 또는 서버가 준 새 PK
+    navigate(`/board/detail/${newId}`);
+  } catch (err) {
+    console.error("저장 실패:", err);
+    alert("저장 중 오류가 발생했습니다.");
+  }
+};
 
   // 기타 핸들러
   const toggleBold = () => setIsBold((b) => !b);
   const toggleItalic = () => setIsItalic((i) => !i);
   const toggleUnderline = () => setIsUnderline((u) => !u);
-  const handleQuote = () => setContent((prev) => prev + "\n> 인용문\n");
+  const handleQuote = () => setContent((c) => c + "\n> 인용문\n");
   const handleSchedule = () =>
-    setContent((prev) => prev + "\n📅 일정: YYYY-MM-DD\n");
-  const handleMap = () => setShowMap((prev) => !prev);
+    setContent((c) => c + "\n📅 일정: YYYY-MM-DD\n");
+  const handleStickerToggle = () => setShowStickers((s) => !s);
+  const handleMapToggle = () => setShowMap((m) => !m);
 
   return (
     <form className="editor-container" onSubmit={handleSave}>
@@ -113,7 +138,7 @@ export default function BoardWrite() {
         <option value="sell">거래</option>
       </select>
 
-      {/* 제목, 해시태그 */}
+      {/* 제목 & 해시태그 */}
       <input
         className="editor-title input-fix"
         type="text"
@@ -165,14 +190,17 @@ export default function BoardWrite() {
         <button type="button" onClick={handleQuote}>
           인용구
         </button>
-        <button type="button" onClick={() => setShowStickers((s) => !s)}>
+        <button type="button" onClick={handleStickerToggle}>
           😊 스티커
         </button>
         <button type="button" onClick={handleSchedule}>
           📅 일정
         </button>
-        <input type="file" multiple />
-        <button type="button" onClick={handleMap}>
+
+        {/* 파일 업로드 */}
+        <input type="file" multiple onChange={handleFileChange} />
+
+        <button type="button" onClick={handleMapToggle}>
           📍 지도
         </button>
       </div>
@@ -199,7 +227,7 @@ export default function BoardWrite() {
         rows={10}
       />
 
-      {/* 저장 버튼 */}
+      {/* 저장/수정 버튼 */}
       <button type="submit" className="editor-save">
         {boardId ? "수정 완료" : "저장"}
       </button>

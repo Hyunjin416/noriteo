@@ -24,4 +24,8 @@ public class CustomUser extends User {
     public Users getUsers() {
         return users;
     }
+
+    public Long getUserId() {
+        return users.getUserId();
+    }
 }
