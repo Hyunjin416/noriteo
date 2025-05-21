@@ -58,11 +58,35 @@ public class UsersService {
     public Map<String, String> loginUser(String userEmail, String password) {
         Users users = usersMapper.findByEmail(userEmail);
 
-        if (users == null) {
+        /*if (users == null) {
             log.error("유저 정보 없음: {}", userEmail);
             throw new IllegalArgumentException("Invalid email or password.");
+        }*/
+
+        if (users == null || !passwordEncoder.matches(password, users.getPassword())) {
+            throw new IllegalArgumentException("로그인 정보 불일치");
         }
 
+        // ROLE_ID → 문자열 ROLE_NAME 매핑
+        String roleName = switch (users.getRoleId().intValue()) {
+            case 1 -> "ADMIN";
+            case 2 -> "USER";
+            default -> throw new RuntimeException("알 수 없는 ROLE_ID: " + users.getRoleId());
+        };
+
+        // JWT 생성
+        String accessToken = jwtUtil.generateNormalAccessToken(
+                users.getUserId(), users.getUserEmail(), roleName);
+        String refreshToken = jwtUtil.generateNormalRefreshToken(
+                users.getUserId(), roleName);
+
+        // 반환
+        Map<String,String> tokens = new HashMap<>();
+        tokens.put("normalAccessToken", accessToken);
+        tokens.put("normalRefreshToken", refreshToken);
+        return tokens;
+
+        /*
         // 암호화된 비밀번호 비교 (BCryptPasswordEncoder 사용)
         boolean isPasswordMatch = passwordEncoder.matches(password, users.getPassword());
         log.info("비밀번호 비교 결과: {}", isPasswordMatch);
@@ -84,6 +108,7 @@ public class UsersService {
         tokens.put("normalAccessToken", normalAccessToken);
         tokens.put("normalRefreshToken", normalRefreshToken);
         return tokens;
+        */
     }
 
     public Users findById(Long userId) {

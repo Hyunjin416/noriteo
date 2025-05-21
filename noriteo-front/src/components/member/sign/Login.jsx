@@ -29,6 +29,12 @@ export default function Login() {
         }
       );
 
+      // ① 백엔드가 JSON 본문에 보낸 accessToken
+      const token = response.data.accessToken;
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
       if (response.status === 200) {
         alert("로그인 성공!");
         // 리다이렉트는 프론트엔드에서 처리
