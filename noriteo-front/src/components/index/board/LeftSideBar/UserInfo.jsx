@@ -1,127 +1,65 @@
-// // User 정보를 보여주는 컴포넌트(프로필사진, 이름, 가입일 작성글, 작성 댓글, 작성 거래글)
-// // src/components/board/UserInfo.jsx
-// import React from "react";
-// import "@/components_css/index/board/LeftSideBar/UserInfo.css";
-
-// export default function UserInfo() {
-//   // -----------------------------------------
-//   // 추후 실제 데이터 연동 시 (예시):
-//   //
-//   // 1) API 호출:
-//   //    const { data } = useFetch("/api/user/{userId}");
-//   //    const profileImageUrl = data.profileImageUrl;
-//   //    const userName = data.userName;
-//   //    const joinDate = data.joinDate;
-//   //    const postCount = data.postCount;
-//   //    const commentCount = data.commentCount;
-//   //    const tradeCount = data.tradeCount;
-//   //
-//   // 2) Redux / Context:
-//   //    const userInfo = useSelector((state) => state.user.info);
-//   //    const {
-//   //      profileImageUrl,
-//   //      userName,
-//   //      joinDate,
-//   //      postCount,
-//   //      commentCount,
-//   //      tradeCount
-//   //    } = userInfo;
-//   // -----------------------------------------
-
-//   // 임시 하드코딩 데이터
-//   const profileImageUrl = "/usericon.png"; // 임시 프로필 이미지
-//   const userName = "사용자1";
-//   const joinDate = "2025-01-01";
-//   const postCount = 42;
-//   const commentCount = 128;
-//   const tradeCount = 5;
-
-//   return (
-//     <div className="userInfoContainer">
-//       <h4 className="userInfoTitle">사용자 정보</h4>
-
-//       {/* 프로필 이미지 / 유저명 / 가입일 */}
-//       <div className="userInfoTop">
-//         <img
-//           src={profileImageUrl}
-//           alt="프로필 이미지"
-//           className="userInfoProfile"
-//         />
-//         <div className="userInfoDetails">
-//           <p className="userInfoRow">
-//             <strong>{userName}</strong>
-//           </p>
-//           <p className="userInfoRow">
-//             <strong>{joinDate}</strong>
-//           </p>
-//         </div>
-//       </div>
-
-//       {/* 작성 글 / 댓글 / 거래글 */}
-//       <div className="userInfoStats">
-//         <p className="userInfoRow">작성 글: {postCount}개</p>
-//         <p className="userInfoRow">작성 댓글: {commentCount}개</p>
-//         {/* <p className="userInfoRow">작성 거래글: {tradeCount}개</p> */}
-//       </div>
-
-//       {/* 내 정보 보기 버튼 */}
-//       <button
-//         className="userInfoButton"
-//         onClick={
-//           () =>
-//             alert("유저 페이지로 이동") /* 추후 navigate로 유저페이지에 연결 */
-//         }
-//       >
-//         내 정보 보기
-//       </button>
-//     </div>
-//   );
-// }
-
+// src/components/board/UserInfo.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "@/components_css/index/board/LeftSideBar/UserInfo.css";
 import axios from "@/auth/AxiosConfig";
 
-export default function UserInfo({ refreshTrigger }) {
+export default function UserInfo({ postTrigger, commentTrigger }) {
   const [userInfo, setUserInfo] = useState(null);
   const [postCount, setPostCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
   const navigate = useNavigate();
 
-  const fetchCounts = async (userId) => {
-    try {
-      const [postRes, commentRes] = await Promise.all([
-        axios.get("http://localhost:8080/api/board/my", { withCredentials: true }),
-        axios.get("http://localhost:8080/api/comments/my", { withCredentials: true }),
-      ]);
+// ✅ 유저 정보는 처음에 한 번 가져옴 + 초기 글/댓글 수까지
+useEffect(() => {
+  axios.get("/api/member/me", { withCredentials: true })
+    .then((res) => {
+      const data = res.data;
+      console.log("✅ userInfo:", data);
+      setUserInfo(data);
+      fetchInitialCounts(data.userId); // ✅ 처음 로딩 시 글/댓글 수도 가져옴
+    })
+    .catch(() => setUserInfo(null));
+}, []);
 
-      console.log("📄 댓글 전체:", commentRes.data); // 🔍 댓글 목록 로그
+const fetchInitialCounts = async (userId) => {
+  try {
+    const [postRes, commentRes] = await Promise.all([
+      axios.get("http://localhost:8080/api/board/my", { withCredentials: true }),
+      axios.get("http://localhost:8080/api/comments/my", { withCredentials: true }),
+    ]);
+    const posts = postRes.data.filter((p) => p.userId === userId);
+    const comments = commentRes.data.filter((c) => c.userId === userId);
+    setPostCount(posts.length);
+    setCommentCount(comments.length);
+  } catch (err) {
+    console.error("초기 글/댓글 수 불러오기 실패:", err);
+  }
+};
 
-      const posts = postRes.data.filter((p) => p.userId === userId);
-      const comments = commentRes.data.filter((c) => c.userId === userId);
-      console.log("🧮 필터링된 내 게시글 수:", posts.length);
-      console.log("🧮 필터링된 내 댓글 수:", comments.length);
-      setPostCount(posts.length);
-      setCommentCount(comments.length);
-    } catch (err) {
-      console.error("카운트 로딩 실패:", err);
-    }
-    
-  };
-
-  // 처음 로딩 + refreshTrigger 변경 시 실행
+  // ✅ 게시글 수만 따로 갱신
   useEffect(() => {
+    if (!userInfo) return;
     axios
-      .get("/api/member/me", { withCredentials: true })
+      .get("http://localhost:8080/api/board/my", { withCredentials: true })
       .then((res) => {
-        const data = res.data;
-        console.log("✅ userInfo:", data);
-        setUserInfo(data);
-        fetchCounts(data.userId);
+        const posts = res.data.filter((p) => p.userId === userInfo.userId);
+        setPostCount(posts.length);
       })
-      .catch(() => setUserInfo(null));
-  }, [refreshTrigger]); // 🔥 변경 지점
+      .catch((err) => console.error("게시글 수 로딩 실패:", err));
+  }, [postTrigger]);
+
+  // ✅ 댓글 수만 따로 갱신
+  useEffect(() => {
+    if (!userInfo) return;
+    axios
+      .get("http://localhost:8080/api/comments/my", { withCredentials: true })
+      .then((res) => {
+        const comments = res.data.filter((c) => c.userId === userInfo.userId);
+        setCommentCount(comments.length);
+      })
+      .catch((err) => console.error("댓글 수 로딩 실패:", err));
+  }, [commentTrigger]);
 
   if (!userInfo) {
     return (
