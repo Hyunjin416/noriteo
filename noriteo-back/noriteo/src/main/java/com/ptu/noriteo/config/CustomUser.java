@@ -19,6 +19,7 @@ public class CustomUser extends User {
     public CustomUser(Users users) {
         super(users.getUserEmail(), users.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
         this.users = users;
+        
     }
 
     public Users getUsers() {
