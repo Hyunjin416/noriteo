@@ -45,92 +45,46 @@ public class BoardService {
 
     // 기존 deleteBoard(Long boardId) 메서드는 필요없다면 제거하세요.
 
-    /*
-    // 게시글 + 사진 저장
     @Transactional
-    public void createBoard(Board board, List<MultipartFile> pics) {
+    public Long createBoard(Board board, List<MultipartFile> pics) {
         boardMapper.insertBoard(board);
         Long boardId = board.getBoardId();
 
-        // ✅ 사진 목록이 null 이나 비어있으면 아무-것도 하지 않고 종료
-        if (pics == null || pics.isEmpty()) {
-            return;
-        }
-
-        int order = 1;
-        for (MultipartFile file : pics) {
-            if (!file.isEmpty()) {
-                String url = fileUploadService.upload("board", file);
-                BoardPic pic = new BoardPic();
-                pic.setBoardId(boardId);
-                pic.setBoardPicUrl(url);
-                pic.setBoardPicOrder((long) order++);
-                boardPicMapper.insertPic(pic);
-            }
-        }
-    }
-    */
-
-    @Transactional
-    public Long createBoard(Board board, List<MultipartFile> pics) {
-        boardMapper.insertBoard(board);      // boardId가 시퀀스로 채워짐
-        Long boardId = board.getBoardId();
-
-        if (pics != null) {                  // Null-safe loop
+        if (pics != null) {
             int order = 1;
             for (MultipartFile f : pics) {
                 if (!f.isEmpty()) {
-                    String url = fileUploadService.upload("board", f);
+                    // boardType 기반 하위 폴더 지정
+                    String folder = board.getBoardType();
+                    String url = fileUploadService.upload("board", f, folder);
                     BoardPic pic = new BoardPic(boardId, url, (long) order++);
                     boardPicMapper.insertPic(pic);
                 }
             }
         }
-        return boardId;                      // ★ 서비스가 id 를 돌려주도록
+        return boardId;
     }
-
-    /*
-    @Transactional
-    public void updateBoardWithPics(Board board, List<MultipartFile> pics) {
-        boardMapper.updateBoard(board);
-        boardPicMapper.deleteByBoardId(board.getBoardId());
-
-        int order = 1;
-        for (MultipartFile file : pics) {
-            if (!file.isEmpty()) {
-                String url = fileUploadService.upload("board", file);
-                BoardPic pic = new BoardPic(board.getBoardId(), url, (long) order++);
-                boardPicMapper.insertPic(pic);
-            }
-        }
-    }
-    */
 
     @Transactional
     public Long updateBoardWithPics(Board board, List<MultipartFile> pics) {
-
-        /* 1️⃣ 게시글 본문 수정 */
         boardMapper.updateBoard(board);
         Long boardId = board.getBoardId();
-
-        /* 2️⃣ 기존 사진 모두 제거 */
         boardPicMapper.deleteByBoardId(boardId);
 
-        /* 3️⃣ 새 사진(insertPic) */
         if (pics != null && !pics.isEmpty()) {
             int order = 1;
             for (MultipartFile file : pics) {
                 if (!file.isEmpty()) {
-                    String url = fileUploadService.upload("board", file);
+                    String folder = board.getBoardType();
+                    String url = fileUploadService.upload("board", file, folder);
                     BoardPic pic = new BoardPic(boardId, url, (long) order++);
                     boardPicMapper.insertPic(pic);
                 }
             }
         }
-
-        /* 4️⃣ 수정-완료된 게시글 id 반환 → 컨트롤러에서 리다이렉트 용도 */
         return boardId;
     }
+
 
     public List<Board> getBoardList() {
         return boardMapper.selectBoardList();

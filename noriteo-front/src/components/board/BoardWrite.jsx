@@ -44,10 +44,10 @@ export default function BoardWrite() {
   // 수정 모드 초기 로드
   useEffect(() => {
     if (boardId && !existing) {
-      axios.get(
-        `http://localhost:8080/api/board/detail/${boardId}`,
-        { withCredentials: true }
-      )
+      axios
+        .get(`http://localhost:8080/api/board/detail/${boardId}`, {
+          withCredentials: true,
+        })
         .then((res) => {
           const data = res.data;
           setBoardType(data.boardType);
@@ -64,65 +64,106 @@ export default function BoardWrite() {
     setSelectedFiles([...e.target.files]);
   };
 
-// 저장(등록/수정) 핸들러
-const handleSave = async (e) => {
-  e.preventDefault();
+  // // 저장(등록/수정) 핸들러
+  // const handleSave = async (e) => {
+  //   e.preventDefault();
 
-  // ① 서버에 보낼 JSON payload
-  const payload = {
-    boardType,
-    boardTitle: title,
-    boardContent: content,
-    tags: hashtags
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean),
+  //   // ① 서버에 보낼 JSON payload
+  //   const payload = {
+  //     boardType,
+  //     boardTitle: title,
+  //     boardContent: content,
+  //     tags: hashtags
+  //       .split(",")
+  //       .map((t) => t.trim())
+  //       .filter(Boolean),
+  //   };
+
+  //   try {
+  //     // ② multipart/form-data 구성
+  //     const formData = new FormData();
+  //     formData.append(
+  //       "board",
+  //       new Blob([JSON.stringify(payload)], { type: "application/json" })
+  //     );
+  //     selectedFiles.forEach((f) => formData.append("pics", f));
+
+  //     // ③ 글쓰기 vs 수정 URL
+  //     const url = boardId
+  //       ? `http://localhost:8080/api/board/update/${boardId}`
+  //       : "http://localhost:8080/api/board/write";
+
+  //     // ④ 요청 → 새 글이면 PK(boardId) 가 body 에 담겨 온다
+  //     const res = await axios({
+  //       method: boardId ? "put" : "post",
+  //       url,
+  //       data: formData,
+  //       withCredentials: true,          // 쿠키(JWT) 자동 전송
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+
+  //     // ⑤ 이동할 게시글 id 결정
+  //     // 글 작성 성공 후 처리
+  //     localStorage.setItem("postSuccess", "true"); // ✅ 신호 저장
+
+  //     const newId = boardId ?? res.data;   // boardId(수정) 또는 서버가 준 새 PK
+  //     navigate(`/board/detail/${newId}`);
+  //   }
+
+  //   catch (err) {
+  //     console.error("저장 실패:", err);
+  //     alert("저장 중 오류가 발생했습니다.");
+  //   }
+  // };
+  const handleSave = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      boardType,
+      boardTitle: title,
+      boardContent: content,
+      tags: hashtags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
+    };
+
+    try {
+      const formData = new FormData();
+      formData.append(
+        "board",
+        new Blob([JSON.stringify(payload)], { type: "application/json" })
+      );
+      selectedFiles.forEach((f) => formData.append("pics", f));
+
+      const url = boardId
+        ? `http://localhost:8080/api/board/pics/update/${boardId}`
+        : `http://localhost:8080/api/board/pics/write`;
+
+      const method = boardId ? "put" : "post";
+
+      const res = await axios({
+        method,
+        url,
+        data: formData,
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      const newId = boardId ?? res.data;
+      navigate(`/board/detail/${newId}`);
+    } catch (err) {
+      console.error("저장 실패:", err);
+      alert("저장 중 오류가 발생했습니다.");
+    }
   };
-
-  try {
-    // ② multipart/form-data 구성
-    const formData = new FormData();
-    formData.append(
-      "board",
-      new Blob([JSON.stringify(payload)], { type: "application/json" })
-    );
-    selectedFiles.forEach((f) => formData.append("pics", f));
-
-    // ③ 글쓰기 vs 수정 URL
-    const url = boardId
-      ? `http://localhost:8080/api/board/update/${boardId}`
-      : "http://localhost:8080/api/board/write";
-
-    // ④ 요청 → 새 글이면 PK(boardId) 가 body 에 담겨 온다
-    const res = await axios({
-      method: boardId ? "put" : "post",
-      url,
-      data: formData,
-      withCredentials: true,          // 쿠키(JWT) 자동 전송
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-
-    // ⑤ 이동할 게시글 id 결정
-    // 글 작성 성공 후 처리
-    localStorage.setItem("postSuccess", "true"); // ✅ 신호 저장
-
-    const newId = boardId ?? res.data;   // boardId(수정) 또는 서버가 준 새 PK
-    navigate(`/board/detail/${newId}`);
-  } 
-  
-  catch (err) {
-    console.error("저장 실패:", err);
-    alert("저장 중 오류가 발생했습니다.");
-  }
-};
 
   // 기타 핸들러
   const toggleBold = () => setIsBold((b) => !b);
   const toggleItalic = () => setIsItalic((i) => !i);
   const toggleUnderline = () => setIsUnderline((u) => !u);
   const handleQuote = () => setContent((c) => c + "\n> 인용문\n");
-  const handleSchedule = () =>
-    setContent((c) => c + "\n📅 일정: YYYY-MM-DD\n");
+  const handleSchedule = () => setContent((c) => c + "\n📅 일정: YYYY-MM-DD\n");
   const handleStickerToggle = () => setShowStickers((s) => !s);
   const handleMapToggle = () => setShowMap((m) => !m);
 

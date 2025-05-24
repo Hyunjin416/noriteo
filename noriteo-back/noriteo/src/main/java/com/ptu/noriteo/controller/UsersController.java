@@ -1,12 +1,12 @@
 package com.ptu.noriteo.controller;
 
+import com.ptu.noriteo.config.FileUploadService;
 import com.ptu.noriteo.jwt.JwtUtil;
 import com.ptu.noriteo.mapper.UsersMapper;
 import com.ptu.noriteo.model.Users;
 import com.ptu.noriteo.service.UsersService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +24,7 @@ public class UsersController {
     private final UsersService usersService;
     private final JwtUtil jwtUtil;
     private final UsersMapper usersMapper;
+//    private final FileUploadService fileUploadService;
 
     public UsersController(UsersService usersService, JwtUtil jwtUtil, UsersMapper usersMapper) {
         this.usersService = usersService;
@@ -42,16 +43,13 @@ public class UsersController {
             return ResponseEntity.badRequest().body("이미 존재하는 이메일입니다.");
         }
 
-        // 프로필 이미지 처리
-        if (profileImage != null && !profileImage.isEmpty()) {
-            String fileName = profileImage.getOriginalFilename();
-            users.setOriginUser(fileName);
-            users.setSysUser("saved_" + fileName);
-        }
-
+        // ⛳ 이미지 저장 및 경로 설정은 UsersService에서 처리함
         usersService.registerUsers(users, profileImage);
+
         return ResponseEntity.ok("회원가입 성공");
     }
+
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginData, HttpServletResponse response) {

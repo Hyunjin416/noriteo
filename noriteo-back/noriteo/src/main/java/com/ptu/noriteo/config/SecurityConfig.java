@@ -41,7 +41,7 @@
                                     "/api/board/popular",
 //                                    "/api/comments/{boardId}",,
                                     "/api/comments/**",
-                                    "/uploads/**",
+                                    "/upload/**",
                                     "/error"
                             ).permitAll()
 

@@ -45,79 +45,54 @@ public class BoardController {
         return boardService.getBoardDetail(boardId);
     }
 
-    /*
-    @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void createBoard(@RequestPart("board") Board board,
-//                            @RequestPart("pics") List<MultipartFile> pics
-                            @RequestPart(name = "pics", required = false) List<MultipartFile> pics)
 
-    {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !(auth.getPrincipal() instanceof CustomUser)) {
-            throw new RuntimeException("로그인된 사용자만 글을 작성할 수 있습니다.");
-        }
-        CustomUser principal = (CustomUser) auth.getPrincipal();
-        board.setUserId(principal.getUserId());
-        Long userId = principal.getUserId();  // 이제 정상 호출 됩니다.
 
-        boardService.createBoard(board, pics);
-    }
-    */
+//    @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<Long> createBoard(@RequestPart("board") Board board,
+//                            @RequestPart(name = "pics", required = false) List<MultipartFile> pics) {
+//
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        /* 🔽 CustomUser → JwtAuthentication 로 교체  */
+//        if (auth == null || !(auth instanceof JwtAuthentication jwtAuth)) {
+//            throw new RuntimeException("로그인된 사용자만 글을 작성할 수 있습니다.");
+//        }
+//        board.setUserId(jwtAuth.getUserId());
+//
+//        Long newId = boardService.createBoard(board, pics);   // ⬅ id 받기
+//        return ResponseEntity.ok(newId);
+//        /*
+//        boardService.createBoard(board, pics);
+//        return ResponseEntity.ok(board.getBoardId());
+//        */
+//    }
 
-    @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Long> createBoard(@RequestPart("board") Board board,
-                            @RequestPart(name = "pics", required = false) List<MultipartFile> pics) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        /* 🔽 CustomUser → JwtAuthentication 로 교체  */
-        if (auth == null || !(auth instanceof JwtAuthentication jwtAuth)) {
-            throw new RuntimeException("로그인된 사용자만 글을 작성할 수 있습니다.");
-        }
-        board.setUserId(jwtAuth.getUserId());
-
-        Long newId = boardService.createBoard(board, pics);   // ⬅ id 받기
-        return ResponseEntity.ok(newId);
-        /*
-        boardService.createBoard(board, pics);
-        return ResponseEntity.ok(board.getBoardId());
-        */
-    }
-
-    /*
-    @PutMapping(value = "/update/{boardId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void updateBoard(@PathVariable("boardId") Long id,
-                            @RequestPart("board") Board board,
-                            @RequestPart("pics") List<MultipartFile> pics) {
-        board.setBoardId(id);
-        boardService.updateBoardWithPics(board, pics); // 서비스단에서 사진까지 처리
-    }
-    */
-
-    @PutMapping(value = "/update/{boardId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Long> updateBoard(
-            @PathVariable("boardId") Long boardId,
-            @RequestPart("board") Board board,
-            @RequestPart(name = "pics", required = false) List<MultipartFile> pics) {
-
-        /* 1️⃣ 인증 정보 → JwtAuthentication 으로 캐스팅 */
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof JwtAuthentication jwtAuth)) {
-            throw new RuntimeException("로그인된 사용자만 글을 작성할 수 있습니다.");
-        }
-
-        board.setUserId(jwtAuth.getUserId());   // ← jwtAuth 사용
-        board.setBoardId(boardId);
-
-        Long id = boardService.updateBoardWithPics(board, pics);
-        return ResponseEntity.ok(id);        // 수정된 id 반환
-
-        /*
-        board.setUserId(jwtAuth.getUserId());
-        board.setBoardId(id);          // ← 빠뜨리지 말고 넣어 주세요.
-        boardService.updateBoardWithPics(board, pics);
-        */
-    }
+//    @PutMapping(value = "/update/{boardId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<Long> updateBoard(
+//            @PathVariable("boardId") Long boardId,
+//            @RequestPart("board") Board board,
+//            @RequestPart(name = "pics", required = false) List<MultipartFile> pics) {
+//
+//        /* 1️⃣ 인증 정보 → JwtAuthentication 으로 캐스팅 */
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (!(auth instanceof JwtAuthentication jwtAuth)) {
+//            throw new RuntimeException("로그인된 사용자만 글을 작성할 수 있습니다.");
+//        }
+//
+//        board.setUserId(jwtAuth.getUserId());   // ← jwtAuth 사용
+//        board.setBoardId(boardId);
+//
+//        Long id = boardService.updateBoardWithPics(board, pics);
+//        return ResponseEntity.ok(id);        // 수정된 id 반환
+//
+//        /*
+//        board.setUserId(jwtAuth.getUserId());
+//        board.setBoardId(id);          // ← 빠뜨리지 말고 넣어 주세요.
+//        boardService.updateBoardWithPics(board, pics);
+//        */
+//    }
 
     @DeleteMapping("/delete/{boardId}")
     public ResponseEntity<Void> deleteBoard(

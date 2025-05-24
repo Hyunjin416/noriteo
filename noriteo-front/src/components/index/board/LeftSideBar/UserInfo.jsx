@@ -10,32 +10,37 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
   const [commentCount, setCommentCount] = useState(0);
   const navigate = useNavigate();
 
-// ✅ 유저 정보는 처음에 한 번 가져옴 + 초기 글/댓글 수까지
-useEffect(() => {
-  axios.get("/api/member/me", { withCredentials: true })
-    .then((res) => {
-      const data = res.data;
-      console.log("✅ userInfo:", data);
-      setUserInfo(data);
-      fetchInitialCounts(data.userId); // ✅ 처음 로딩 시 글/댓글 수도 가져옴
-    })
-    .catch(() => setUserInfo(null));
-}, []);
+  // ✅ 유저 정보는 처음에 한 번 가져옴 + 초기 글/댓글 수까지
+  useEffect(() => {
+    axios
+      .get("/api/member/me", { withCredentials: true })
+      .then((res) => {
+        const data = res.data;
+        console.log("✅ userInfo:", data);
+        setUserInfo(data);
+        fetchInitialCounts(data.userId); // ✅ 처음 로딩 시 글/댓글 수도 가져옴
+      })
+      .catch(() => setUserInfo(null));
+  }, []);
 
-const fetchInitialCounts = async (userId) => {
-  try {
-    const [postRes, commentRes] = await Promise.all([
-      axios.get("http://localhost:8080/api/board/my", { withCredentials: true }),
-      axios.get("http://localhost:8080/api/comments/my", { withCredentials: true }),
-    ]);
-    const posts = postRes.data.filter((p) => p.userId === userId);
-    const comments = commentRes.data.filter((c) => c.userId === userId);
-    setPostCount(posts.length);
-    setCommentCount(comments.length);
-  } catch (err) {
-    console.error("초기 글/댓글 수 불러오기 실패:", err);
-  }
-};
+  const fetchInitialCounts = async (userId) => {
+    try {
+      const [postRes, commentRes] = await Promise.all([
+        axios.get("http://localhost:8080/api/board/my", {
+          withCredentials: true,
+        }),
+        axios.get("http://localhost:8080/api/comments/my", {
+          withCredentials: true,
+        }),
+      ]);
+      const posts = postRes.data.filter((p) => p.userId === userId);
+      const comments = commentRes.data.filter((c) => c.userId === userId);
+      setPostCount(posts.length);
+      setCommentCount(comments.length);
+    } catch (err) {
+      console.error("초기 글/댓글 수 불러오기 실패:", err);
+    }
+  };
 
   // ✅ 게시글 수만 따로 갱신
   useEffect(() => {
@@ -61,6 +66,16 @@ const fetchInitialCounts = async (userId) => {
       .catch((err) => console.error("댓글 수 로딩 실패:", err));
   }, [commentTrigger]);
 
+  useEffect(() => {
+    if (userInfo) {
+      const testImg = new Image();
+      testImg.src = encodeURI(userInfo.sysUser);
+      testImg.onload = () => console.log("✅ 이미지 로드 성공 (테스트)");
+      testImg.onerror = () =>
+        console.error("❌ 이미지 로드 실패 (테스트)", testImg.src);
+    }
+  }, [userInfo]);
+
   if (!userInfo) {
     return (
       <div className="userInfoContainer">
@@ -73,27 +88,62 @@ const fetchInitialCounts = async (userId) => {
     );
   }
 
-  const profileImageUrl = userInfo.sysUser?.startsWith("/uploads/")
-    ? userInfo.sysUser
-    : "/uploads/" + userInfo.sysUser;
+  // const rawProfileImageUrl = userInfo.sysUser?.startsWith("/upload/")
+  //   ? userInfo.sysUser
+  //   : "/uploads/" + userInfo.sysUser;
+  // const defaultProfileImage = "/usericon.png"; // 기본 이미지
+  // const profileImageUrl = userInfo.sysUser
+  //   ? encodeURI(userInfo.sysUser)
+  //   : defaultProfileImage;
+  const profileImageUrl = userInfo.sysUser
+    ? `http://localhost:8080${encodeURI(userInfo.sysUser)}`
+    : "/usericon.png";
+
   const userName = userInfo.userName || userInfo.usersName;
-  const joinDate = new Date(userInfo.usersRegdate).toLocaleDateString();
+  const joinDate = new Date(userInfo.userRegDate).toLocaleDateString("ko-KR");
+
+  console.log("🧾 sysUser:", userInfo.sysUser);
+  console.log("🧾 최종 이미지 경로:", encodeURI(userInfo.sysUser));
 
   return (
     <div className="userInfoContainer">
       <h4 className="userInfoTitle">사용자 정보</h4>
       <div className="userInfoTop">
-        <img src={profileImageUrl} alt="프로필 이미지" className="userInfoProfile" />
+        {/* <img
+          src={profileImageUrl}
+          alt="프로필 이미지"
+          className="userInfoProfile"
+          onError={(e) => {
+            e.target.src = defaultProfileImage;
+          }}
+        /> */}
+        <img
+          src={profileImageUrl}
+          alt="프로필 이미지"
+          className="userInfoProfile"
+          onError={(e) => {
+            console.error("❌ 이미지 로드 실패:", profileImageUrl);
+            e.target.src = "/usericon.png";
+          }}
+        />
+
         <div className="userInfoDetails">
-          <p className="userInfoRow"><strong>{userName}</strong></p>
-          <p className="userInfoRow"><strong>{joinDate}</strong></p>
+          <p className="userInfoRow">
+            <strong>{userName}</strong>
+          </p>
+          <p className="userInfoRow">
+            <strong>{joinDate}</strong>
+          </p>
         </div>
       </div>
       <div className="userInfoStats">
         <p className="userInfoRow">작성 글: {postCount}개</p>
         <p className="userInfoRow">작성 댓글: {commentCount}개</p>
       </div>
-      <button className="userInfoButton" onClick={() => navigate("/member/mypage")}>
+      <button
+        className="userInfoButton"
+        onClick={() => navigate("/member/mypage")}
+      >
         마이페이지
       </button>
     </div>
