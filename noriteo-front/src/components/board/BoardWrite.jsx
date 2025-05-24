@@ -103,9 +103,14 @@ const handleSave = async (e) => {
     });
 
     // ⑤ 이동할 게시글 id 결정
+    // 글 작성 성공 후 처리
+    localStorage.setItem("postSuccess", "true"); // ✅ 신호 저장
+
     const newId = boardId ?? res.data;   // boardId(수정) 또는 서버가 준 새 PK
     navigate(`/board/detail/${newId}`);
-  } catch (err) {
+  } 
+  
+  catch (err) {
     console.error("저장 실패:", err);
     alert("저장 중 오류가 발생했습니다.");
   }
