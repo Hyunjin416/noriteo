@@ -21,4 +21,11 @@ public interface BoardCommentMapper {
     void updateCommentRef(BoardComment comment);
     BoardComment selectCommentById(Long boardCommentId);
     int updateStepsForReply(@Param("ref") int ref, @Param("step") int step);
+
+    // 댓글 수 조회
+    // BoardCommentMapper.java
+    long countComments();
+    List<BoardComment> selectAll();
+    void deleteById(Long id);
+
 }

@@ -7,6 +7,7 @@ import Board from "./pages/board/Board.jsx";
 //import PostPage from "./pages/PostPage/PostPage.jsx";
 import KakaoCallback from "@/components/member/sign/KakaoCallback.jsx";
 import NaverCallback from "@/components/member/sign/NaverCallback.jsx";
+
 {
   /* <script
   src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${

@@ -192,4 +192,21 @@
         WHERE BOARD_COMMENT_ID = #{boardCommentId}
     </update>
 
+    <!-- 전체 댓글 수 조회 -->
+    <select id="countComments" resultType="long">
+        SELECT COUNT(*) FROM BOARD_COMMENT
+    </select>
+
+    <!-- 전체 댓글 목록 조회 -->
+    <select id="selectAll" resultType="com.ptu.noriteo.model.BoardComment">
+        SELECT * FROM BOARD_COMMENT
+    </select>
+
+    <!-- 댓글 삭제 -->
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM BOARD_COMMENT
+        WHERE BOARD_COMMENT_ID = #{id}
+    </delete>
+
+
 </mapper>

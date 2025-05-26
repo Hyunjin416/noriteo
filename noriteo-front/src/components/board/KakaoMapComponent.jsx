@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "@/components_css/board/BoardWrite.css";
 
-function KakaoMapComponent() {
+function KakaoMapComponent({ onSelect }) {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const infoWindowsRef = useRef([]);
@@ -57,6 +57,17 @@ function KakaoMapComponent() {
                 infoWindowsRef.current.push(infowindow);
 
                 setPlaces(prev => [...prev, { name: name || detailAddr, address: detailAddr, category: category || "-", position: latlng }]);
+
+                // ← 추가: 부모 콜백으로 선택 정보 전달
+                    if (onSelect) {
+                      onSelect({
+                        lat: latlng.getLat(),
+                        lng: latlng.getLng(),
+                        address: detailAddr,
+                        name,
+                        kakaoId: results[0]?.id || "",
+                      });
+                    }
               });
             }
           });
@@ -140,9 +151,14 @@ function KakaoMapComponent() {
           value={searchAddress}
           onChange={(e) => setSearchAddress(e.target.value)}
         />
-        <button onClick={handleSearch}>검색</button>
-        <button onClick={() => setIsPlacingMarker(true)}>마커 찍기</button>
-        <button onClick={handleClearMarkers}>전체 삭제</button>
+        {/*<button onClick={handleSearch}>검색</button>*/}
+        <button type="button" onClick={handleSearch}>검색</button>
+
+        {/*<button onClick={() => setIsPlacingMarker(true)}>마커 찍기</button>*/}
+        <button type="button" onClick={() => setIsPlacingMarker(true)}>마커 찍기</button>
+
+        {/*<button onClick={handleClearMarkers}>전체 삭제</button>*/}
+        <button type="button" onClick={handleClearMarkers}>전체 삭제</button>
       </div>
 
       <div id="map" className="kakao-map"></div>
@@ -157,7 +173,10 @@ function KakaoMapComponent() {
                   <strong>{place.name}</strong> ({place.category})<br />
                   <small>{place.address}</small>
                 </div>
-                <button onClick={() => handleRemovePlace(idx)} className="place-remove">삭제</button>
+                {/*<button onClick={() => handleRemovePlace(idx)} className="place-remove">*/}
+                <button type="button" onClick={() => handleRemovePlace(idx)} className="place-remove">
+                  삭제
+                </button>
               </li>
             ))}
           </ul>

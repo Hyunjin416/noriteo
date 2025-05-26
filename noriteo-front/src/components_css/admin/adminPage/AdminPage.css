@@ -1,0 +1,102 @@
+/* ──── 컬러 & 공통 변수 ──── */
+:root {
+  --accent:         #95D5F5;
+  --accent-hover:   #6fb8e8;
+  --text-dark:      #333333;
+  --gap:            1rem;
+  --bg-light:       #f9fafb;
+  --panel-bg:       #ffffff;
+  --panel-border:   #e0e0e0;
+  --panel-shadow:   rgba(0, 0, 0, 0.05);
+  --radius:         8px;
+}
+
+/* ──── AdminPage 전체 래퍼 ──── */
+.adminpage-container {
+  background: var(--panel-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px var(--panel-shadow);
+  padding: 2rem var(--gap);
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+/* ──── 탭 네비게이션 ──── */
+.adminpage-tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap);
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.adminpage-tabs button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.adminpage-tabs button:hover {
+  color: var(--accent-hover);
+}
+
+.adminpage-tabs button.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ──── 콘텐츠 영역 ──── */
+.adminpage-content {
+  background: var(--bg-light);
+  padding: var(--gap);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px var(--panel-shadow);
+  min-height: 400px;
+}
+
+/* ──── 섹션 패널 (필요 시 사용) ──── */
+.adminpage-section {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 6px var(--panel-shadow);
+  padding: var(--gap);
+  margin-bottom: 2rem;
+}
+
+.adminpage-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--gap);
+}
+
+/* ──── 로딩 상태 ──── */
+.adminpage-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+/* ──── 반응형 ──── */
+@media (max-width: 768px) {
+  .adminpage-container {
+    padding: 1rem var(--gap);
+  }
+  .adminpage-tabs {
+    flex-wrap: wrap;
+  }
+  .adminpage-tabs button {
+    flex: 1 1 45%;
+    text-align: center;
+  }
+}

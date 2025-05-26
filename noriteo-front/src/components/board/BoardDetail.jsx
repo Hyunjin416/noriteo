@@ -121,6 +121,38 @@ const BoardDetail = () => {
       });
   }, [boardId]);
 
+  useEffect(() => {
+    console.log("▶ initMap useEffect 호출", { board });
+    if (!board || board.boardLat == null || board.boardLng == null) {
+      console.log("   ⇒ board 데이터가 아직 준비되지 않았습니다.");
+      return;
+    }
+
+    const initMap = () => {
+      const container = document.getElementById("detail-map");
+      console.log("▶ map 컨테이너 조회", container);
+      const options = {
+        center: new window.kakao.maps.LatLng(board.boardLat, board.boardLng),
+        level: 3,
+      };
+      const map = new window.kakao.maps.Map(container, options);
+      new window.kakao.maps.Marker({
+        position: map.getCenter(),
+        map,
+      });
+    };
+
+    if (!window.kakao) {
+      const script = document.createElement("script");
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_API_KEY}&autoload=false`;
+      script.async = true;
+      script.onload = () => window.kakao.maps.load(initMap);
+      document.head.appendChild(script);
+    } else {
+      window.kakao.maps.load(initMap);
+    }
+  }, [board]);
+
   if (!board) return <div className="loading">로딩 중...</div>;
 
   const formattedDate = new Date(board.boardRegdate).toLocaleString();
@@ -258,6 +290,32 @@ const BoardDetail = () => {
           </p>
         </section>
       )}
+
+      {/* ──────────── 지도 표시 영역 ──────────── */}
+      {board.boardLat != null && board.boardLng != null && (
+        <>
+          {/* ─── 위치 텍스트 ─── */}
+          {(board.placeName || board.roadAddressName) && (
+            <div className="detail-location-text" style={{ margin: "1rem 0", fontSize: "0.9rem" }}>
+              {board.placeName && <span>📍 {board.placeName}</span>}
+              {board.placeName && board.roadAddressName && <span> — </span>}
+              {board.roadAddressName && <span>{board.roadAddressName}</span>}
+            </div>
+          )}
+
+          <div
+            id="detail-map"            // ← 이 ID를 initMap에서 참조합니다
+            style={{
+              width: "100%",
+              height: "300px",
+              borderRadius: "8px",
+              margin: "1.5rem 0",
+            }}
+          />
+        </>
+      )}
+      {/* ─────────────────────────────────────── */}
+
 
       {/* 댓글 섹션 */}
       <CommentSection boardId={boardId} />

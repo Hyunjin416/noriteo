@@ -67,6 +67,7 @@ public class UsersService {
             throw new IllegalArgumentException("로그인 정보 불일치");
         }
 
+
         // ROLE_ID → 문자열 ROLE_NAME 매핑
         String roleName = switch (users.getRoleId().intValue()) {
             case 1 -> "ADMIN";
