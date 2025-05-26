@@ -12,6 +12,8 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.Authentication;
+import com.ptu.noriteo.jwt.JwtAuthentication;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -115,6 +117,8 @@ public class UsersController {
 //            return ResponseEntity.status(401).body("유효하지 않은 토큰입니다.");
 //        }
 //    }
+
+    /*
 @GetMapping("/me")
 public ResponseEntity<?> getMyInfo(
         @CookieValue(value = "normalAccessToken", required = false) String normalToken,
@@ -131,12 +135,52 @@ public ResponseEntity<?> getMyInfo(
         }
 
         Long userId = jwtUtil.getUserIdFromAccessToken(token);
-        Users users = usersService.findById(userId);
-        return ResponseEntity.ok(users);
+        // Users users = usersService.findById(userId);
+        //return ResponseEntity.ok(users);
+        // ✅ DB에서 최신 유저 정보만 꺼내기
+        Users user = usersService.findById(userId);
+            if (user == null) {
+                return ResponseEntity.status(404).body("사용자 정보가 없습니다.");
+            }
+            return ResponseEntity.ok(user);
+
     } catch (Exception e) {
         return ResponseEntity.status(401).body("유효하지 않은 토큰입니다.");
     }
 }
+*/
+    @GetMapping("/me")
+    public ResponseEntity<?> getMyInfo(
+            @CookieValue(value = "normalAccessToken", required = false) String normalToken,
+            @CookieValue(value = "kakaoAccessToken", required = false)  String kakaoToken,
+            @CookieValue(value = "naverAccessToken", required = false)  String naverToken
+    ) {
+        // 1) 쿠키에 남아있는 토큰을 우선순위대로 꺼내기
+        String token = normalToken != null
+                ? normalToken
+                : (kakaoToken != null
+                ? kakaoToken
+                : naverToken);
+
+        // 2) 토큰 없거나 유효하지 않으면 401
+        if (token == null || !jwtUtil.validateToken(token)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("유효한 토큰이 없습니다.");
+        }
+
+        // 3) 토큰에서 userId 추출 & DB에서 최신 유저 정보 조회
+        Long userId = jwtUtil.getUserIdFromAccessToken(token);
+        Users user = usersService.findById(userId);
+        if (user == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("사용자 정보를 찾을 수 없습니다.");
+        }
+
+        // 4) DB의 roleId 포함된 Users 객체 그대로 반환
+        return ResponseEntity.ok(user);
+    }
 
 
     @PostMapping("/refresh")
@@ -146,20 +190,36 @@ public ResponseEntity<?> getMyInfo(
             @CookieValue(value = "naverRefreshToken", required = false) String naverRefreshToken,
             HttpServletResponse response
     ) {
+
         String token = normalRefreshToken != null ? normalRefreshToken
                 : kakaoRefreshToken != null ? kakaoRefreshToken
                 : naverRefreshToken;
+
 
         if (token == null || !jwtUtil.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Refresh Token이 유효하지 않음");
         }
 
+        /*
         Long userId = jwtUtil.getUserIdFromAccessToken(token);
         Users user = usersService.findById(userId);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유저 없음");
         }
+        */
 
+
+
+        // String provider = user.getProvider();
+        // String roleName = usersMapper.getRoleNameById(user.getRoleId());
+
+        // 1) refresh-token 파싱 → userId 추출
+        Long userId = jwtUtil.getUserIdFromAccessToken(token);
+        // 2) DB에서 최신 사용자 정보 조회 → 최신 roleId/roleName 반영
+        Users user = usersService.findById(userId);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유저 없음");
+        }
 
         String provider = user.getProvider();
         String roleName = usersMapper.getRoleNameById(user.getRoleId());

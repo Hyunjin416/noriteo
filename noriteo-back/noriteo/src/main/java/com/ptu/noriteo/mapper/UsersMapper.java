@@ -4,6 +4,8 @@ import com.ptu.noriteo.model.Users;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 public interface UsersMapper {
 
     // 이메일로 사용자 조회
@@ -20,5 +22,11 @@ public interface UsersMapper {
 
     @Select("SELECT ROLE_NAME FROM ROLE WHERE ROLE_ID = #{roleId}")
     String getRoleNameById(Long roleId);
+
+    // 사용자 수 조회 메서드
+    // UsersMapper.java
+    long countUsers();
+    List<Users> selectAll();
+    void deleteById(Long id);
 
 }

@@ -19,6 +19,15 @@ export default function BoardWrite() {
   const [content, setContent] = useState(existing?.boardContent || "");
   const [selectedFiles, setSelectedFiles] = useState([]);
 
+// ← 추가: 위치 선택 정보 상태
+  const [selectedLocation, setSelectedLocation] = useState({
+    lat: existing?.boardLat || null,
+    lng: existing?.boardLng || null,
+    address: existing?.boardAddressName || "",
+    name: existing?.placeName || "",
+    kakaoId: existing?.placeKakaoId || ""
+  });
+
   // 텍스트 스타일 도구 상태
   const [fontColor, setFontColor] = useState("#000000");
   const [isBold, setIsBold] = useState(false);
@@ -54,6 +63,13 @@ export default function BoardWrite() {
           setTitle(data.boardTitle);
           setHashtags((data.tags || []).join(","));
           setContent(data.boardContent);
+          setSelectedLocation({
+            lat: data.boardLat,
+            lng: data.boardLng,
+            address: data.boardAddressName,
+            name: data.placeName || "",
+            kakaoId: data.placeKakaoId || ""
+          });
         })
         .catch((err) => console.error("게시글 불러오기 실패:", err));
     }
@@ -126,6 +142,11 @@ export default function BoardWrite() {
         .split(",")
         .map((t) => t.trim())
         .filter(Boolean),
+      boardLat: selectedLocation.lat,
+      boardLng: selectedLocation.lng,
+      roadAddressName: selectedLocation.address,
+      placeName: selectedLocation.name,
+      placeKakaoId: selectedLocation.kakaoId,
     };
 
     try {
@@ -251,7 +272,7 @@ export default function BoardWrite() {
         </button>
       </div>
 
-      {/* 스티커 & 지도 */}
+      {/* 스티커 */}
       {showStickers && (
         <div className="sticker-popup">
           {["😊", "🔥", "🎉", "❤️"].map((s) => (
@@ -261,7 +282,15 @@ export default function BoardWrite() {
           ))}
         </div>
       )}
-      {showMap && <KakaoMapComponent />}
+
+      {/* 지도 */}
+      {showMap && (
+        <KakaoMapComponent
+          onSelect={({ lat, lng, address, name, kakaoId }) =>
+            setSelectedLocation({ lat, lng, address, name, kakaoId })
+          }
+        />
+      )}
 
       {/* 본문 에디터 */}
       <textarea

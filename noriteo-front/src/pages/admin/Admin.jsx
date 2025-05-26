@@ -1,30 +1,33 @@
+// src/pages/admin/Admin.jsx
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Container from "@/layouts/container/Container.jsx";
-import AdminLogin from "@/components/admin/sign/AdminLogin.jsx";
-// import SignUp from "@/components/member/sign/SignUp.jsx";
-import BoardList from "@/components/admin/adminPage/BoardList.jsx";
-import CommentList from "@/components/admin/adminPage/CommentList.jsx";
-import MemberList from "@/components/admin/adminPage/MemberList.jsx";
-import ProductList from "@/components/admin/adminPage/ProductList.jsx";
+import Container    from "@/layouts/container/Container.jsx";
+import AdminLogin   from "@/components/admin/sign/AdminLogin.jsx";
+import AdminPage    from "@/components/admin/adminpage/AdminPage.jsx";
+import Dashboard    from "@/components/admin/adminpage/Dashboard.jsx";
+import MemberList   from "@/components/admin/adminpage/MemberList.jsx";
+import BoardList    from "@/components/admin/adminpage/BoardList.jsx";
+import CommentList  from "@/components/admin/adminpage/CommentList.jsx";
 
-const Admin = () => {
-  return (
-    // <ChatProvider>
-    <Routes>
-      {/* 레이아웃 빼고싶으면 Container 바깥에 Route 쓰기 */}
-      <Route element={<Container />}>
-        <Route index element={<AdminLogin />} />
-        {/* 기본 경로 /admin일 때 adminLogin 렌더링 */}
-        <Route path="login" element={<AdminLogin />} />
-        {/* <Route path="signUp" element={<SignUp />} /> */}
-        <Route path="boardList" element={<BoardList />} />
+const Admin = () => (
+  <Routes>
+    <Route element={<Container />}>
+      {/* /admin 또는 /admin/login */}
+      <Route index element={<AdminPage />} />
+
+      <Route path="login" element={<AdminLogin />} />
+
+      {/* AdminPage 탭 전체(접근 권한 미적용) */}
+      <Route path="dashboard" element={<AdminPage />}>
+        {/* /admin/dashboard, /admin/memberList 등 탭 직접 접근도 가능 */}
+        <Route index element={<Dashboard />} />
+        <Route path="memberList"  element={<MemberList />} />
+        <Route path="boardList"   element={<BoardList />} />
         <Route path="commentList" element={<CommentList />} />
-        <Route path="memberList" element={<MemberList />} />
-        <Route path="productList" element={<ProductList />} />
+        {/* <Route path="productList" element={<ProductList />} /> */}
       </Route>
-    </Routes>
-    // </ChatProvider>
-  );
-};
+    </Route>
+  </Routes>
+);
 
 export default Admin;

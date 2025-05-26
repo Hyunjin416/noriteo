@@ -10,7 +10,7 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
   const [commentCount, setCommentCount] = useState(0);
   const navigate = useNavigate();
 
-  // ✅ 유저 정보는 처음에 한 번 가져옴 + 초기 글/댓글 수까지
+  // 1) 사용자 정보 + 초기 카운트
   useEffect(() => {
     axios
       .get("/api/member/me", { withCredentials: true })
@@ -42,7 +42,8 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
     }
   };
 
-  // ✅ 게시글 수만 따로 갱신
+  // 2) 게시글/댓글 수별 갱신
+  // 게시글 수만 갱신
   useEffect(() => {
     if (!userInfo) return;
     axios
@@ -54,7 +55,7 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
       .catch((err) => console.error("게시글 수 로딩 실패:", err));
   }, [postTrigger]);
 
-  // ✅ 댓글 수만 따로 갱신
+  // 댓글 수만 갱신
   useEffect(() => {
     if (!userInfo) return;
     axios
@@ -66,6 +67,7 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
       .catch((err) => console.error("댓글 수 로딩 실패:", err));
   }, [commentTrigger]);
 
+  // 3) 프로필 사진 가져오기
   useEffect(() => {
     if (userInfo) {
       const testImg = new Image();
@@ -76,6 +78,7 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
     }
   }, [userInfo]);
 
+  // 4) 미로그인
   if (!userInfo) {
     return (
       <div className="userInfoContainer">
@@ -87,6 +90,9 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
       </div>
     );
   }
+
+  // 4) 관리자 여부 체크
+  const isAdmin = userInfo.roleId === 1;
 
   // const rawProfileImageUrl = userInfo.sysUser?.startsWith("/upload/")
   //   ? userInfo.sysUser
@@ -141,11 +147,11 @@ export default function UserInfo({ postTrigger, commentTrigger }) {
         <p className="userInfoRow">작성 댓글: {commentCount}개</p>
       </div>
       <button
-        className="userInfoButton"
-        onClick={() => navigate("/member/mypage")}
-      >
-        마이페이지
-      </button>
+          className="userInfoButton"
+          onClick={() => navigate(isAdmin ? "/admin" : "/member/mypage")}
+        >
+          {isAdmin ? "관리자 페이지" : "마이페이지"}
+        </button>
     </div>
   );
 }

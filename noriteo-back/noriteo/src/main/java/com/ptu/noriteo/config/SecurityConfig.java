@@ -45,6 +45,10 @@
                                     "/error"
                             ).permitAll()
 
+                            // 관리자 전용 API
+                            .requestMatchers("/api/admin/**")
+                            .hasRole("ADMIN")
+
                             .requestMatchers(
                                     "/api/board/write",
                                     "/api/board/update/**",

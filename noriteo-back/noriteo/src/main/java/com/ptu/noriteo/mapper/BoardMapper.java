@@ -36,5 +36,10 @@ public interface BoardMapper {
 
     List<Board> selectMyLikedBoards(Long userId);
 
+    // 게시글 수 조회
+    // BoardMapper.java
+    long countBoards();
+    List<Board> selectAll();
+    void deleteById(Long id);
 
 }
