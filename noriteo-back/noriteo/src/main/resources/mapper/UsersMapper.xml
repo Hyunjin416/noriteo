@@ -23,6 +23,16 @@
                )
     </insert>
 
+    <update id="updateUsers" parameterType="com.ptu.noriteo.model.Users">
+        UPDATE USERS
+        SET USER_NAME   = #{userName},
+        GENDER      = #{gender},
+        MOBILE      = #{mobile},
+        ORIGIN_USER = #{originUser,jdbcType=VARCHAR},
+        SYS_USER    = #{sysUser,jdbcType=VARCHAR}
+        WHERE USER_ID = #{userId}
+    </update>
+
     <select id="findById" resultType="com.ptu.noriteo.model.Users">
         SELECT * FROM USERS WHERE USER_ID = #{userId}
     </select>

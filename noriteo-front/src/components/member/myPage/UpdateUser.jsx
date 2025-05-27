@@ -90,12 +90,17 @@ export default function UpdateUser() {
     );
     if (newImage) formData.append("profileImage", newImage);
 
-    try {
+    try { /*
       await axios.put("/api/member/update", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
         // withCredentials: true,
+      });*/
+
+      await axios.put("/api/member/update", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
       });
       alert("회원정보가 수정되었습니다.");
     } catch (err) {

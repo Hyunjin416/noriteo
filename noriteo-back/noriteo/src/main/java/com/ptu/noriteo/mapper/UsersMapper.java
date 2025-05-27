@@ -29,4 +29,5 @@ public interface UsersMapper {
     List<Users> selectAll();
     void deleteById(Long id);
 
+    void updateUsers(Users users);
 }
