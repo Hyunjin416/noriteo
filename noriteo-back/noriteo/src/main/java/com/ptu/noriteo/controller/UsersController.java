@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
@@ -51,7 +52,15 @@ public class UsersController {
         return ResponseEntity.ok("회원가입 성공");
     }
 
-
+    @PutMapping(value = "/update", consumes = "multipart/form-data")
+    public ResponseEntity<?> updateProfile(
+            @AuthenticationPrincipal JwtAuthentication auth,
+            @RequestPart(value = "user", required = false) Users dto,
+            @RequestPart(value = "profileImage", required = false) MultipartFile profileImage
+    ) {
+        usersService.updateProfile(auth.getUserId(), dto, profileImage);
+        return ResponseEntity.ok("프로필 변경 성공");
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginData, HttpServletResponse response) {

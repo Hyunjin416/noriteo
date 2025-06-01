@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +55,28 @@ public class UsersService {
         usersMapper.insertUsers(users);
     }
 
+    @Transactional
+    public void updateProfile(Long userId, Users dto, MultipartFile profileImage) {
+        // 1) 기존 유저 정보 불러오기
+        Users u = usersMapper.findById(userId);
+
+        // 2) DTO로부터 변경 가능한 필드(예: userName) 업데이트
+        if (dto.getUserName() != null) {
+            u.setUserName(dto.getUserName());
+        }
+        // (필요시 gender, mobile 등도 동일하게)
+
+        // 3) 프로필 이미지 저장 & 경로 세팅
+        if (profileImage != null && !profileImage.isEmpty()) {
+            String originName = profileImage.getOriginalFilename();
+            String savedPath  = fileUploadService.upload("users", profileImage);
+            u.setOriginUser(originName);
+            u.setSysUser(savedPath);
+        }
+
+        // 4) DB 반영
+        usersMapper.updateUsers(u);
+    }
 
     // 로그인 및 토큰 발급
     public Map<String, String> loginUser(String userEmail, String password) {

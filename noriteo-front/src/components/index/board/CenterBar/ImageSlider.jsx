@@ -1,5 +1,4 @@
-
-
+/*
 // ImageSlider.jsx
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -185,6 +184,79 @@ export default function ImageSlider() {
       <button className="arrowButton arrowRight" onClick={handleNext}>
         &gt;
       </button>
+    </div>
+  );
+}
+*/
+
+// src/components/index/board/centerBar/ImageSlider.jsx
+import React, { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "@/components_css/index/board/centerBar/ImageSlider.css";
+
+const SCROLL_AMOUNT = 300;
+
+export default function ImageSlider() {
+  const sliderRef = useRef(null);
+  const [cards, setCards] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/boardpic", { withCredentials: true })
+      .then((res) => {
+        // res.data: [{ boardPicId, boardId, boardPicUrl, ... }, ...]
+        // → 게시글 당 첫 번째 사진만 뽑아내기
+        const map = new Map();
+        res.data.forEach((pic) => {
+          if (!map.has(pic.boardId)) {
+            map.set(pic.boardId, pic.boardPicUrl);
+          }
+        });
+        const items = Array.from(map.entries()).map(([boardId, url]) => ({
+          boardId,
+          url,
+        }));
+        setCards(items);
+      })
+      .catch((err) => {
+        console.error("사진 있는 게시글만 불러오기 실패:", err);
+      });
+  }, []);
+
+  const scroll = (direction) => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft +=
+        (direction === "left" ? -1 : 1) * SCROLL_AMOUNT;
+    }
+  };
+
+  const handleClick = (boardId) => {
+    navigate(`/board/detail/${boardId}`);
+  };
+
+  return (
+    <div className="sliderContainer">
+      <button
+        className="arrowButton arrowLeft"
+        onClick={() => scroll("left")}
+      />
+      <div className="sliderTrack" ref={sliderRef}>
+        {cards.map((card) => (
+          <div
+            key={card.boardId}
+            className="cardItem"
+            onClick={() => handleClick(card.boardId)}
+          >
+            <img src={card.url} alt={`post-${card.boardId}`} />
+          </div>
+        ))}
+      </div>
+      <button
+        className="arrowButton arrowRight"
+        onClick={() => scroll("right")}
+      />
     </div>
   );
 }

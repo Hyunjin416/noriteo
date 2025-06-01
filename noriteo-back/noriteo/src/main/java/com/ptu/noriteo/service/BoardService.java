@@ -120,7 +120,21 @@ public class BoardService {
         return boardMapper.isBoardLiked(userId, boardId) > 0;
     }
 
+    /*
     public Board getBoardDetail(Long boardId) {
+        Board board = boardMapper.selectBoardById(boardId);
+        int likeCount = boardMapper.countLikes(boardId);
+        board.setLikes(likeCount);
+        return board;
+    }
+    */
+
+    @Transactional
+    public Board getBoardDetail(Long boardId) {
+        // 1) 조회수 증가
+        boardMapper.incrementViews(boardId);
+
+        // 2) 게시글 정보 + 좋아요 개수 조회
         Board board = boardMapper.selectBoardById(boardId);
         int likeCount = boardMapper.countLikes(boardId);
         board.setLikes(likeCount);
