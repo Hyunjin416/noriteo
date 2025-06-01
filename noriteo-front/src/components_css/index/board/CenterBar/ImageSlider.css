@@ -1,3 +1,161 @@
+
+/* ImageSlider.css - Updated for Enterprise-Style Slider */
+
+/* ──── 공통 변수 ──── */
+/*
+:root {
+  --gap: 1rem;
+  --arrow-size: 3rem;
+  --slider-padding: 2rem;
+  --card-height: 400px;
+  --transition: 0.3s ease;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --accent: #4facfe;
+  --accent-dark: #00f2fe;
+}
+  */
+
+/* ──── 컨테이너 ──── */
+/*
+.sliderContainer {
+  position: relative;
+  width: 100%;
+  padding: 0 var(--slider-padding);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+*/
+
+/* ──── 새로운 원형 내비 버튼 ──── */
+/*
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;               // 버튼 크기 
+  height: 3rem;
+  background: rgba(0,0,0,0.6); // 짙은 반투명 검정 
+  border: none;
+  border-radius: 50%;         // 완전 원형 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+  z-index: 20;
+}
+  */
+
+/* 좌우 위치 조정 */
+/*
+.arrowLeft  { left: 1rem; }
+.arrowRight { right: 1rem; }
+*/
+
+/* 화살표 아이콘 (CSS content) */
+/*
+.arrowButton::before {
+  content: '';               // 기본 화살표: 오른쪽 
+  font-size: 1.25rem;
+  color: #fff;
+  line-height: 1;
+}
+.arrowLeft::before {
+  content: '';               // 왼쪽 화살표 
+}
+*/
+
+/* 호버/액티브 효과 */
+/*
+.arrowButton:hover {
+  background: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+.arrowButton:active {
+  background: rgba(0,0,0,1);
+  transform: translateY(-50%) scale(0.95);
+}
+  */
+
+/* ──── 트랙: flex + scroll-snap ──── */
+/*
+.sliderTrack {
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: var(--gap) 0;
+  scroll-behavior: smooth;
+}
+.sliderTrack::-webkit-scrollbar { display: none; }
+*/
+
+/* ──── 카드 ──── */
+/*
+.cardItem {
+  flex: 0 0 25%;             
+  max-width: 25%;
+  scroll-snap-align: center;
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.cardItem:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px var(--shadow-dark);
+}
+  */
+
+/* 이미지 */
+/*
+.cardItem img {
+  width: 100%;
+  height: var(--card-height);
+  object-fit: cover;
+  display: block;
+}
+  */
+
+/* 이미지 없을 때 */
+/*
+.noImageText {
+  width: 100%;
+  height: var(--card-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  color: #999;
+  font-size: 1rem;
+}
+  */
+
+/* ──── 반응형: 해상도에 맞춰 아이템 개수 조절 ──── */
+/*
+@media (max-width: 1200px) {
+  .cardItem {
+    flex: 0 0 33.333%;         
+    max-width: 33.333%;
+  }
+}
+@media (max-width: 900px) {
+  .cardItem {
+    flex: 0 0 50%;             
+    max-width: 50%;
+  }
+}
+@media (max-width: 600px) {
+  .cardItem {
+    flex: 0 0 100%;           
+    max-width: 100%;
+  }
+}
+*/
+
 /* ImageSlider.css - Updated for Enterprise-Style Slider */
 
 /* ──── 공통 변수 ──── */
@@ -22,37 +180,37 @@
   overflow: hidden;
 }
 
-/* ──── 새로운 원형 내비 버튼 ──── */
+/* ──── 원형 내비 버튼 ──── */
 .arrowButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 3rem;               /* 버튼 크기 */
-  height: 3rem;
-  background: rgba(0,0,0,0.6); /* 짙은 반투명 검정 */
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  background: rgba(0,0,0,0.6);
   border: none;
-  border-radius: 50%;         /* 완전 원형 */
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background .2s, transform .2s;
-  z-index: 20;
+  z-index: 10;
 }
 
-/* 좌우 위치 조정 */
+/* 좌우 위치 */
 .arrowLeft  { left: 1rem; }
 .arrowRight { right: 1rem; }
 
-/* 화살표 아이콘 (CSS content) */
+/* 화살표 아이콘 */
 .arrowButton::before {
-  content: '';               /* 기본 화살표: 오른쪽 */
+  content: "›";
   font-size: 1.25rem;
   color: #fff;
   line-height: 1;
 }
 .arrowLeft::before {
-  content: '';               /* 왼쪽 화살표 */
+  content: "‹";
 }
 
 /* 호버/액티브 효과 */
@@ -78,7 +236,7 @@
 
 /* ──── 카드 ──── */
 .cardItem {
-  flex: 0 0 25%;             
+  flex: 0 0 25%;
   max-width: 25%;
   scroll-snap-align: center;
   position: relative;
@@ -113,22 +271,13 @@
   font-size: 1rem;
 }
 
-/* ──── 반응형: 해상도에 맞춰 아이템 개수 조절 ──── */
+/* ──── 반응형 ──── */
 @media (max-width: 1200px) {
-  .cardItem {
-    flex: 0 0 33.333%;         
-    max-width: 33.333%;
-  }
+  .cardItem { flex: 0 0 33.333%; max-width: 33.333%; }
 }
 @media (max-width: 900px) {
-  .cardItem {
-    flex: 0 0 50%;             
-    max-width: 50%;
-  }
+  .cardItem { flex: 0 0 50%; max-width: 50%; }
 }
 @media (max-width: 600px) {
-  .cardItem {
-    flex: 0 0 100%;           
-    max-width: 100%;
-  }
+  .cardItem { flex: 0 0 100%; max-width: 100%; }
 }

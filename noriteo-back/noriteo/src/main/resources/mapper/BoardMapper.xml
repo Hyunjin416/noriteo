@@ -133,6 +133,13 @@
         SELECT * FROM BOARD WHERE BOARD_ID = #{boardId}
     </select>
 
+    <!-- 조회수 1 증가 -->
+    <update id="incrementViews" parameterType="long">
+        UPDATE board
+        SET board_views = board_views + 1
+        WHERE board_id = #{boardId}
+    </update>
+
     <!-- 좋아요 수 조회 -->
     <select id="countLikes" parameterType="long" resultType="int">
         SELECT COUNT(*) FROM BOARD_LIKE WHERE BOARD_ID = #{boardId}

@@ -20,6 +20,10 @@ public interface BoardMapper {
 
     Board selectBoardById(Long boardId);
 
+    /** 게시글 조회수 1 증가 */
+    void incrementViews(@Param("boardId") Long boardId);
+
+
     int countLikes(Long boardId);
 
     // 저장 여부 확인 (0 or 1로 반환)

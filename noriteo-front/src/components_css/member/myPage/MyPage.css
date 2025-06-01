@@ -1,223 +1,138 @@
-/* ──── 컬러 & 공통 변수 ──── */
+/* MyPage.css */
+/* 1. 전역 box-sizing */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+
+/* 2. CSS 변수 */
 :root {
   --accent:         #95D5F5;
   --accent-hover:   #6fb8e8;
-  --text-dark:      #333333;
-  --gap:            1rem;
-  --bg-light:       #f9fafb;
-  --panel-bg:       #ffffff;
+  --text-dark:      #333;
+  --panel-bg:       #fff;
   --panel-border:   #e0e0e0;
-  --panel-shadow:   rgba(0, 0, 0, 0.05);
+  --panel-shadow:   rgba(0,0,0,0.05);
   --radius:         8px;
+  --gap-lg:         2rem;
+  --gap:            1.5rem;
 }
 
+/* 3. 마이페이지 래퍼 */
 .mypage-container {
-  background: var(--panel-bg, #ffffff);  /* 흰색 배경 */
-  border-radius: var(--radius);          /* 둥근 모서리 */
-  box-shadow: 0 2px 8px var(--panel-shadow, rgba(0,0,0,0.05));
-  padding: 2rem var(--gap);
+  max-width: 900px;
   margin: 2rem auto;
-  max-width: 1000px;
-  box-sizing: border-box;
-}
-/* ──── 상단 프로필 헤더 ──── */
-.mypage-header {
-  display: flex;
-  align-items: center;
-  gap: var(--gap);
-  margin-bottom: 2rem;
+  padding: var(--gap-lg);
+  background: var(--panel-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px var(--panel-shadow);
 }
 
-.profile-avatar {
-  flex-shrink: 0;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--panel-border);
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.profile-name {
-  font-size: 1.75rem;
-  font-weight: 700;
-}
-
-.profile-email {
-  font-size: 0.95rem;
-  color: var(--text-muted, #666);
-}
-
-/* ──── 탭 네비게이션 ──── */
+/* 4. 탭 네비 */
 .mypage-tabs {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   gap: var(--gap);
-  margin-bottom: 2rem;
+  margin-bottom: var(--gap-lg);
+  border-bottom: 1px solid var(--panel-border);
 }
-
 .mypage-tabs button {
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 0.75rem 1rem;
   font-weight: 600;
   color: var(--text-dark);
+  border-bottom: 3px solid transparent;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
 }
+.mypage-tabs button:hover { color: var(--accent-hover); }
+.mypage-tabs button.active { color: var(--accent); border-color: var(--accent); }
 
-.mypage-tabs button:hover {
-  color: var(--accent-hover);
-}
+/* 5. 콘텐츠 중앙 정렬 */
+.mypage-content { display: flex; justify-content: center; }
 
-.mypage-tabs button.active {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-/* ──── 섹션 패널 ──── */
-.mypage-section {
+/* 6. 카드 섹션 */
+.section-card {
+  width: 100%;
+  max-width: 700px;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   border-radius: var(--radius);
-  box-shadow: 0 2px 6px var(--panel-shadow);
-  padding: var(--gap);
-  margin-bottom: 2rem;
+  box-shadow: 0 1px 4px var(--panel-shadow);
 }
-
-.mypage-section-title {
+.section-card-title {
+  padding: var(--gap);
   font-size: 1.25rem;
   font-weight: 600;
+  border-bottom: 1px solid var(--panel-border);
+}
+.section-card-body {
+  padding: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* 7. 입력폼 통일: 레이블-필드 완전 분리 */
+.section-card-body label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.section-card-body .form-group,
+.section-card-body .profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   margin-bottom: var(--gap);
 }
-
-/* ──── 프로필 수정 폼 ──── */
-.profile-edit-form {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: var(--gap);
-  align-items: center;
-}
-
-.profile-edit-form label {
-  font-size: 0.9rem;
-}
-
-.profile-edit-form input[type="text"],
-.profile-edit-form input[type="email"],
-.profile-edit-form input[type="password"] {
-  width: 100%;
-  padding: 0.5rem;
+.section-card-body input,
+.section-card-body select,
+.section-card-body textarea,
+.section-card-body .form-control {
+  width: 100% !important;
+  max-width: 100%;
+  padding: 0.75rem;
   border: 1px solid var(--panel-border);
   border-radius: var(--radius);
+  font-size: 1rem;
+  background: #fff;
   box-sizing: border-box;
 }
 
-.btn-save {
-  grid-column: 2;
-  justify-self: start;
-  margin-top: var(--gap);
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1.25rem;
+/* 8. 버튼 스타일 */
+.btn,
+button[type="submit"],
+.cancelAccount-btn {
+  padding: 0.75rem 1.5rem;
   border-radius: var(--radius);
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
 }
-.btn-save:hover {
+.btn,
+button[type="submit"] {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+.btn:hover,
+button[type="submit"]:hover {
   background: var(--accent-hover);
 }
 
-/* ──── 활동 요약 카드 ──── */
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: var(--gap);
-}
-
-.summary-card {
-  background: var(--bg-light);
-  border-radius: var(--radius);
-  padding: var(--gap);
-  text-align: center;
-  box-shadow: 0 1px 4px var(--panel-shadow);
-}
-
-.summary-card .summary-title {
-  font-size: 0.85rem;
-  color: var(--text-dark);
-  margin-bottom: 0.5rem;
-}
-.summary-card .summary-data {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-/* ──── 적립금 카드 ──── */
-.points-card {
-  display: flex;
-  align-items: center;
-  gap: var(--gap);
-  flex-wrap: wrap;
-}
-
-.points-amount {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.points-actions {
-  display: flex;
-  gap: var(--gap);
-}
-
-.points-actions button {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.4rem 1rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.points-actions button:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* ──── 반응형 ──── */
-@media (max-width: 768px) {
-  .profile-edit-form {
-    grid-template-columns: 1fr;
-  }
-  .btn-save {
-    grid-column: 1;
-  }
-}
-
-/*
-  // 탈퇴 버튼 css
-  .cancelAccount-btn {
+/* 9. 회원 탈퇴 버튼 */
+.cancelAccount-btn {
+  margin-left: auto;
   background-color: #e74c3c;
-  color: white;
-  margin-top: 0.5rem;
-  padding: 0.5rem;
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
+.cancelAccount-btn:hover { background-color: #c0392b; }
 
-.cancelAccount-btn:hover {
-  background-color: #c0392b;
+/* 10. 반응형 */
+@media (max-width: 600px) {
+  .mypage-container { padding: var(--gap); }
+  .mypage-tabs { justify-content: space-between; }
 }
-  */

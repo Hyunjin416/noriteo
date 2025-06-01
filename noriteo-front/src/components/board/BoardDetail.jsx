@@ -248,7 +248,7 @@ const BoardDetail = () => {
 
       {/* 제목 */}
       <header className="detail-header">
-        <h1 className="title">{board.board_title}</h1>
+        <h1 className="title">{board.boardTitle}</h1>
       </header>
 
       {/* 구분선 */}
