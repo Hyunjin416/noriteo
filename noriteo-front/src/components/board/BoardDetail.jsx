@@ -81,7 +81,7 @@ const BoardDetail = () => {
       .get(`http://localhost:8080/api/board/detail/${boardId}`)
       .then((res) => {
         setBoard(res.data);
-        setPics(res.data.pics || []);
+        setPics(/*res.data.pics || []*/res.data.boardPics || []);
       })
       .catch((err) => console.error("게시글 상세 불러오기 실패:", err));
 
@@ -265,10 +265,19 @@ const BoardDetail = () => {
 
       {/* 메인 이미지 (첫 번째) */}
       {pics[0] && (
-        <img
+        /*<img
           src={pics[0].boardPicUrl}
           alt="게시글 이미지"
           className="main-image"
+        />*/
+        <img
+          src={`http://localhost:8080${pics[0].boardPicUrl}`}
+          alt="게시글 이미지"
+          className="main-image"
+          onError={(e) => {
+            // 혹시 로드 실패 시 처리 (원한다면)
+            e.target.style.display = "none";
+          }}
         />
       )}
 

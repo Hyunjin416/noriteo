@@ -135,7 +135,8 @@ public class BoardService {
         boardMapper.incrementViews(boardId);
 
         // 2) 게시글 정보 + 좋아요 개수 조회
-        Board board = boardMapper.selectBoardById(boardId);
+        // Board board = boardMapper.selectBoardById(boardId);
+        Board board = boardMapper.selectBoardDetail(boardId);
         int likeCount = boardMapper.countLikes(boardId);
         board.setLikes(likeCount);
         return board;
